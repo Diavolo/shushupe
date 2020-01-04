@@ -11,16 +11,33 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+import json
+from pathlib import Path
+
+# Utilities
+PROJECT_PACKAGE = Path(__file__).resolve().parent.parent
+GAHD_PACKAGE = Path(__file__).resolve().parent
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+data_dir_key = 'GAHD_DATA_DIR'
+DATA_DIR = Path(os.environ[data_dir_key]) if data_dir_key in os.environ else PROJECT_PACKAGE.parent
+
+try:
+    with DATA_DIR.joinpath('secrets.json').open() as handle:
+        SECRETS = json.load(handle)
+except IOError:
+    SECRETS = {
+        'secret_key': '+(u_gsk-gk1ixo)-ea!6oyg_u-(24^j^ucij#2gilc7_c!prsb',
+    }
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '+(u_gsk-gk1ixo)-ea!6oyg_u-(24^j^ucij#2gilc7_c!prsb'
+SECRET_KEY = str(SECRETS['secret_key'])
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -75,8 +92,12 @@ WSGI_APPLICATION = 'gahd.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': str(SECRETS['db_engine']),
+        'NAME': str(SECRETS['db_name']),
+        'USER': str(SECRETS['db_user']),
+        'PASSWORD': str(SECRETS['db_password']),
+        'HOST': str(SECRETS['db_host']),
+        'PORT': str(SECRETS['db_port']),
     }
 }
 
