@@ -1,0 +1,233 @@
+<!DOCTYPE html>{% load static %}
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block titlepage %}{% endblock %}Gustavo Huarcaya</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+  {% block feed %}<link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="All Entries Atom">{% endblock %}
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+  <link rel="canonical" href="//{{ request.get_host }}{{ request.get_full_path }}" />
+  <link type="text/plain" rel="author" href="{% url 'core:humans' %}" />
+  {% block meta %}<meta name="description" content="Gustavo Huarcaya's Personal Weblog">
+  <meta name="keywords" content="gustavo huarcaya, gustavo, huarcaya">{% endblock %}
+  {% block ogp %}<meta property="og:title" content="Gustavo Huarcaya" />
+  <meta property="og:description" content="Gustavo Huarcaya's Personal Weblog" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="//{{ request.get_host }}{{ request.get_full_path }}" />
+  <meta property="og:site_name" content="gahd.net"/>
+  <meta property="og:image" content="//{{ request.get_host }}{% static 'img/inti.png' %}" />{% endblock %}
+</head>
+
+<body class="ftw">
+  {% block header %}
+  <header class="ui main container" id="header">
+    <h1 class="ui header">
+      <a href="/">Gustavo Huarcaya</a>
+      <span class="sub header tagline" style="display: none;">De Software Libre</span>
+    </h1>
+  </header>
+  {% endblock %}
+
+  {% block nav %}
+  <nav class="ui pointing stackable grid menu container">
+    <a href="/articles" class="active item"><i class="file alternate icon"></i> Articles</a>
+    <div class="right menu">
+      <div class="ui pointing dropdown link item social">
+        Social
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <div class="header">Main</div>
+          <a href="https://gitlab.com/Diavolo" target="_blank" class="item"><i class="fab fa-gitlab"></i> Gitlab</a>
+          <a href="https://functional.cafe/@Diavolo" target="_blank" class="item"><i class="fab fa-mastodon"></i> Mastodon</a>
+          <div class="divider"></div>
+          <div class="header">Other</div>
+          <a href="https://github.com/Diavolo" target="_blank" class="item"><i class="fab fa-github"></i> Github</a>
+          <a href="https://twitter.com/Diavolo" target="_blank" class="item"><i class="fab fa-twitter"></i> Twitter</a>
+        </div>
+      </div>
+      <a href="/feed/" class="item"><i class="rss icon"></i></a>
+    </div>
+  </nav>
+  {% endblock %}
+
+  {% block content %}
+  <section class="ui stackable two column grid segment container">
+    <main class="ten wide column">
+      {% block archive_description %}{% endblock %}
+      {% block article %}{% endblock %}
+      {% block previous_next_article %}{% endblock %}
+      {% block pagination %}{% if is_paginated %}
+      <div style="text-align: center;">
+        <div class="ui pagination menu">
+          {% if page_obj.has_previous %}
+            {% if page_obj.previous_page_number == 1 %}
+            <a class="item" href="{% url 'core:article-list' %}"><i class="left arrow icon"></i> Previous</a>
+            {% else %}
+            <a class="item" href="{% url 'core:article-list' %}?page={{ page_obj.previous_page_number }}">
+              <i class="left arrow icon"></i> Previous</a>
+            {% endif %}
+          {% else %}
+          <div class="disabled item">
+            <i class="left arrow icon"></i> Previous
+          </div>
+          {% endif %}
+          {% for i in paginator.page_range %}
+            {% if page_obj.number == i %}
+              {% if i == 1 %}
+              <a class="active item" href="{% url 'core:article-list' %}">{{ i }}</a>
+              {% else %}
+              <a class="active item" href="{% url 'core:article-list' %}?page={{ i }}">{{ i }}</a>
+              {% endif %}
+            {% else %}
+              {% if i == 1 %}
+              <a class="item" href="{% url 'core:article-list' %}">{{ i }}</a>
+              {% else %}
+              <a class="item" href="{% url 'core:article-list' %}?page={{ i }}">{{ i }}</a>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if page_obj.has_next %}
+          <a class="item" href="{% url 'core:article-list' %}?page={{ page_obj.next_page_number }}">Next &nbsp;
+            <i class="right arrow icon"></i>
+          </a>
+          {% else %}
+          <div class="disabled item">
+            <span>Next <i class="right arrow icon"></i></span>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+      {% endif %}{% endblock %}
+    </main>
+    <aside class="six wide column sidebar">
+      {% block sidebar %}
+      {% if user.is_authenticated %}
+      <div class="ui info icon mini message">
+        <i class="user circle icon"></i>
+        <div class="content">
+          <div class="header">
+            {% if user.first_name %}{{ user.first_name }} {{ user.last_name }}{% else %}User{% endif %}
+          </div>
+          gahd.net
+        </div>
+      </div>
+      {% endif %}
+      {% block article_meta %}{% endblock %}
+      <h3>Buscar</h3>
+      <form class="ui fluid icon input" action="{% url 'core:search' %}" method="GET">
+        <input type="text" name="q" placeholder="Buscar...">
+        <i class="search icon"></i>
+      </form>
+
+      <div class="ui info message">
+        <h3>Newsletter</h3>
+        <p>
+          Tengo un newsletter, boletín o como quieras llamarlo y comparto 
+          información relacionada a la temática del blog que podría interesarte.
+        </p>
+        <p>
+          Solo envío un e-mail al mes. ¿Te apuntas?
+        </p>
+        <form class="ui fluid action input" action="https://tinyletter.com/Diavolo" method="POST"
+          target="popupwindow" onsubmit="window.open('https://tinyletter.com/Diavolo',
+          'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
+          <input type="email" name="email" placeholder="E-mail..." required>
+          <button class="ui icon button" type="submit"><i class="envelope outline icon"></i></button>
+        </form>
+        <p>
+          Respeto tu privacidad y tomo en serio su protección. Prometo no vender o compartir tu información con nadie más.
+        </p>
+      </div>
+
+      {% if latest_article_list %}
+      <h3>Recientemente</h3>
+      <div class="ui middle aligned divided list">
+        {% for article in latest_article_list %}
+        <div class="item">
+          <div class="content">
+            <a href="{% url 'core:article-detail' article.category.slug article.slug %}">{{ article.name }}</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      <div class="ui stackable two column grid">
+        <div class="column">
+          {% if categories %}
+          <h3>Categorías</h3>
+          <div class="ui middle aligned divided list">
+            {% for category in categories %}
+            <div class="item">
+              <div class="content">
+                <a href="{% url 'core:article-list-by-category' category.slug %}">{{ category.name }}</a>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% comment %}<div class="ui form">
+            <div class="field">
+              <select class="ui fluid dropdown" onchange="javascript:location.href = this.value;">
+                <option value="">Categorías</option>
+                {% for category in categories %}<option value="{% url 'core:article-list-by-category' category.slug %}">{{ category.name }}</option>{% endfor %}
+              </select>
+            </div>
+          </div>{% endcomment %}
+          {% endif %}
+        </div>
+        <div class="column">
+          <h3>Meta</h3>
+          <div class="ui middle aligned divided list">
+            <div class="item">
+              <div class="content"><a href="{% url 'core:article-list' %}">
+                <i class="file alternate outline icon"></i> Articles</a>
+              </div>
+            </div>
+            <div class="item">
+              <div class="content"><a href="{% url 'core:note-list' %}">
+                <i class="sticky note outline icon"></i> Notes</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endblock %}
+    </aside>
+  </section>
+  {% endblock %}
+
+  {% block footer %}
+  <footer class="ui container" id="footer">
+    <div class="ui divided horizontal list izquierdo">
+      <div class="item"><a href="/"><i class="fas fa-home"></i> Home</a></div>
+      <a href="{% url 'core:article-list' %}" class="item"><i class="fas fa-file-alt"></i> Articles</a>
+      <a href="{% url 'core:note-list' %}" class="item"><i class="fas fa-sticky-note"></i> Notes</a>
+    </div>
+    <div class="ui right floated divided horizontal list derecho">
+      <div class="disabled item">Powered by </div>
+      <a href="https://gahd.net/shushupe" class="item"><i class="fab fa-python"></i> Shushupe</a>
+    </div>
+    <div class="pie">
+      <i class="copyright outline icon"></i> 2005-{% now "Y" %} <a href="https://gahd.net">Gustavo Huarcaya</a>.
+      Contenido licenciado bajo Creative Commons
+      <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
+        <i class="fab fa-creative-commons"></i>
+        <i class="fab fa-creative-commons-by"></i>
+        <i class="fab fa-creative-commons-sa"></i>
+        Atribución-CompartirIgual 4.0 Internacional</a>.
+    </div>
+  </footer>
+  {% endblock %}
+
+  {% block scripts %}
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/semantic.min.js' %}"></script>
+  <script src="{% static 'js/app.js' %}"></script>
+  {% endblock %}
+</body>
+
+</html>

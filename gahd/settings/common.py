@@ -15,8 +15,8 @@ import json
 from pathlib import Path
 
 # Utilities
-PROJECT_PACKAGE = Path(__file__).resolve().parent.parent
-GAHD_PACKAGE = Path(__file__).resolve().parent
+PROJECT_PACKAGE = Path(__file__).resolve().parent.parent.parent
+GAHD_PACKAGE = Path(__file__).resolve().parent.parent
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -29,7 +29,7 @@ try:
         SECRETS = json.load(handle)
 except IOError:
     SECRETS = {
-        'secret_key': '+(u_gsk-gk1ixo)-ea!6oyg_u-(24^j^ucij#2gilc7_c!prsb',
+        'secret_key': 'its-a-secret-to-everybody',
     }
 
 
@@ -42,12 +42,13 @@ SECRET_KEY = str(SECRETS['secret_key'])
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [] + SECRETS.get('allowed_hosts', [])
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -139,3 +140,17 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+STATIC_ROOT = str(DATA_DIR.joinpath('static'))
+STATICFILES_DIRS = [str(GAHD_PACKAGE.joinpath('static')), ]
+
+MEDIA_ROOT = str(PROJECT_PACKAGE.joinpath('media'))
+MEDIA_URL = '/media/'
+
+SITE_NAME = 'Gustavo Huarcaya'
+SITE_URL = 'https://gahd.net'
+
+
+# https://docs.djangoproject.com/en/3.0/ref/settings/#login-redirect-url
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/login'

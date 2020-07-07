@@ -1,0 +1,27 @@
+{% extends "core/base.html" %}
+{% block titlepage %}Tags - {% endblock %}
+{% block meta %}{% endblock %}
+{% block article %}
+<article>
+{% if tag_list %}
+  <header>
+    <h2 class="ui header"><i class="tags icon"></i> Tags</h2>
+  </header>
+  <section class="ui container">
+    {% for tag in tag_list %}
+    <a class="ui tag label" href="{% url 'core:article-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+    {% endfor %}
+  </section>
+{% else %}
+  <div class="ui info icon message">
+    <i class="tags icon"></i>
+    <div class="content">
+      <div class="header">
+        0 tags
+      </div>
+      <p>No se encontraron tags registrados.</p>
+    </div>
+  </div>
+{% endif %}
+</article>
+{% endblock %}

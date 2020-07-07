@@ -1,0 +1,55 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titlepage %}{% if note %}{{ note.name }} - {% endif %}{% endblock %}
+{% block content %}
+
+{% if note %}
+<div class="ui segment text container">
+  <div class="ui stackable aligned grid">
+    <div class="two column row">
+      <div class="center aligned two wide column">
+        <img class="ui tiny avatar image" src="{% static 'img/inti.png' %}">
+      </div>
+      <div class="fourteen wide column row">
+        <div class="column row">
+          <div class="column">
+            <h3 class="ui header">
+              {{ note.name }}
+            </h3>
+          </div>
+          <div class=column">
+            <div class="ui aligned grid">
+              <div class="two column row">
+                <div class="column">
+                  <span>
+                    {% if note.author.first_name %}{{ note.author.first_name }}
+                    {{ note.author.last_name }}{% else %}gahd.net{% endif %}
+                  </span>
+                </div>
+                <div class="right aligned column">
+                  <i class="globe americas icon"></i>
+                  <a href="{% url 'core:note-detail' note.slug %}" title="{{ note.updated_date }}">
+                    {{ note.updated_date|date:"DATE_FORMAT" }}
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="column">
+          <div class="ui content">
+            {{ note.content_html|safe }}
+          </div>
+          <div class="ui footer">
+            {% if note.tags.count %}{% for tag in note.tags.all %}
+              <a href="{% url 'core:article-list-by-tag' tag.slug %}" class="item">#{{ tag.name }}</a>
+            {% endfor %}{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% else %}
+{% endif %}
+
+{% endblock %}

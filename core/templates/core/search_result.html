@@ -1,0 +1,52 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titlepage %}{% if search_term %}Búsqueda: {{ search_term }} - {% endif %}{% endblock %}
+{% block content %}
+
+{% if search_result_list %}
+<div class="ui text container">
+  <div class="ui info icon message">
+    <i class="search icon"></i>
+    <div class="content">
+      <div class="header">
+        Resultados de búsqueda
+      </div>
+      <p>Se encontraron lo siguientes resultados para el término: <b>{{ search_term }}</b></p>
+    </div>
+  </div>
+</div>
+{% else %}
+<div class="ui text container">
+  <div class="ui warning icon message">
+    <i class="search icon"></i>
+    <div class="content">
+      <div class="header">
+        Resultados de búsqueda
+      </div>
+      <p>No se encontraron resultados para el término: <b>{{ search_term }}</b></p>
+    </div>
+  </div>
+</div>
+{% endif %}
+
+{% if search_result_list %}
+{% for article in search_result_list %}
+<div class="ui segment text container">
+  <h3 class="ui header">
+    <a href="{% url 'core:article-detail' article.category.slug article.slug %}">
+      {{ article.name }}
+    </a>
+  </h3>
+  <img class="ui avatar image" src="{% static 'img/inti.png' %}">
+  <span>
+    {% if article.author.first_name %}{{ article.author.first_name }}
+    {{ article.author.last_name }}{% else %}gahd.net{% endif %}
+  </span>
+  <div class="ui content">
+    {{ article.content_html|safe|truncatewords_html:"25" }}
+  </div>
+</div>
+{% endfor %}
+{% else %}
+{% endif %}
+
+{% endblock %}

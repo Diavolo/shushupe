@@ -1,0 +1,139 @@
+<!DOCTYPE html>{% load static %}
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block titlepage %}{% endblock %}Gustavo Huarcaya</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+  {% block feed %}<link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="All Entries Atom">{% endblock %}
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+  <link rel="canonical" href="//{{ request.get_host }}{{ request.get_full_path }}" />
+  <link type="text/plain" rel="author" href="{% url 'core:humans' %}" />
+  {% block meta %}<meta name="description" content="Gustavo Huarcaya's Personal Page">
+  <meta name="keywords" content="gustavo huarcaya, gustavo, huarcaya">{% endblock %}
+  {% block ogp %}
+  <meta property="og:title" content="Gustavo Huarcaya" />
+  <meta property="og:description" content="Gustavo Huarcaya's Personal Page" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="//{{ request.get_host }}{{ request.get_full_path }}" />
+  <meta property="og:site_name" content="gahd.net" />
+  <meta property="og:image" content="//{{ request.get_host }}{% static 'img/inti.png' %}" />
+  {% endblock %}
+</head>
+
+<body>
+  {% block header %}
+  <div class="ui borderless menu">
+    <div class="ui text container">
+      <div class="header item"><a href="/">Gustavo Huarcaya</a></div>
+      <div class="right menu">
+        <div class="item">
+          <form class="ui transparent icon input" action="{% url 'core:search' %}" method="GET">
+            <input type="text" name="q" placeholder="Search...">
+            <i class="search link icon"></i>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block content %}
+  <div class="ui segment text container">
+    <div class="ui grid">
+      <div class="four wide column" style="margin: auto;">
+        <img class="ui medium circular image" src="{% static 'img/inti.png' %}" alt="avatar">
+      </div>
+      <div class="twelve wide column justified">
+        <p>
+          I'm a web developer and free software advocate from Ica, Peru, who lives in Huancayo.
+          I develop web applications using Free and Open Source Software like Python, Java,
+          JavaScript, MySQL/MariaDB, and PostgreSQL, with frameworks like Django, Spring Boot, and Java EE
+          for backend and Angular for front-end. And of course, I also have knowledge
+          on mundane stacks like Hasecorp technologies: C#, .NET Core, ASP.NET Core, ASP.NET MVC,
+          ASP.NET Web API, Linq, Entity Framework, and SQL Server.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {% if latest_article_list %}
+  <div class="ui segment text container">
+    <h3 class="ui header">Latest posts</h3>
+    <div class="ui list">
+      {% for article in latest_article_list %}
+      <div class="item">
+        {% if article.pub_type == 'Article' %}
+        <i class="file alternate outline icon"></i>
+        <div class="content">
+          <span>{{ article.pub_date|date:"Y-m-d" }}</span>
+          <a href="{% url 'core:article-detail' article.category.slug article.slug %}">{{ article.name }}</a>
+        </div>
+        {% elif article.pub_type == 'Note' %}
+        <i class="sticky note outline icon"></i>
+        <div class="content">
+          <span>{{ article.pub_date|date:"Y-m-d" }}</span>
+          <a href="{% url 'core:note-detail' article.slug %}">{{ article.name }}</a>
+        </div>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
+  {% endblock %}
+
+  {% block footer %}
+  <div class="ui text container">
+    <div class="ui small text menu">
+      {% if user.is_authenticated %}
+      <a class="header item" href="/admin/"><i class="home icon"></i></a>
+      {% else %}
+      <div class="header item"><i class="home icon"></i></div>
+      {% endif %}
+      <a class="active item" href="/">Home</a>
+      <a class="item" href="{% url 'core:article-list' %}">Articles</a>
+      <a class="item" href="{% url 'core:note-list' %}">Notes</a>
+    </div>
+  </div>
+
+  <footer class="ui vertical footer">
+    <div class="ui text container">
+      <div class="ui right floated horizontal list">
+        {% if user.is_authenticated %}
+        <a class="item" href="{% url 'logout' %}"><i class="fas fa-door-open"></i></a>
+        {% else %}
+        <a class="item" href="{% url 'login' %}"><i class="fas fa-door-closed"></i></a>
+        {% endif %}
+        <a class="item" href="/terms">Terms</a>
+        <a class="item" href="/privacy">Privacy</a>
+        <a class="item" href="/contact">Contact</a>
+      </div>
+      <div class="ui horizontal list">
+        <div class="disabled item" href="#">
+          <i class="copyright outline icon"></i> 2005-{% now "Y" %} Gustavo Huarcaya
+        </div>
+      </div>
+    </div>
+    <div class="ui center aligned container">
+      <small>
+        Excepto donde se indique lo contrario, el contenido de este sitio está licenciado bajo Creative Commons
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
+          <i class="fab fa-creative-commons"></i>
+          <i class="fab fa-creative-commons-by"></i>
+          <i class="fab fa-creative-commons-sa"></i>
+          Atribución-CompartirIgual 4.0 Internacional</a>.
+      </small>
+    </div>
+  </footer>
+  {% endblock %}
+
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/semantic.min.js' %}"></script>
+</body>
+
+</html>

@@ -1,0 +1,94 @@
+{% extends "core/base_blog.html" %}{% load static %}
+{% block titlepage %}{% if category %}{{ category.name }} - {% elif tag %}{{ tag.name }} - {% endif %}{% endblock %}
+{% block feed %}{% if category %}
+  <link rel="alternate" href="{% url 'core:article-list-by-category-feed' category.slug %}" type="application/atom+xml" title="{{ category.name }} Entries Atom">{% elif tag %}
+  <link rel="alternate" href="{% url 'core:article-list-by-tag-feed' tag.slug %}" type="application/atom+xml" title="{{ tag.name }} Entries Atom">{% else %}
+  <link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="All Entries Atom">{% endif %}{% endblock %}
+  {% block meta %}<meta name="description" content="Gustavo Huarcaya{% if category %}, anotaciones de la categoría {{ category.name }}{% elif tag %}, anotaciones del tag {{ tag.name }}{% else %}'s Weblog{% endif %}">
+  <meta name="keywords" content="gustavo huarcaya, gustavo, huarcaya, {% if category %}{{ category.name }}{% elif tag %}{{ tag.name }}{% endif %}">{% endblock %}
+  {% block ogp %}<meta property="og:title" content="{% if category %}{{ category.name }} - {% elif tag %}{{ tag.name }} - {% endif %}Gustavo Huarcaya" />
+  <meta property="og:description" content="Gustavo Huarcaya{% if category %}, anotaciones de la categoría {{ category.name }}{% elif tag %}, anotaciones del tag {{ tag.name }}{% else %}'s Weblog{% endif %}" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="//{{ request.get_host }}{{ request.get_full_path }}" />
+  <meta property="og:site_name" content="gahd.net"/>
+  <meta property="og:image" content="//{{ request.get_host }}{% static 'img/inti.png' %}" />{% endblock %}
+{% block article %}
+{% if category %}
+<div class="ui info icon message">
+  <i class="archive icon"></i>
+  <div class="content">
+    <div class="header">
+      {{ category.name }} <a href="{% url 'core:article-list-by-category-feed' category.slug %}"><i class="rss orange icon"></i></a>
+    </div>
+    <p>{{ category.content }}</p>
+  </div>
+</div>
+{% endif %}
+{% if tag %}
+<div class="ui info icon message">
+  <i class="tag icon"></i>
+  <div class="content">
+    <div class="header">
+      {{ tag.name }} <a href="{% url 'core:article-list-by-tag-feed' tag.slug %}"><i class="rss orange icon"></i></a>
+    </div>
+    <p>{{ tag.content }}</p>
+  </div>
+</div>
+{% endif %}
+{% if article_list %}
+{% for article in article_list %}
+<article>
+  <header>
+    <h2 class="ui header">
+      <a href="{% url 'core:article-detail' article.category.slug article.slug %}" class="postlink">
+        {{ article.name }} <i class="linkify small icon"></i>
+      </a>
+      <div class="sub header">
+        <div class="ui right floated horizontal list">
+          {% if article.protected_with_password %}
+          <span class="item"><i class="lock icon"></i></span>
+          {% endif %}
+          {% if not article.is_public %}
+          <span class="item"><i class="eye slash outline icon"></i></span>
+          {% endif %}
+          <span title="{{ article.pub_date }}" class="item"><i class="calendar outline icon"></i> {{ article.pub_date|date }}</span>
+        </div>
+        <div class="ui horizontal list">
+          <a href="{% url 'core:article-list-by-category' article.category.slug %}" class="item"><i class="folder open outline icon"></i> {{ article.category }}</a>
+        </div>
+      </div>
+    </h2>
+  </header>
+  <section class="ui justified container">
+    {% if article.protected_with_password or not article.is_public %}
+    {% else %}
+      {{ article.content_html|safe|truncatewords_html:"50" }}
+    {% endif %}
+  </section>
+  <footer class="ui container">
+    <div class="ui right floated horizontal list">
+      {% if article.tags.count %}
+      {% for tag in article.tags.all %}
+        <a href="{% url 'core:article-list-by-tag' tag.slug %}" class="item"><i class="tag icon"></i> {{ tag.name }}</a>
+      {% endfor %}
+      {% endif %}
+    </div>
+    <div class="ui horizontal list">
+      <a href="{% url 'core:article-detail' article.category.slug article.slug %}" class="item"><i class="angle right icon"></i> Continuar leyendo...</a>
+    </div>
+  </footer>
+</article>
+<div class="ui divider"></div>
+{% endfor %}
+{% else %}
+<div class="ui info icon message">
+  <i class="info circle icon"></i>
+  <div class="content">
+    <div class="header">
+      0 artículos
+    </div>
+    <p>No se encontraron artículos publicados.</p>
+  </div>
+</div>
+{% endif %}
+{% endblock %}

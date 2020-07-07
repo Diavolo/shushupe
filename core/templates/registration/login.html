@@ -1,0 +1,50 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titlepage %}Login - {% endblock %}
+{% block content %}
+<div class="ui segment text container">
+  <div class="ui grid">
+    <div class="four wide column" style="margin: auto;">
+      <img class="ui medium circular image" src="{% static 'img/inti.png' %}" alt="avatar">
+    </div>
+    <div class="twelve wide column justified">
+      {% if form.errors %}
+      <div class="ui form error">
+        <div class="ui error message">
+          <p><i class="exclamation triangle icon"></i> Credenciales incorrectos.</p>
+        </div>
+      </div>
+      {% endif %}
+      {% if next %}
+      {% if user.is_authenticated %}
+      <div class="ui form error">
+        <div class="ui error message">
+          <p><i class="exclamation triangle icon"></i> Your account doesn't have access to this page. To proceed,
+            please login with an account that has access.</p>
+        </div>
+      </div>
+      {% else %}
+      <div class="ui form error">
+        <div class="ui error message">
+          <p><i class="exclamation triangle icon"></i> Please login to see this page.</p>
+        </div>
+      </div>
+      {% endif %}
+      {% endif %}
+      <form class="ui form" action="{% url 'login' %}" method="POST">{% csrf_token %}
+        <div class="field">
+          <label for="id_username">Username</label>
+          <input type="text" name="username" placeholder="Username" aria-label="Username" aria-describedby="username"
+            autofocus autocapitalize="none" autocomplete="username" maxlength="150" required id="id_username">
+        </div>
+        <div class="field">
+          <label for="id_password">Password</label>
+          <input type="password" name="password" placeholder="Password" aria-label="Password"
+            aria-describedby="password" autocomplete="current-password" required id="id_password">
+        </div>
+        <input type="hidden" name="next" value="{{ next }}">
+        <button class="ui button" type="submit">Login</button>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}
