@@ -98,7 +98,8 @@
       <a class="active item" href="/">Home</a>
       <a class="item" href="{% url 'core:article-list' %}">Articles</a>
       <a class="item" href="{% url 'core:note-list' %}">Notes</a>
-      <a class="item" href="/now">Now</a>
+      <a class="item" href="/now/">Now</a>
+      <a class="item" href="/contact/">Contact</a>
     </div>
   </div>
 
@@ -108,7 +109,6 @@
         {% if user.is_authenticated %}
         <a class="item" href="{% url 'logout' %}"><i class="fas fa-door-open"></i></a>
         {% endif %}
-        <a class="item" href="/contact">Contact</a>
       </div>
       <div class="ui horizontal list">
         <div class="disabled item" href="#">
