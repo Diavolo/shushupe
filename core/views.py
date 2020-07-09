@@ -77,13 +77,24 @@ class SearchView(View):
         if q is None:
             return(redirect('/'))
         # https://docs.djangoproject.com/en/3.0/topics/db/queries/#complex-lookups-with-q-objects
-        search_result_list = Article.objects.filter(
+        article_search_result_list = Article.objects.filter(
             Q(status=Post.PUBLISHED_STATUS),
             Q(name__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
         )
-        search_result_list = search_result_list.distinct()
+        article_search_result_list = article_search_result_list.distinct()
+        note_search_result_list = Note.objects.filter(
+            Q(status=Post.PUBLISHED_STATUS),
+            Q(name__icontains=q) |
+            Q(content__icontains=q) |
+            Q(tags__name__icontains=q)
+        )
+        note_search_result_list = note_search_result_list.distinct()
+        search_result_list = sorted(
+            chain(article_search_result_list, note_search_result_list),
+            key=attrgetter('pub_date'), reverse=True
+        )
         return render(
             request, 'core/search_result.html',
             {'search_result_list': search_result_list, 'search_term': q}
@@ -95,8 +106,9 @@ class PageOrCategoryView(View):
     def get(self, request, *args, **kwargs):
         page = Page.objects.filter(slug=self.kwargs['page_slug'])
         if page.count() != 0:
-            return render(request, 'core/page_detail.html',
-                          {'page': page.first()})
+            return render(
+                request, 'core/page_detail.html', {'page': page.first()}
+            )
         category = Category.objects.get(slug=self.kwargs['page_slug'])
         context = dict()
         context['article_list'] = PostList.get_article_list().filter(
@@ -169,20 +181,21 @@ class PostList():
         articles = PostList.get_article_list()[:RECENTLY]
         notes = PostList.get_note_list()[:RECENTLY]
         # https://docs.python.org/3/howto/sorting.html#operator-module-functions
-        return sorted(chain(articles, notes), key=attrgetter('pub_date'),
-                      reverse=True)
+        return sorted(
+            chain(articles, notes), key=attrgetter('pub_date'), reverse=True
+        )
 
     def get_article_list():
         """Article list"""
         return Article.objects.filter(
             Q(status=Post.PUBLISHED_STATUS)
-        )  # .order_by('-pub_date')
+        )
 
     def get_page_list():
         """Page list"""
         return Page.objects.filter(
             Q(status=Post.PUBLISHED_STATUS)
-        )  # .order_by('-pub_date')
+        )
 
     def get_note_list():
         """Note list"""
