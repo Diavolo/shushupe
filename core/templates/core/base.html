@@ -107,24 +107,28 @@
     <div class="ui text container">
       <div class="ui right floated horizontal list">
         {% if user.is_authenticated %}
-        <a class="item" href="{% url 'logout' %}"><i class="fas fa-door-open"></i></a>
+        <a class="item" href="{% url 'logout' %}">
+          <span class="ui small text"><i class="fas fa-door-open"></i></span>
+        </a>
         {% endif %}
       </div>
       <div class="ui horizontal list">
-        <div class="disabled item" href="#">
-          <i class="copyright outline icon"></i> 2005-{% now "Y" %} Gustavo Huarcaya
+        <div class="disabled item">
+          <span class="ui small text">
+            <i class="copyright outline icon"></i> 2005-{% now "Y" %} Gustavo Huarcaya
+          </span>
         </div>
       </div>
     </div>
     <div class="ui center aligned container">
-      <small>
-        Excepto donde se indique lo contrario, el contenido de este sitio está licenciado bajo Creative Commons
+      <span class="ui small grey text">
+        Except where otherwise noted, content on this site is licensed under a
         <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
           <i class="fab fa-creative-commons"></i>
           <i class="fab fa-creative-commons-by"></i>
           <i class="fab fa-creative-commons-sa"></i>
-          Atribución-CompartirIgual 4.0 Internacional</a>.
-      </small>
+          Attribution-ShareAlike 4.0 International</a>.
+      </span>
     </div>
   </footer>
   {% endblock %}
