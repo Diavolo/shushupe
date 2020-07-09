@@ -1,3 +1,5 @@
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 from .common import *
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -29,3 +31,12 @@ SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 
 MEDIA_ROOT = str(DATA_DIR.joinpath('media'))
+
+sentry_sdk.init(
+    dsn=str(SECRETS['sentry']),
+    integrations=[DjangoIntegration()],
+
+    # If you wish to associate users to errors (assuming you are using
+    # django.contrib.auth) you may enable sending PII data.
+    send_default_pii=True
+)
