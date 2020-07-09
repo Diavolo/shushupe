@@ -26,19 +26,13 @@ urlpatterns = [
     path('tags/<slug:tag_slug>/feed/', feeds.EntriesByTagFeed(),
          name='article-list-by-tag-feed'),
     path('notes/', views.NoteListView.as_view(), name='note-list'),
-    path('notes/<slug:note_slug>', views.NoteDetailView.as_view(),
+    path('notes/<slug:note_slug>/', views.NoteDetailView.as_view(),
          name='note-detail'),
     # page detail or articles by category
     path('<slug:page_slug>/', views.PageOrCategoryView.as_view(),
          name='page-detail'),
     path('<slug:page_slug>/', views.PageOrCategoryView.as_view(),
          name='article-list-by-category'),
-    # page detail
-    # path('<slug:page_slug>/', views.PageDetailView.as_view(),
-    #     name='page-detail'),
-    # articles by category
-    # path('<slug:category_slug>/', views.ArticlesByCategoryListView.as_view(),
-    #     name='article-list-by-category'),
     # articles by category feed
     path('<slug:category_slug>/feed/', feeds.EntriesByCategoryFeed(),
          name='article-list-by-category-feed'),
