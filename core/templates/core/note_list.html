@@ -11,34 +11,34 @@
         <img class="ui tiny avatar image" src="{% static 'img/inti.png' %}">
       </div>
       <div class="fourteen wide column row">
-        <div class="column row">
-          <div class="column">
-            <h3 class="ui header">
-              {{ note.name }}
-            </h3>
-          </div>
-          <div class=column">
-            <div class="ui aligned grid">
-              <div class="two column row">
-                <div class="column">
-                  <span>
-                    {% if note.author.first_name %}{{ note.author.first_name }}
-                    {{ note.author.last_name }}{% else %}gahd.net{% endif %}
-                  </span>
-                </div>
-                <div class="right aligned column">
-                  <i class="globe americas icon"></i>
-                  <a href="{% url 'core:note-detail' note.slug %}" title="{{ note.updated_date }}">
-                    {{ note.updated_date|timesince }} ago
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="column">
+          <h3 class="ui header">{{ note.name }}</h3>
         </div>
         <div class="column">
           <div class="ui content">
             {{ note.content_html|safe|truncatewords_html:"25" }}
+          </div>
+          <div class="ui footer">
+            <div class="ui aligned grid">
+              <div class="two column row">
+                <div class="column">
+                  <span class="ui small text">
+                    <a href="{% url 'core:note-detail' note.slug %}">
+                      {{ note.updated_date|date:'DATETIME_FORMAT' }}
+                    </a>
+                  </span>
+                </div>
+                <div class="right aligned column">
+                  {% if note.tags.count %}{% for tag in note.tags.all %}
+                  <span class="ui small text">
+                    <a href="{% url 'core:article-list-by-tag' tag.slug %}">
+                      #{{ tag.name }}
+                    </a>
+                  </span>
+                  {% endfor %}{% endif %}
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -53,31 +53,31 @@
 <div style="text-align: center;">
   <div class="ui pagination menu">
     {% if page_obj.has_previous %}
-      {% if page_obj.previous_page_number == 1 %}
-      <a class="item" href="{% url 'core:note-list' %}"><i class="left arrow icon"></i> Previous</a>
-      {% else %}
-      <a class="item" href="{% url 'core:note-list' %}?page={{ page_obj.previous_page_number }}">
-        <i class="left arrow icon"></i> Previous</a>
-      {% endif %}
+    {% if page_obj.previous_page_number == 1 %}
+    <a class="item" href="{% url 'core:note-list' %}"><i class="left arrow icon"></i> Previous</a>
+    {% else %}
+    <a class="item" href="{% url 'core:note-list' %}?page={{ page_obj.previous_page_number }}">
+      <i class="left arrow icon"></i> Previous</a>
+    {% endif %}
     {% else %}
     <div class="disabled item">
       <i class="left arrow icon"></i> Previous
     </div>
     {% endif %}
     {% for i in paginator.page_range %}
-      {% if page_obj.number == i %}
-        {% if i == 1 %}
-        <a class="active item" href="{% url 'core:note-list' %}">{{ i }}</a>
-        {% else %}
-        <a class="active item" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
-        {% endif %}
-      {% else %}
-        {% if i == 1 %}
-        <a class="item" href="{% url 'core:note-list' %}">{{ i }}</a>
-        {% else %}
-        <a class="item" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
-        {% endif %}
-      {% endif %}
+    {% if page_obj.number == i %}
+    {% if i == 1 %}
+    <a class="active item" href="{% url 'core:note-list' %}">{{ i }}</a>
+    {% else %}
+    <a class="active item" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
+    {% endif %}
+    {% else %}
+    {% if i == 1 %}
+    <a class="item" href="{% url 'core:note-list' %}">{{ i }}</a>
+    {% else %}
+    <a class="item" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
+    {% endif %}
+    {% endif %}
     {% endfor %}
     {% if page_obj.has_next %}
     <a class="item" href="{% url 'core:note-list' %}?page={{ page_obj.next_page_number }}">Next &nbsp;
