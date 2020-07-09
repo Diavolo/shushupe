@@ -71,27 +71,6 @@ class ArticlesByTagListView(ListView):
         return context
 
 
-def redirect_search(request):
-    """Search post"""
-    q = request.GET.get('q') or None
-    if q is not None:
-        # https://docs.djangoproject.com/en/3.0/topics/db/queries/#complex-lookups-with-q-objects
-        search_result_list = Article.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
-            Q(title__icontains=q) |
-            Q(content__icontains=q) |
-            Q(tags__name__icontains=q)
-        )
-        search_result_list = search_result_list.distinct()
-    else:
-        return redirect('/')
-    return render(
-        request, 'core/search_result.html',
-        {'search_result_list': search_result_list,
-         'search_term': q}
-    )
-
-
 class SearchView(View):
     def get(self, request, *args, **kwargs):
         q = request.GET.get('q') or None
@@ -100,7 +79,7 @@ class SearchView(View):
         # https://docs.djangoproject.com/en/3.0/topics/db/queries/#complex-lookups-with-q-objects
         search_result_list = Article.objects.filter(
             Q(status=Post.PUBLISHED_STATUS),
-            Q(title__icontains=q) |
+            Q(name__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
         )

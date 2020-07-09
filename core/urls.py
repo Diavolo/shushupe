@@ -17,7 +17,6 @@ urlpatterns = [
     path('articles/', views.ArticleListView.as_view(), name='article-list'),
     path('index.xml', RedirectView.as_view(url='/feed/'), name='go-to-feed'),
     path('feed/', feeds.LatestEntriesFeed(), name='feed'),
-    # path('search/', views.redirect_search, name='search'),
     path('search/', views.SearchView.as_view(), name='search'),
     path('tags/', views.TagListView.as_view(), name='tag-list'),
     # articles by tag
