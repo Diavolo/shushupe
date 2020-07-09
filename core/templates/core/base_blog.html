@@ -123,27 +123,6 @@
         <input type="text" name="q" placeholder="Buscar...">
         <i class="search icon"></i>
       </form>
-
-      <div class="ui info message">
-        <h3>Newsletter</h3>
-        <p>
-          Tengo un newsletter, boletín o como quieras llamarlo y comparto 
-          información relacionada a la temática del blog que podría interesarte.
-        </p>
-        <p>
-          Solo envío un e-mail al mes. ¿Te apuntas?
-        </p>
-        <form class="ui fluid action input" action="https://tinyletter.com/Diavolo" method="POST"
-          target="popupwindow" onsubmit="window.open('https://tinyletter.com/Diavolo',
-          'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-          <input type="email" name="email" placeholder="E-mail..." required>
-          <button class="ui icon button" type="submit"><i class="envelope outline icon"></i></button>
-        </form>
-        <p>
-          Respeto tu privacidad y tomo en serio su protección. Prometo no vender o compartir tu información con nadie más.
-        </p>
-      </div>
-
       {% if latest_article_list %}
       <h3>Recientemente</h3>
       <div class="ui middle aligned divided list">
