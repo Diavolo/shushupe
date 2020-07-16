@@ -176,10 +176,13 @@ class TagListView(ListView):
 class PostList():
     """Post list"""
 
-    def get_post_list():
+    def get_post_list(filter_public_post=False):
         """Post list"""
-        articles = PostList.get_article_list()[:RECENTLY]
-        notes = PostList.get_note_list()[:RECENTLY]
+        articles = PostList.get_article_list()
+        notes = PostList.get_note_list()
+        if filter_public_post:
+            articles = articles.filter(is_public=True)
+            notes = notes.filter(is_public=True)
         # https://docs.python.org/3/howto/sorting.html#operator-module-functions
         return sorted(
             chain(articles, notes), key=attrgetter('pub_date'), reverse=True

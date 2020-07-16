@@ -101,6 +101,9 @@ class Note(Post):
     pub_type = models.CharField(choices=Post.PUB_TYPE_CHOICES,
                                 default=Post.NOTE, max_length=7)
 
+    def get_absolute_url(self):
+        return reverse('core:note-detail', kwargs={'note_slug': self.slug})
+
     def __str__(self):
         return self.name
 
