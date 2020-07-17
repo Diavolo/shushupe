@@ -1,5 +1,5 @@
 {% extends "core/base.html" %}{% load static %}
-{% block titlepage %}{% if search_term %}Búsqueda: {{ search_term }} - {% endif %}{% endblock %}
+{% block titlepage %}{% if search_term %}Search: {{ search_term }} - {% endif %}{% endblock %}
 {% block content %}
 
 {% if search_result_list %}
@@ -8,9 +8,9 @@
     <i class="search icon"></i>
     <div class="content">
       <div class="header">
-        Resultados de búsqueda
+        Search results
       </div>
-      <p>Se encontraron lo siguientes resultados para el término: <b>{{ search_term }}</b></p>
+      <p>The following results were found for the term: <b>{{ search_term }}</b></p>
     </div>
   </div>
 </div>
@@ -20,9 +20,9 @@
     <i class="search icon"></i>
     <div class="content">
       <div class="header">
-        Resultados de búsqueda
+        Search results
       </div>
-      <p>No se encontraron resultados para el término: <b>{{ search_term }}</b></p>
+      <p>No results were found for the term: <b>{{ search_term }}</b></p>
     </div>
   </div>
 </div>
@@ -80,7 +80,5 @@
 {% endfor %}
 {% else %}
 {% endif %}
-
-
 
 {% endblock %}
