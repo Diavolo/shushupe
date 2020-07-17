@@ -1,5 +1,5 @@
 {% extends "core/base_blog.html" %}{% load static %}
-{% block titlepage %}{% if category %}{{ category.name }} - {% elif tag %}{{ tag.name }} - {% endif %}{% endblock %}
+{% block titlepage %}{% if category %}{{ category.name }} - {% elif tag %}{{ tag.name }} - {% else %}Articles - {% endif %}{% endblock %}
 {% block feed %}{% if category %}
   <link rel="alternate" href="{% url 'core:article-list-by-category-feed' category.slug %}" type="application/atom+xml" title="{{ category.name }} Entries Atom">{% elif tag %}
   <link rel="alternate" href="{% url 'core:article-list-by-tag-feed' tag.slug %}" type="application/atom+xml" title="{{ tag.name }} Entries Atom">{% else %}
