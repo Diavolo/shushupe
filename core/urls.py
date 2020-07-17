@@ -20,7 +20,7 @@ urlpatterns = [
     path('search/', views.SearchView.as_view(), name='search'),
     path('tags/', views.TagListView.as_view(), name='tag-list'),
     # articles by tag
-    path('tags/<slug:tag_slug>/', views.ArticlesByTagListView.as_view(),
+    path('tags/<slug:tag_slug>/', views.PostsByTagListView.as_view(),
          name='article-list-by-tag'),
     # articles by tag feed
     path('tags/<slug:tag_slug>/feed/', feeds.EntriesByTagFeed(),

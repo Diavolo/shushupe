@@ -71,6 +71,29 @@ class ArticlesByTagListView(ListView):
         return context
 
 
+class PostsByTagListView(ListView):
+    """Post list by tag"""
+    paginate_by = RECENTLY
+    template_name = 'core/post_list.html'
+    context_object_name = 'post_list'
+
+    def get_queryset(self):
+        tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
+        articles = PostList.get_article_list().filter(tags=tag.id,
+                                                      is_public=True)
+        notes = PostList.get_note_list().filter(tags=tag.id, is_public=True)
+        pages = PostList.get_page_list().filter(tags=tag.id, is_public=True)
+        return sorted(
+            chain(articles, notes, pages), key=attrgetter('pub_date'),
+            reverse=True
+        )
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
+        return context
+
+
 class SearchView(View):
     def get(self, request, *args, **kwargs):
         q = request.GET.get('q') or None
