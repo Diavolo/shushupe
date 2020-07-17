@@ -39,7 +39,7 @@ class LatestEntriesFeed(Feed):
         return item.updated_date
 
     def item_author_name(self, item):
-        return item.author
+        return item.author.first_name
 
     def item_author_link(self):
         return site_url
@@ -84,7 +84,7 @@ class EntriesByCategoryFeed(Feed):
         return item.updated_date
 
     def item_author_name(self, item):
-        return item.author
+        return item.author.first_name
 
     def item_author_link(self):
         return site_name
@@ -134,7 +134,7 @@ class EntriesByTagFeed(Feed):
         return item.updated_date
 
     def item_author_name(self, item):
-        return item.author
+        return item.author.first_name
 
     def item_author_link(self):
         return site_url
