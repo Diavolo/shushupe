@@ -1,5 +1,5 @@
-Cython==0.29.16
-Django==3.0.8
+Cython==0.29.21
+Django==3.1
 mistune==0.8.4
 mistune-contrib==0.1
 Pygments==2.6.1
