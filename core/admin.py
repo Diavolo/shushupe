@@ -31,7 +31,7 @@ class ArticleAdmin(admin.ModelAdmin):
 
 class BookmarkAdmin(admin.ModelAdmin):
     exclude = ('author', 'slug')
-    search_fields = ('name',)
+    search_fields = ('site_url',)
     list_display = ('name', 'pub_date', 'updated_date', 'status',
                     'is_public', 'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'tags')
