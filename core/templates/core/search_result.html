@@ -31,46 +31,37 @@
 {% if search_result_list %}
 {% for post in search_result_list %}
 <div class="ui segment text container">
-  <div class="ui stackable aligned grid">
-    <div class="two column row">
-      <div class="center aligned two wide column">
-        <img class="ui tiny avatar image" src="{% static 'img/inti.png' %}">
-      </div>
-      <div class="fourteen wide column row">
-        <div class="column">
-          <h3 class="ui header">{{ post.name }}</h3>
-        </div>
-        <div class="column">
-          <div class="ui content">
-            {{ post.content_html|safe|truncatewords_html:"25" }}
+  <div class="column">
+    <h3 class="ui header">{{ post.name }}</h3>
+  </div>
+  <div class="column">
+    <div class="ui content">
+      {{ post.content_html|safe|truncatewords_html:"25" }}
+    </div>
+    <div class="ui footer">
+      <div class="ui aligned grid">
+        <div class="two column row">
+          <div class="column">
+            <span class="ui small text">
+              {% if post.pub_type == 'Article' %}
+              <a href="{% url 'core:article-detail' post.category.slug post.slug %}">
+                {{ post.updated_date|date:'DATETIME_FORMAT' }}
+              </a>
+              {% elif post.pub_type == 'Note' %}
+              <a href="{% url 'core:note-detail' post.slug %}">
+                {{ post.updated_date|date:'DATETIME_FORMAT' }}
+              </a>
+              {% endif %}
+            </span>
           </div>
-          <div class="ui footer">
-            <div class="ui aligned grid">
-              <div class="two column row">
-                <div class="column">
-                  <span class="ui small text">
-                    {% if post.pub_type == 'Article' %}
-                    <a href="{% url 'core:article-detail' post.category.slug post.slug %}">
-                      {{ post.updated_date|date:'DATETIME_FORMAT' }}
-                    </a>
-                    {% elif post.pub_type == 'Note' %}
-                    <a href="{% url 'core:note-detail' post.slug %}">
-                      {{ post.updated_date|date:'DATETIME_FORMAT' }}
-                    </a>
-                    {% endif %}
-                  </span>
-                </div>
-                <div class="right aligned column">
-                  {% if post.tags.count %}{% for tag in post.tags.all %}
-                  <span class="ui small text">
-                    <a href="{% url 'core:article-list-by-tag' tag.slug %}">
-                      #{{ tag.name }}
-                    </a>
-                  </span>
-                  {% endfor %}{% endif %}
-                </div>
-              </div>
-            </div>
+          <div class="right aligned column">
+            {% if post.tags.count %}{% for tag in post.tags.all %}
+            <span class="ui small text">
+              <a href="{% url 'core:article-list-by-tag' tag.slug %}">
+                #{{ tag.name }}
+              </a>
+            </span>
+            {% endfor %}{% endif %}
           </div>
         </div>
       </div>
