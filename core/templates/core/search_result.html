@@ -54,7 +54,7 @@
                 {{ post.updated_date|date:'DATETIME_FORMAT' }}
               </a>
               {% elif post.pub_type == 'Bookmark' %}
-              <a href="{{ post.site_url }}">
+              <a href="{{ post.site_url }}" rel="nofollow">
                 {{ post.updated_date|date:'DATETIME_FORMAT' }}
               </a>
               {% elif post.pub_type == 'Note' %}
@@ -106,7 +106,7 @@
                 {{ post.updated_date|date:'DATETIME_FORMAT' }}
               </a>
               {% elif post.pub_type == 'Bookmark' %}
-              <a href="{{ post.site_url }}">
+              <a href="{{ post.site_url }}" rel="nofollow">
                 {{ post.updated_date|date:'DATETIME_FORMAT' }}
               </a>
               {% elif post.pub_type == 'Note' %}
