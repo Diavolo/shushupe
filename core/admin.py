@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Article, Category, Page, Media, Note, Tag
+from .models import Article, Bookmark, Category, Page, Media, Note, Tag
 
 
 class ArticleAdmin(admin.ModelAdmin):
@@ -24,6 +24,31 @@ class ArticleAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.author = request.user
         super(ArticleAdmin, self).save_model(request, obj, form, change)
+
+    def post_url(self, obj):
+        return obj.slug
+
+
+class BookmarkAdmin(admin.ModelAdmin):
+    exclude = ('author', 'slug')
+    search_fields = ('name',)
+    list_display = ('name', 'pub_date', 'updated_date', 'status',
+                    'is_public', 'protected_with_password', 'slug')
+    list_filter = ('author', 'pub_date', 'status', 'tags')
+    filter_horizontal = ('tags',)
+    fieldsets = [
+        ('Article info', {'fields': ['name', 'site_url', 'content']}),
+        ('Visibility', {'fields': ['is_public', 'status'],
+                        'classes': ['collapse']}),
+        ('Meta', {'fields': ['pub_date', 'allow_comments',
+                             'protected_with_password', 'post_password'],
+                  'classes': ['collapse']}),
+        ('Taxonomy', {'fields': ['tags', ]})
+    ]
+
+    def save_model(self, request, obj, form, change):
+        obj.author = request.user
+        super(BookmarkAdmin, self).save_model(request, obj, form, change)
 
     def post_url(self, obj):
         return obj.slug
@@ -103,6 +128,7 @@ class TagAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Article, ArticleAdmin)
+admin.site.register(Bookmark, BookmarkAdmin)
 admin.site.register(Category, CategoryAdmin)
 admin.site.register(Page, PageAdmin)
 admin.site.register(Media, MediaAdmin)

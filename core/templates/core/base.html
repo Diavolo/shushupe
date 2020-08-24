@@ -9,19 +9,19 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.min.css' %}">
   <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
   <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
-  {% block feed %}<link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="All Entries Atom">{% endblock %}
+  {% block feed %}<link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="Gustavo Huarcaya">{% endblock %}
   <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-  <link rel="canonical" href="//{{ request.get_host }}{{ request.get_full_path }}" />
-  <link type="text/plain" rel="author" href="{% url 'core:humans' %}" />
+  <link rel="canonical" href="https://{{ request.get_host }}{{ request.get_full_path }}">
+  <link type="text/plain" rel="author" href="{% url 'core:humans' %}">
   {% block meta %}<meta name="description" content="Gustavo Huarcaya's Personal Page">
   <meta name="keywords" content="gustavo huarcaya, gustavo, huarcaya">{% endblock %}
   {% block ogp %}
-  <meta property="og:title" content="Gustavo Huarcaya" />
-  <meta property="og:description" content="Gustavo Huarcaya's Personal Page" />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="//{{ request.get_host }}{{ request.get_full_path }}" />
-  <meta property="og:site_name" content="gahd.net" />
-  <meta property="og:image" content="//{{ request.get_host }}{% static 'img/inti.png' %}" />
+  <meta property="og:title" content="Gustavo Huarcaya">
+  <meta property="og:description" content="Gustavo Huarcaya's Personal Page">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://{{ request.get_host }}{{ request.get_full_path }}">
+  <meta property="og:site_name" content="gahd.net">
+  <meta property="og:image" content="https://{{ request.get_host }}{% static 'img/inti.png' %}">
   {% endblock %}
 </head>
 
@@ -96,6 +96,7 @@
       {% endif %}
       <a class="active item" href="/">Home</a>
       <a class="item" href="{% url 'core:article-list' %}">Articles</a>
+      <a class="item" href="/bookmarks/">Bookmarks</a>
       <a class="item" href="{% url 'core:note-list' %}">Notes</a>
       <a class="item" href="/now/">Now</a>
       <a class="item" href="/contact/">Contact</a>

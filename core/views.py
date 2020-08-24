@@ -5,7 +5,7 @@ from django.views.generic import DetailView, ListView
 from django.shortcuts import redirect, render
 from django.db.models import Q
 
-from .models import Article, Category, Note, Page, Post, Tag
+from .models import Article, Bookmark, Category, Note, Page, Post, Tag
 
 RECENTLY = 5
 
@@ -190,6 +190,26 @@ class NoteDetailView(DetailView):
 class TagListView(ListView):
     """Tag list"""
     model = Tag
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class BookmarkListView(ListView):
+    """Bookmark list"""
+    paginate_by = RECENTLY**2
+
+    def get_queryset(self):
+        return Bookmark.objects.filter(
+            status=Post.PUBLISHED_STATUS
+        )
+
+
+class BookmarkDetailView(DetailView):
+    """Bookmark detail"""
+    model = Bookmark
+    slug_url_kwarg = 'bookmark_slug'
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

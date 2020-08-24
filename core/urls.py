@@ -28,6 +28,9 @@ urlpatterns = [
     path('notes/', views.NoteListView.as_view(), name='note-list'),
     path('notes/<slug:note_slug>/', views.NoteDetailView.as_view(),
          name='note-detail'),
+    path('bookmarks/', views.BookmarkListView.as_view(), name='bookmark-list'),
+    path('bookmarks/<slug:bookmark_slug>/', views.BookmarkDetailView.as_view(),
+         name='bookmark-detail'),
     # page detail or articles by category
     path('<slug:page_slug>/', views.PageOrCategoryView.as_view(),
          name='page-detail'),
