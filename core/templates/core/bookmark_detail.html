@@ -3,6 +3,7 @@
 {% block content %}
 
 {% if bookmark %}
+{% if bookmark.is_public %}
 <div class="ui segment text container">
   <div class="ui blue right corner label">
     <i class="bookmark icon"></i>
@@ -38,6 +39,43 @@
     </div>
   </div>
 </div>
+{% elif not bookmark.is_public and user == bookmark.author %}
+<div class="ui red segment text container">
+  <div class="ui red right corner label">
+    <i class="bookmark icon"></i>
+  </div>
+  <div class="column">
+    <h3 class="ui header">{{ bookmark.name }}</h3>
+  </div>
+  <div class="column">
+    <div class="ui content">
+      {{ bookmark.content_html|safe }}
+    </div>
+    <div class="ui footer">
+      <div class="ui aligned grid">
+        <div class="two column row">
+          <div class="column">
+            <span class="ui small text">
+              <a href="{{ bookmark.site_url }}" rel="nofollow">
+                {{ bookmark.updated_date|date:'DATETIME_FORMAT' }}
+              </a>
+            </span>
+          </div>
+          <div class="right aligned column">
+            {% if bookmark.tags.count %}{% for tag in bookmark.tags.all %}
+            <span class="ui small text">
+              <a href="{% url 'core:article-list-by-tag' tag.slug %}">
+                #{{ tag.name }}
+              </a>
+            </span>
+            {% endfor %}{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% else %}
 {% endif %}
 
