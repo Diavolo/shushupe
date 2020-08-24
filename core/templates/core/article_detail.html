@@ -2,12 +2,12 @@
 {% block titlepage %}{% if article %}{{ article.name }} - {% endif %}{% endblock %}
 {% block meta %}<meta name="description" content="{{article.content_html|striptags|truncatewords:"25"}}">
   <meta name="keywords" content="{% for tag in article.tags.all %}{{ tag.name }}, {% endfor %}gustavo huarcaya, gustavo, huarcaya">{% endblock %}
-  {% block ogp %}<meta property="og:title" content="{% if article %}{{ article.name }} - {% endif %}Gustavo Huarcaya" />
-  <meta property="og:description" content="{{article.content_html|striptags|truncatewords:"25"}}" />
+  {% block ogp %}<meta property="og:title" content="{% if article %}{{ article.name }} - {% endif %}Gustavo Huarcaya">
+  <meta property="og:description" content="{{article.content_html|striptags|truncatewords:"25"}}">
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="//{{ request.get_host }}{{ request.get_full_path }}" />
-  <meta property="og:site_name" content="gahd.net"/>
-  <meta property="og:image" content="//{{ request.get_host }}{% static 'img/inti.png' %}" />{% endblock %}
+  <meta property="og:url" content="https://{{ request.get_host }}{{ request.get_full_path }}">
+  <meta property="og:site_name" content="gahd.net">
+  <meta property="og:image" content="https://{{ request.get_host }}{% static 'img/inti.png' %}">{% endblock %}
 {% block article %}
 <article>
   <header>
