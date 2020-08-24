@@ -16,11 +16,11 @@ class IndexView(ListView):
 
     def get_queryset(self):
         print('usuario', self.request.user)
-        return PostList.get_post_list()[:RECENTLY]
+        return PostList.get_post_list(True)[:RECENTLY]
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_article_list'] = PostList.get_post_list()[:RECENTLY]
+        context['latest_article_list'] = PostList.get_post_list(True)[:RECENTLY]
         return context
 
 
@@ -79,13 +79,13 @@ class PostsByTagListView(ListView):
 
     def get_queryset(self):
         tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
-        articles = PostList.get_article_list().filter(tags=tag.id,
-                                                      is_public=True)
-        notes = PostList.get_note_list().filter(tags=tag.id, is_public=True)
-        pages = PostList.get_page_list().filter(tags=tag.id, is_public=True)
+        articles = PostList.get_article_list().filter(tags=tag.id)
+        bookmarks = PostList.get_bookmark_list().filter(tags=tag.id)
+        notes = PostList.get_note_list().filter(tags=tag.id)
+        pages = PostList.get_page_list().filter(tags=tag.id)
         return sorted(
-            chain(articles, notes, pages), key=attrgetter('pub_date'),
-            reverse=True
+            chain(articles, bookmarks, notes, pages),
+            key=attrgetter('pub_date'), reverse=True
         )
 
     def get_context_data(self, **kwargs):
@@ -107,6 +107,13 @@ class SearchView(View):
             Q(tags__name__icontains=q)
         )
         article_search_result_list = article_search_result_list.distinct()
+        bookmark_search_result_list = Bookmark.objects.filter(
+            Q(status=Post.PUBLISHED_STATUS),
+            Q(name__icontains=q) |
+            Q(content__icontains=q) |
+            Q(tags__name__icontains=q)
+        )
+        bookmark_search_result_list = bookmark_search_result_list.distinct()
         note_search_result_list = Note.objects.filter(
             Q(status=Post.PUBLISHED_STATUS),
             Q(name__icontains=q) |
@@ -114,8 +121,18 @@ class SearchView(View):
             Q(tags__name__icontains=q)
         )
         note_search_result_list = note_search_result_list.distinct()
+        page_search_result_list = Page.objects.filter(
+            Q(status=Post.PUBLISHED_STATUS),
+            Q(name__icontains=q) |
+            Q(content__icontains=q) |
+            Q(tags__name__icontains=q)
+        )
+        page_search_result_list = page_search_result_list.distinct()
         search_result_list = sorted(
-            chain(article_search_result_list, note_search_result_list),
+            chain(article_search_result_list,
+                  bookmark_search_result_list,
+                  note_search_result_list,
+                  page_search_result_list),
             key=attrgetter('pub_date'), reverse=True
         )
         return render(
@@ -237,14 +254,20 @@ class PostList():
             Q(status=Post.PUBLISHED_STATUS)
         )
 
+    def get_note_list():
+        """Note list"""
+        return Note.objects.filter(
+            Q(status=Post.PUBLISHED_STATUS)
+        )
+
     def get_page_list():
         """Page list"""
         return Page.objects.filter(
             Q(status=Post.PUBLISHED_STATUS)
         )
 
-    def get_note_list():
-        """Note list"""
-        return Note.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS)
+    def get_bookmark_list():
+        """Bookmark list"""
+        return Bookmark.objects.filter(
+            Q(status=Bookmark.PUBLISHED_STATUS)
         )

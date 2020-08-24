@@ -9,6 +9,7 @@
   <meta property="og:site_name" content="gahd.net">
   <meta property="og:image" content="https://{{ request.get_host }}{% static 'img/inti.png' %}">{% endblock %}
 {% block content %}
+{% if page.is_public %}
 <div class="ui segment justified text container">
   <h1 class="ui header">{{ page.name }}</h1>
   <div class="ui content">
@@ -38,4 +39,35 @@
     </div>
   </div>
 </div>
+{% elif not page.is_public and user == page.author %}
+<div class="ui red segment justified text container">
+  <h1 class="ui header">{{ page.name }}</h1>
+  <div class="ui content">
+    {{ page.content_html|safe }}
+  </div>
+  <div class="ui footer">
+    <div class="ui aligned grid">
+      <div class="two column row">
+        <div class="column">
+          <span class="ui small text">
+            <a href="{% url 'core:page-detail' page.slug %}">
+              {% if page.slug == 'now' %}{{ page.updated_date|date:'DATETIME_FORMAT' }}
+              {% else %}permalink{% endif %}
+            </a>
+          </span>
+        </div>
+        <div class="right aligned column">
+          {% if page.tags.count %}{% for tag in page.tags.all %}
+          <span class="ui small text">
+            <a href="{% url 'core:article-list-by-tag' tag.slug %}">
+              #{{ tag.name }}
+            </a>
+          </span>
+          {% endfor %}{% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endblock %}

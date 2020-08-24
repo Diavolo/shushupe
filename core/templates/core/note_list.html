@@ -4,6 +4,7 @@
 
 {% if note_list %}
 {% for note in note_list %}
+{% if note.is_public %}
 <div class="ui segment text container">
   <div class="column">
     <h3 class="ui header">{{ note.name }}</h3>
@@ -36,6 +37,40 @@
     </div>
   </div>
 </div>
+{% elif not note.is_public and user == note.author %}
+<div class="ui red segment text container">
+  <div class="column">
+    <h3 class="ui header">{{ note.name }}</h3>
+  </div>
+  <div class="column">
+    <div class="ui content">
+      {{ note.content_html|safe|truncatewords_html:"25" }}
+    </div>
+    <div class="ui footer">
+      <div class="ui aligned grid">
+        <div class="two column row">
+          <div class="column">
+            <span class="ui small text">
+              <a href="{% url 'core:note-detail' note.slug %}">
+                {{ note.updated_date|date:'DATETIME_FORMAT' }}
+              </a>
+            </span>
+          </div>
+          <div class="right aligned column">
+            {% if note.tags.count %}{% for tag in note.tags.all %}
+            <span class="ui small text">
+              <a href="{% url 'core:article-list-by-tag' tag.slug %}">
+                #{{ tag.name }}
+              </a>
+            </span>
+            {% endfor %}{% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% endfor %}
 {% else %}
 {% endif %}
