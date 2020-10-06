@@ -1,3 +1,72 @@
+/******************************************************************************
+ * Colors
+ ******************************************************************************/
+.bg-forest-green {
+  background-color: #285f46; }
+
+.bg-leaf-green {
+  background-color: #9fcfa2; }
+
+.bg-leaf-green-translucent {
+  background-color: #9fcfa2d8; }
+
+.bg-rice-flower {
+  background-color: #e0ffd0; }
+
+.bg-rice-flower-translucent {
+  background-color: #e0ffd0d0; }
+
+.bg-sunlight {
+  background-color: #ffd; }
+
+.bg-peach {
+  background-color: #fda; }
+
+.bg-laiquendi {
+  background-color: #efc; }
+
+.bg-vb6 {
+  background-color: #eee8dd; }
+
+.bg-cream {
+  background-color: #fffce8; }
+
+.bg-cream-translucent {
+  background-color: #fffce8ee; }
+
+.text-forest-green {
+  color: #285f46; }
+
+.text-leaf-green {
+  color: #9fcfa2; }
+
+.text-leaf-green-translucent {
+  color: #9fcfa2d8; }
+
+.text-rice-flower {
+  color: #e0ffd0; }
+
+.text-rice-flower-translucent {
+  color: #e0ffd0d0; }
+
+.text-sunlight {
+  color: #ffd; }
+
+.text-peach {
+  color: #fda; }
+
+.text-laiquendi {
+  color: #efc; }
+
+.text-vb6 {
+  color: #eee8dd; }
+
+.text-cream {
+  color: #fffce8; }
+
+.text-cream-translucent {
+  color: #fffce8ee; }
+
 /*html {
   font-size: 16px;
 }*/

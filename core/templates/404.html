@@ -1,12 +1,12 @@
 {% extends "core/base.html" %}{% load static %}
 {% block titlepage %}Not Found - {% endblock %}
 {% block content %}
-<div class="ui segment text container">
-  <div class="ui aligned grid">
-    <div class="center aligned column">
-      <img class="ui centered image" src="{% static 'img/cow.png' %}" alt="cow">
-      <h3 class="ui header">Ouch!</h3>
-      The page you requested was not found.
+<div class="flex my-10">
+  <div class="w-1/5 m-auto rounded-lg overflow-hidden">
+    <img src="{% static 'img/cow.png' %}" alt="" class="w-full object-cover object-center py-4" />
+    <div class="p-4">
+      <p class="mb-1 text-gray-900 font-semibold">Moo!</p>
+      <span class="text-gray-700">The page you requested was not found.</span>
     </div>
   </div>
 </div>

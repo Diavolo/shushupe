@@ -1,1 +1,32 @@
-{% extends "core/base.html" %}
+{% extends "core/base.html" %}{% load static %}
+{% block content %}
+  <section class="text-gray-700 body-font">
+    <div class="container px-5 sm:py-20 md:py-48 mx-auto flex flex-col">
+      <div class="lg:w-4/6 mx-auto">
+        <div class="flex flex-col sm:flex-row mt-10 bg-white shadow">
+          <div class="sm:w-1/3 text-center sm:px-4 sm:py-8 py-4 rounded-t sm:rounded-t-none sm:rounded-l">
+            <div class="w-48 h-48 rounded-full inline-flex items-center justify-center text-gray-400">
+              <img src="{% static 'img/inti.png' %}" alt="avatar">
+            </div>
+            <div class="flex flex-col items-center text-center justify-center">
+              <h2 class="font-medium title-font mt-4 text-gray-700 text-lg">Gustavo Huarcaya</h2>
+              <div class="w-12 h-1 bg-red-600 rounded mt-2 mb-4"></div>
+              <p class="text-base text-gray-600">gahd.net</p>
+            </div>
+          </div>
+          <div class="sm:w-2/3 px-4 md:px-8 sm:py-8 py-4 sm:mt-0 text-center sm:text-left rounded-b sm:rounded-b-none sm:rounded-r">
+            <p class="leading-relaxed text-lg mb-4 text-justify">
+              I'm a web developer and free software advocate from Ica, Peru, who lives in Huancayo. I develop web
+              applications using Free and Open Source Software like Python, Java, JavaScript, MySQL/MariaDB, and
+              PostgreSQL, with frameworks like Django, Spring Boot, and Java EE for backend and Angular for front-end.
+              And
+              of course, I also have knowledge on mundane stacks like Hasecorp technologies: C#, .NET Core, ASP.NET
+              Core,
+              ASP.NET MVC, ASP.NET Web API, Linq, Entity Framework, and SQL Server.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

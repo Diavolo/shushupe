@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
-    "fomantic-ui": "^2.8.6",
-    "jquery": "^3.5.1"
+    "alpinejs": "^2.7.0",
+    "tailwindcss": "^1.8.10"
   }
 }

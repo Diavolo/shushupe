@@ -25,20 +25,8 @@ async function clean() {
  */
 function js() {
   return src([
-    'node_modules/jquery/dist/jquery.min.js',
-    './semantic/dist/semantic.min.js',
+    'node_modules/alpinejs/dist/alpine.js',
   ])
-    .pipe(dest(`${djStaticDir}/js`));
-}
-
-/**
- * Combine all js files into one
- */
-function scripts() {
-  return src([
-    './gahd/assets/js/app.js',
-  ])
-    //.pipe(concat('app.js'))
     .pipe(dest(`${djStaticDir}/js`));
 }
 
@@ -61,23 +49,13 @@ function scss() {
 }
 
 /**
- * Move CSS to 'css' dir
+ * Move tailwindcss to 'css' dir
  */
-function css() {
+function tailwindcss() {
   return src([
-    './semantic/dist/semantic.min.css',
+    'node_modules/tailwindcss/dist/tailwind.min.css'
   ])
     .pipe(dest(`${djStaticDir}/css`));
-}
-
-/**
- * Move default Fomantic-UI theme to 'css/themes' dir
- */
-function semantic() {
-  return src([
-    './semantic/dist/themes/default/**/*'
-  ])
-    .pipe(dest(`${djStaticDir}/css/themes/default`));
 }
 
 /**
@@ -114,6 +92,6 @@ function img() {
 exports.clean = clean;
 exports.build = series(
   clean,
-  parallel(js, scripts, css, scss, facss, fafonts, semantic),
+  parallel(js, scss, facss, fafonts, tailwindcss),
   img
 );

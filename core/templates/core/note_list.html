@@ -5,68 +5,80 @@
 {% if note_list %}
 {% for note in note_list %}
 {% if note.is_public %}
-<div class="ui segment text container">
-  <div class="column">
-    <h3 class="ui header">{{ note.name }}</h3>
-  </div>
-  <div class="column">
-    <div class="ui content">
-      {{ note.content_html|safe|truncatewords_html:"25" }}
-    </div>
-    <div class="ui footer">
-      <div class="ui aligned grid">
-        <div class="two column row">
-          <div class="column">
-            <span class="ui small text">
-              <a href="{% url 'core:note-detail' note.slug %}">
-                {{ note.updated_date|date:'DATETIME_FORMAT' }}
-              </a>
-            </span>
-          </div>
-          <div class="right aligned column">
-            {% if note.tags.count %}{% for tag in note.tags.all %}
-            <span class="ui small text">
-              <a href="{% url 'core:article-list-by-tag' tag.slug %}">
-                #{{ tag.name }}
-              </a>
-            </span>
-            {% endfor %}{% endif %}
-          </div>
-        </div>
+<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl ">
+  <div class="flex items-start px-4 py-6">
+    <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
+    <div class="">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:note-detail' note.slug %}">{{ note.name }}</a></h2>
+        <small class="text-sm text-gray-700"></small>
       </div>
+      <p class="text-xs text-gray-700">{{ note.updated_date|date:'DATETIME_FORMAT' }}</p>
+      <div class="mt-3 text-gray-700 text-sm w-full">
+        {{ note.content_html|safe|truncatewords_html:"25" }}
+      </div>
+      {% if note.tags.count %}
+      <div class="mt-4 flex items-center">
+        {% for tag in note.tags.all %}
+        <div class="flex mr-2 text-gray-700 text-xs text-blue-600 mr-3">
+          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+        </div>
+        {% endfor %}
+        {% comment %}
+        <div class="flex mr-2 text-gray-700 text-sm mr-8">
+          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+          </svg>
+          <span>8</span>
+        </div>
+        <div class="flex mr-2 text-gray-700 text-sm mr-4">
+          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+          </svg>
+          <span>share</span>
+        </div>
+        {% endcomment %}
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>
 {% elif not note.is_public and user == note.author %}
-<div class="ui red segment text container">
-  <div class="column">
-    <h3 class="ui header">{{ note.name }}</h3>
-  </div>
-  <div class="column">
-    <div class="ui content">
-      {{ note.content_html|safe|truncatewords_html:"25" }}
-    </div>
-    <div class="ui footer">
-      <div class="ui aligned grid">
-        <div class="two column row">
-          <div class="column">
-            <span class="ui small text">
-              <a href="{% url 'core:note-detail' note.slug %}">
-                {{ note.updated_date|date:'DATETIME_FORMAT' }}
-              </a>
-            </span>
-          </div>
-          <div class="right aligned column">
-            {% if note.tags.count %}{% for tag in note.tags.all %}
-            <span class="ui small text">
-              <a href="{% url 'core:article-list-by-tag' tag.slug %}">
-                #{{ tag.name }}
-              </a>
-            </span>
-            {% endfor %}{% endif %}
-          </div>
-        </div>
+<div class="flex bg-red-100 shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl ">
+  <div class="flex items-start px-4 py-6">
+    <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
+    <div class="">
+      <div class="flex items-center justify-between">
+        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:note-detail' note.slug %}">{{ note.name }}</a></h2>
+        <small class="text-sm text-gray-700"></small>
       </div>
+      <p class="text-xs text-gray-700">{{ note.updated_date|date:'DATETIME_FORMAT' }}</p>
+      <div class="mt-3 text-gray-700 text-sm w-full">
+        {{ note.content_html|safe|truncatewords_html:"25" }}
+      </div>
+      {% if note.tags.count %}
+      <div class="mt-4 flex items-center">
+        {% for tag in note.tags.all %}
+        <div class="flex mr-2 text-gray-700 text-xs text-blue-600 mr-3">
+          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+        </div>
+        {% endfor %}
+        {% comment %}
+        <div class="flex mr-2 text-gray-700 text-sm mr-8">
+          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+          </svg>
+          <span>8</span>
+        </div>
+        <div class="flex mr-2 text-gray-700 text-sm mr-4">
+          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+          </svg>
+          <span>share</span>
+        </div>
+        {% endcomment %}
+      </div>
+      {% endif %}
     </div>
   </div>
 </div>
@@ -76,45 +88,65 @@
 {% endif %}
 
 {% if is_paginated %}
-<div style="text-align: center;">
-  <div class="ui pagination menu">
+<div class="flex flex-col items-center my-12">
+    <div class="flex text-gray-700">
+
     {% if page_obj.has_previous %}
     {% if page_obj.previous_page_number == 1 %}
-    <a class="item" href="{% url 'core:note-list' %}"><i class="left arrow icon"></i> Previous</a>
+    <a class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer" href="{% url 'core:note-list' %}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </a>
     {% else %}
-    <a class="item" href="{% url 'core:note-list' %}?page={{ page_obj.previous_page_number }}">
-      <i class="left arrow icon"></i> Previous</a>
+    <a class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer" href="{% url 'core:note-list' %}?page={{ page_obj.previous_page_number }}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </a>
     {% endif %}
     {% else %}
-    <div class="disabled item">
-      <i class="left arrow icon"></i> Previous
+    <div class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-not-allowed">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
     </div>
     {% endif %}
+
+  <div class="flex h-8 font-medium rounded-full bg-gray-200">
     {% for i in paginator.page_range %}
     {% if page_obj.number == i %}
     {% if i == 1 %}
-    <a class="active item" href="{% url 'core:note-list' %}">{{ i }}</a>
+    <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full bg-red-600 text-white" href="{% url 'core:note-list' %}">{{ i }}</a>
+    <a class="w-8 h-8 md:hidden flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in rounded-full bg-red-600 text-white" href="{% url 'core:note-list' %}">{{ i }}</a>
     {% else %}
-    <a class="active item" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
+    <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full bg-red-600 text-white" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
+    <a class="w-8 h-8 md:hidden flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in rounded-full bg-red-600 text-white" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
     {% endif %}
     {% else %}
     {% if i == 1 %}
-    <a class="item" href="{% url 'core:note-list' %}">{{ i }}</a>
+    <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full" href="{% url 'core:note-list' %}">{{ i }}</a>
     {% else %}
-    <a class="item" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
+    <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in rounded-full" href="{% url 'core:note-list' %}?page={{ i }}">{{ i }}</a>
     {% endif %}
     {% endif %}
     {% endfor %}
+  </div>
+
     {% if page_obj.has_next %}
-    <a class="item" href="{% url 'core:note-list' %}?page={{ page_obj.next_page_number }}">Next &nbsp;
-      <i class="right arrow icon"></i>
+    <a class="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer" href="{% url 'core:note-list' %}?page={{ page_obj.next_page_number }}">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
     </a>
     {% else %}
-    <div class="disabled item">
-      <span>Next <i class="right arrow icon"></i></span>
+    <div class="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-not-allowed">
+      <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
     </div>
     {% endif %}
-  </div>
+    </div>
 </div>
 {% endif %}
 

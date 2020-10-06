@@ -2,7 +2,7 @@ from operator import attrgetter
 from itertools import chain
 from django.views import View
 from django.views.generic import DetailView, ListView
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.db.models import Q
 
 from .models import Article, Bookmark, Category, Note, Page, Post, Tag
@@ -98,7 +98,7 @@ class SearchView(View):
     def get(self, request, *args, **kwargs):
         q = request.GET.get('q') or None
         if q is None:
-            return(redirect('/'))
+            return render(request, 'core/search_result.html')
         # https://docs.djangoproject.com/en/3.0/topics/db/queries/#complex-lookups-with-q-objects
         article_search_result_list = Article.objects.filter(
             Q(status=Post.PUBLISHED_STATUS),
@@ -151,13 +151,13 @@ class PageOrCategoryView(View):
             )
         category = Category.objects.get(slug=self.kwargs['page_slug'])
         context = dict()
-        context['article_list'] = PostList.get_article_list().filter(
+        context['post_list'] = PostList.get_article_list().filter(
             category=category.id
         )
         context['category'] = category
         context['categories'] = Category.objects.all()
         context['latest_article_list'] = PostList.get_article_list()[:RECENTLY]
-        return render(request, 'core/article_list.html', context)
+        return render(request, 'core/post_list.html', context)
 
 
 class ArticleDetailView(DetailView):
