@@ -9,7 +9,7 @@
   "author": "Gustavo Huarcaya <diavolo@gahd.net>",
   "license": "MIT",
   "devDependencies": {
-    "del": "^5.1.0",
+    "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.1.0",
@@ -17,7 +17,7 @@
     "ordered-read-streams": "^1.0.1"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.13.1",
+    "@fortawesome/fontawesome-free": "^5.15.1",
     "fomantic-ui": "^2.8.6",
     "jquery": "^3.5.1"
   }
