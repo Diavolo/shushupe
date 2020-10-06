@@ -1,0 +1,32 @@
+/******************************************************************************
+ * Colors
+ ******************************************************************************/
+$forest-green: #285f46;
+$leaf-green: #9fcfa2;
+$leaf-green-translucent: #9fcfa2d8;
+$rice-flower: #e0ffd0;
+$rice-flower-translucent: #e0ffd0d0;
+$sunlight: #ffd;
+$peach: #fda;
+$laiquendi: #efc;
+$vb6: #eee8dd;
+$cream: #fffce8;
+$cream-translucent: #fffce8ee;
+
+$colors: ();
+$colors: map-merge(
+  (
+    "forest-green": $forest-green,
+    "leaf-green": $leaf-green,
+    "leaf-green-translucent": $leaf-green-translucent,
+    "rice-flower": $rice-flower,
+    "rice-flower-translucent": $rice-flower-translucent,
+    "sunlight": $sunlight,
+    "peach": $peach,
+    "laiquendi": $laiquendi,
+    "vb6": $vb6,
+    "cream": $cream,
+    "cream-translucent": $cream-translucent,
+  ),
+  $colors
+);
