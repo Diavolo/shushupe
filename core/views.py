@@ -2,10 +2,11 @@ from operator import attrgetter
 from itertools import chain
 from django.views import View
 from django.views.generic import DetailView, ListView
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.db.models import Q
 
-from .models import Article, Bookmark, Category, Note, Page, Post, Tag
+from .models import (Article, Bookmark, Category, Changelog, Note, Page, Post,
+                     Tag)
 
 RECENTLY = 5
 
@@ -231,6 +232,21 @@ class BookmarkDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class ChangelogListView(ListView):
+    """Changelog list"""
+
+    def get_queryset(self):
+        return Changelog.objects.filter(
+            status=Post.PUBLISHED_STATUS
+        )
+
+
+class ChangelogDetailView(View):
+    def get(self, request, *args, **kwargs):
+        detail = kwargs['changelog_slug']
+        return redirect(f'/changelog/#{detail}')
 
 
 class PostList():

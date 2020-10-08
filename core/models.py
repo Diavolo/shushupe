@@ -39,6 +39,7 @@ class Post(models.Model):
     NOTE = 'Note'
     PAGE = 'Page'
     BOOKMARK = 'Bookmark'
+    CHANGELOG = 'Changelog'
 
     PUB_TYPE_CHOICES = (
         (ARTICLE.lower(), ARTICLE.title()),
@@ -135,6 +136,19 @@ class Bookmark(Post):
     def get_absolute_url(self):
         return reverse('core:bookmark-detail',
                        kwargs={'bookmark_slug', self.slug})
+
+    def __str__(self):
+        return self.name
+
+
+class Changelog(Post):
+    pub_type = models.CharField(choices=Post.PUB_TYPE_CHOICES,
+                                default=Post.CHANGELOG, max_length=10)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = str(uuid4())
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name
