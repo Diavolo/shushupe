@@ -1,5 +1,5 @@
 -r common.txt
 
 gunicorn==20.0.4
-psycopg2-binary==2.8.5
-sentry-sdk==0.16.4
+psycopg2-binary==2.8.6
+sentry-sdk==0.18.0
