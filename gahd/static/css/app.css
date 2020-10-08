@@ -210,13 +210,6 @@ table tr td {
   border-left: 1px solid rgba(34, 36, 38, 0.1);
   text-align: inherit; }
 
-/* .postlink .linkify {
-  visibility: hidden;
-}
-
-.postlink:hover .linkify {
-  visibility: visible;
-} */
 .postlink .linkify,
 .comment .comment-link {
   display: none !important; }
@@ -228,6 +221,21 @@ table tr td {
 .projects,
 .other-sites {
   width: 500px !important; }
+
+/******************************************************************************
+ * Post
+ ******************************************************************************/
+.post-content a {
+  --text-opacity: 1;
+  color: rgba(229, 62, 62, var(--text-opacity)); }
+
+.post-content p {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem; }
+
+.post-content p:first-of-type,
+.post-content p:last-of-type {
+  margin: 0; }
 
 .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }

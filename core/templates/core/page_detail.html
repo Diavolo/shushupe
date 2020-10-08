@@ -10,7 +10,7 @@
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/inti.png' %}">{% endblock %}
 {% block content %}
 {% if page.is_public %}
-<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl ">
+<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="flex items-start px-4 py-6">
     <div class="">
       <div class="flex items-center justify-between">
@@ -20,7 +20,7 @@
       <p class="text-xs text-gray-700">
         {% if page.slug == 'now' %}Updated {{ page.updated_date|date:'DATETIME_FORMAT' }}{% else %}{% endif %}
       </p>
-      <div class="mt-3 text-gray-700 text-sm w-full">
+      <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
         {{ page.content_html|safe }}
       </div>
       {% if page.tags.count %}
@@ -50,7 +50,7 @@
   </div>
 </div>
 {% elif not page.is_public and user == page.author %}
-<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl ">
+<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="flex items-start px-4 py-6">
     <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
     <div class="">
@@ -61,7 +61,7 @@
       <p class="text-xs text-gray-700">
         {% if page.slug == 'now' %}{{ page.updated_date|date:'DATETIME_FORMAT' }}{% else %}{% endif %}
       </p>
-      <div class="mt-3 text-gray-700 text-sm w-full">
+      <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
         {{ page.content_html|safe }}
       </div>
       {% if page.tags.count %}
