@@ -11,7 +11,7 @@
 {% block content %}
 {% if article.is_public %}
 <div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="flex items-start px-4 py-6">
+  <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <p class="text-xs text-gray-800 flex items-center">
         <svg class="text-grey w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="currentColor">
@@ -33,7 +33,7 @@
       {% if article.tags.count %}
       <div class="mt-4 flex items-center">
         {% for tag in article.tags.all %}
-        <div class="flex mr-2 text-gray-700 text-xs text-blue-600 mr-3">
+        <div class="flex mr-2 text-xs text-blue-600 mr-3">
           <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
@@ -58,7 +58,7 @@
 </div>
 {% elif not article.is_public and user == article.author %}
 <div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="flex items-start px-4 py-6">
+  <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <p class="text-xs text-gray-800 flex items-center">
         <svg class="text-grey w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="currentColor">
@@ -80,7 +80,7 @@
       {% if article.tags.count %}
       <div class="mt-4 flex items-center">
         {% for tag in article.tags.all %}
-        <div class="flex mr-2 text-gray-700 text-xs text-blue-600 mr-3">
+        <div class="flex mr-2 text-xs text-blue-600 mr-3">
           <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
@@ -104,222 +104,4 @@
   </div>
 </div>
 {% endif %}
-{% endblock %}
-
-{% block article %}
-<article>
-  <header>
-    <h2 class="ui header">
-      <a href="{% url 'core:article-detail' article.category.slug article.slug %}" class="postlink">
-        {{ article.name }} <i class="linkify small icon"></i>
-      </a>
-      <div class="sub header">
-        <div class="ui right floated horizontal list">
-          <span title="{{ article.pub_date }}" class="item"><i class="calendar outline icon"></i> {{ article.pub_date|date }}</span>
-        </div>
-        <div class="ui horizontal list">
-          <a class="item" href="{% url 'core:article-list-by-category' article.category.slug %}"><i class="folder open outline icon"></i> {{ article.category }}</a>
-        </div>
-      </div>
-    </h2>
-  </header>
-  <section class="ui justified container">
-    {{ article.content_html|safe }}
-  </section>
-  <footer class="ui right aligned container">
-    {% if article.tags.count %}
-    {% for tag in article.tags.all %}
-      <a href="{% url 'core:article-list-by-tag' tag.slug %}"><i class="tag icon"></i> {{ tag.name }}</a>
-    {% endfor %}
-    {% endif %}
-  </footer>
-</article>
-{% endblock %}
-{% block previous_next_article %}
-{% if previous_article or next_article %}
-<div class="ui container previousnext">
-  <div class="ui two column middle aligned stackable grid">
-    {% if previous_article %}
-    <a class="left floated column" href="{% url 'core:article-detail' previous_article.category.slug previous_article.slug %}">
-      <div class="ui link items">
-        <div class="item">
-          <div class="middle aligned content">
-            <div class="header">{{ previous_article.name }}</div>
-            <div class="meta">
-              <span><i class="small left chevron icon"></i></span>
-              <span>Anterior post</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-    {% endif %}
-    {% if next_article %}
-    <a class="right floated right aligned column" href="{% url 'core:article-detail' next_article.category.slug next_article.slug %}">
-      <div class="ui link items">
-        <div class="item">
-          <div class="middle aligned content">
-            <div class="header">{{ next_article.name }}</div>
-            <div class="meta">
-              <span>Siguiente post</span>
-              <span><i class="small right chevron icon"></i></span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </a>
-    {% endif %}
-  </div>
-</div>
-{% endif %}
-
-<div class="ui threaded comments container">
-  {% if article.allow_comments or comment_list  %}<h3 class="ui dividing header" id="comments">Comentarios</h3>{% endif %}
-  {% if not comment_list and article.allow_comments %}
-  <div class="ui warning icon mini message">
-    <i class="comments outline icon"></i>
-    <div class="content">
-      <div class="header">{{ comment_list.count }} Comentarios</div>
-    </div>
-  </div>
-  {% endif %}
-
-  {% for comment in comment_list %}
-  <div class="comment" id="comment-{{ comment.id }}">
-    <a class="avatar">
-      <img src="https://semantic-ui.com/images/avatar/small/matt.jpg">
-    </a>
-    <div class="content">
-      {% if article.author.id == comment.user.id %}
-      <span class="author">{% if comment.user.first_name %}{{ comment.user.first_name }}{% else %}Author{% endif %}</span>
-      <div class="ui mini teal left pointing basic label">author</div>
-      {% else %}
-      <span class="author">{{ comment.author }}</span>
-      {% endif %}
-      <div class="metadata">
-        {% if comment.author_url %}<a href="{{ comment.author_url }}"><i class="globe icon"></i></a>{% endif %}
-        <span class="date" title="{{ comment.comment_date }}">{{ comment.comment_date|timesince }}</span>
-        <a href="{% url 'core:article-detail' article.category.slug article.slug %}#comment-{{ comment.id }}" class="comment-link">
-          <i class="linkify grey icon"></i>
-        </a>
-      </div>
-      <div class="text">
-        {{ comment.content|safe }}
-      </div>
-      <div class="actions">
-        <a class="reply">Reply</a>
-        {% if user.is_authenticated %}
-        {% if comment.approved %}<span class=""><i class="check circle green icon"></i> Approved</span>{% else %}<i class="exclamation circle red icon"></i> Pending{% endif %}
-        {% if comment.banned %}<i class="ban red icon"></i> Banned{% else %}<i class="check circle outline green icon"></i> Not Banned{% endif %}
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  {% endfor %}
-
-  {% if article.allow_comments %}<div class="ui info icon mini message">
-    <i class="info circle icon"></i>
-    <div class="content">
-      <div class="header">Política de comentarios</div>
-      <p>
-        ¡Gracias por dejar tu comentario!<br/>
-        Para mantener una discusión respetuosa es necesario saber que:
-      </p>
-      <ul>
-        <li>Puede que tu comentario no se visualice inmediatamente debido a que los 
-            comentarios de este sitio están bajo moderación.</li>
-        <li>
-          La dirección de e-mail proporcionada en tu comentario no será 
-          divulgada ni compartida por terceros.
-        </li>
-        <li>
-          Por favor intenta mantener tu opinión relacionada con la publicación.
-        </li>
-        <li>
-          No usar insultos, agresiones o faltas de respeto al autor y otros 
-          participantes de la discusión. Caso contrario, tu comentario 
-          podría ser borrado.
-        </li>
-      </ul>
-    </div>
-  </div>
-  <form action="{% url 'core:article-detail' article.category.slug article.slug %}" method="POST" class="ui reply form">
-    {% csrf_token %}
-    {% if user.is_authenticated %}
-    <div class="ui info icon mini message">
-      <i class="user circle icon"></i>
-      <div class="content">
-        <div class="header">{{ user.username }}</div>
-        {{ user.first_name }} {{ user.last_name }}
-      </div>
-    </div>
-      <input type="text" name="author" maxlength="60" required id="id_author" value="{{ user.username }}" hidden>
-      <input type="email" name="author_email" maxlength="100" required id="id_author_email" value="{{ user.email }}" hidden>
-      <div class="field">
-        <label for="{{ form.title.id_for_label }}">Título:</label>
-        {{ form.title }}
-      </div>
-      <div class="field">
-        <label for="{{ form.content.id_for_label }}">Comentario*:</label>
-        {{ form.content }}
-      </div>
-    {% else %}
-      {{ form.as_p }}
-    {% endif %}
-    <button class="ui blue labeled submit icon button">
-      <i class="icon edit"></i> Publicar Comentario
-    </button>
-  </form>
-  {% else %}{% if comment_list.count > 0 %}<div class="ui warning icon mini message">
-    <i class="info circle icon"></i>
-    <div class="content">
-      <div class="header">Comentarios cerrados.</div>
-      <p>El formulario de comentarios se encuentra deshabilitado.</p>
-    </div>
-  </div>{% endif %}{% endif %}
-</div>
-{% endblock %}
-
-{% block article_meta %}
-<div class="ui list postinfo">
-  <div class="item">
-    Estás leyendo: "<strong>{{ article.name }}</strong>"
-  </div>
-  <div class="item">
-    <i class="user outline icon"></i>
-    <div class="content">
-      Escrito por <a href="/">{% if article.author.first_name %}{{ article.author.first_name }} {{ article.author.last_name }}{% else %}Author{% endif %}</a>
-    </div>
-  </div>
-  <div class="item">
-    <i class="calendar alternate outline icon"></i>
-    <div class="content">
-      Actualizado hace <span title="{{ article.updated_date }}">{{ article.updated_date|timesince }}</span>
-    </div>
-  </div>
-  {% if comment_list.count %}
-  <div class="item">
-    <i class="comment outline icon"></i>
-    <div class="content">
-      {{ comment_list.count }} Comentarios
-    </div>
-  </div>
-  {% endif %}
-  <div class="item">
-    <i class="folder open outline icon"></i>
-    <div class="content">
-      Guardado en <a href="{% url 'core:article-list-by-category' article.category.slug %}">{{ article.category }}</a>
-    </div>
-  </div>
-  {% if article.tags.count %}
-  <div class="item">
-    <i class="bookmark outline icon"></i>
-    <div class="content">
-      {% for tag in article.tags.all %}
-      <a class="ui tiny teal tag label" href="{% url 'core:article-list-by-tag' tag.slug %}">{{ tag.name }}</a>
-      {% endfor %}
-    </div>
-  </div>
-  {% endif %}
-</div>
 {% endblock %}

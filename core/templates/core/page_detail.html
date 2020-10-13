@@ -11,7 +11,7 @@
 {% block content %}
 {% if page.is_public %}
 <div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="flex items-start px-4 py-6">
+  <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:page-detail' page.slug %}">{{ page.name }}</a></h2>
@@ -26,7 +26,7 @@
       {% if page.tags.count %}
       <div class="mt-4 flex items-center">
         {% for tag in page.tags.all %}
-        <div class="flex mr-2 text-gray-700 text-xs text-blue-600 mr-3">
+        <div class="flex mr-2 text-xs text-blue-600 mr-3">
           <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
@@ -51,8 +51,7 @@
 </div>
 {% elif not page.is_public and user == page.author %}
 <div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="flex items-start px-4 py-6">
-    <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
+  <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:page-detail' page.slug %}">{{ page.name }}</a></h2>
@@ -67,7 +66,7 @@
       {% if page.tags.count %}
       <div class="mt-4 flex items-center">
         {% for tag in page.tags.all %}
-        <div class="flex mr-2 text-gray-700 text-xs text-blue-600 mr-3">
+        <div class="flex mr-2 text-xs text-blue-600 mr-3">
           <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
