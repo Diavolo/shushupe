@@ -19,6 +19,6 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
     "alpinejs": "^2.7.0",
-    "tailwindcss": "^1.8.10"
+    "tailwindcss": "^1.9.1"
   }
 }
