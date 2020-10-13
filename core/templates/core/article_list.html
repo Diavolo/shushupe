@@ -27,7 +27,9 @@
         <a href="{% url 'core:article-list-by-category' article.category.slug %}">{{ article.category }}</a>
       </p>
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:article-detail' article.category.slug article.slug %}">{{ article.name }}</a></h2>
+        <h2 class="text-lg font-semibold text-gray-900 -mt-1">
+          <a href="{% url 'core:article-detail' article.category.slug article.slug %}">{{ article.name }}</a>
+        </h2>
         <small class="text-sm text-gray-700"></small>
       </div>
       <p class="text-xs text-gray-700">
@@ -37,7 +39,7 @@
         {{ article.content_html|safe|truncatewords_html:"50" }}
       </div>
       <div class="flex mr-2 text-gray-700 text-sm mr-8">
-        <a class="text-red-600 inline-flex items-center" href="{% url 'core:article-list-by-category' article.category.slug %}">
+        <a class="text-red-600 inline-flex items-center" href="{% url 'core:article-detail' article.category.slug article.slug %}">
           Read more
           <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
             class="w-4 h-4" viewBox="0 0 24 24">
@@ -83,7 +85,9 @@
         <a href="{% url 'core:article-list-by-category' article.category.slug %}">{{ article.category }}</a>
       </p>
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:article-detail' article.category.slug article.slug %}">{{ article.name }}</a></h2>
+        <h2 class="text-lg font-semibold text-gray-900 -mt-1">
+          <a href="{% url 'core:article-detail' article.category.slug article.slug %}">{{ article.name }}</a>
+        </h2>
         <small class="text-sm text-gray-700"></small>
       </div>
       <p class="text-xs text-gray-700">
@@ -93,7 +97,9 @@
         {{ article.content_html|safe|truncatewords_html:"50" }}
       </div>
       <div class="flex mr-2 text-gray-700 text-sm mr-8 items-center">
-        <a href="{% url 'core:article-list-by-category' article.category.slug %}">Read more...</a>
+        <a class="text-red-600 inline-flex items-center" href="{% url 'core:article-detail' article.category.slug article.slug %}">
+          Read more...
+        </a>
       </div>
       {% if article.tags.count %}
       <div class="mt-4 flex items-center">
