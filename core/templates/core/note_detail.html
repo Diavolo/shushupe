@@ -19,7 +19,7 @@
       {% if note.tags.count %}
       <div class="mt-4 flex items-center">
         {% for tag in note.tags.all %}
-        <div class="flex mr-2 text-gray-700 text-xs text-blue-600 mr-3">
+        <div class="flex mr-2 text-xs text-blue-600 mr-3">
           <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
@@ -58,7 +58,7 @@
       {% if note.tags.count %}
       <div class="mt-4 flex items-center">
         {% for tag in note.tags.all %}
-        <div class="flex mr-2 text-gray-700 text-xs mr-3">
+        <div class="flex mr-2 text-xs text-blue-600 mr-3">
           <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
