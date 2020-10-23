@@ -229,6 +229,10 @@ table tr td {
   --text-opacity: 1;
   color: rgba(229, 62, 62, var(--text-opacity)); }
 
+.post-content ol {
+  list-style-position: inside;
+  list-style-type: decimal; }
+
 .post-content p {
   margin-top: 0.5rem;
   margin-bottom: 0.5rem; }
@@ -236,6 +240,9 @@ table tr td {
 .post-content p:first-of-type,
 .post-content p:last-of-type {
   margin: 0; }
+
+.post-content ul {
+  list-style: inside; }
 
 .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }
