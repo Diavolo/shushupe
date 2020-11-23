@@ -3,3 +3,4 @@ Django==3.1.2
 mistune==0.8.4
 mistune-contrib==0.1
 Pygments==2.7.1
+python-dotenv==0.15.0

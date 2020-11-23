@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 import json
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Utilities
 PROJECT_PACKAGE = Path(__file__).resolve().parent.parent.parent
@@ -21,7 +22,8 @@ GAHD_PACKAGE = Path(__file__).resolve().parent.parent
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-data_dir_key = 'GAHD_DATA_DIR'
+load_dotenv(os.path.join(PROJECT_PACKAGE, '.env'))
+data_dir_key = 'SHUSHUPE_DATA_DIR'
 DATA_DIR = Path(os.environ[data_dir_key]) if data_dir_key in os.environ else PROJECT_PACKAGE.parent
 
 try:
