@@ -13,12 +13,14 @@
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^4.1.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "ordered-read-streams": "^1.0.1"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.1",
-    "alpinejs": "^2.7.0",
-    "tailwindcss": "^1.9.1"
+    "alpinejs": "^2.7.3",
+    "autoprefixer": "^10.0.4",
+    "postcss": "^8.1.10",
+    "tailwindcss": "^2.0.1"
   }
 }
