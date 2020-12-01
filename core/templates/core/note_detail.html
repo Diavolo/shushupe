@@ -4,15 +4,15 @@
 
 {% if note %}
 {% if note.is_public %}
-<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
         <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
         <div>
           <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:note-detail' note.slug %}">{{ note.name }}</a></h2>
-        <small class="text-sm text-gray-700"></small>
-        <p class="text-xs text-gray-700">{{ note.updated_date|date:'DATETIME_FORMAT' }}</p>
+          <small class="text-sm text-gray-700"></small>
+          <p class="text-xs text-gray-700">{{ note.updated_date|date:'DATETIME_FORMAT' }}</p>
         </div>
       </div>
       <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
@@ -45,7 +45,7 @@
   </div>
 </div>
 {% elif not note.is_public and user == note.author %}
-<div class="flex bg-red-100 shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">

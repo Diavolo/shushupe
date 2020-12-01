@@ -16,7 +16,7 @@
 {% if article_list %}
 {% for article in article_list %}
 {% if article.is_public %}
-<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <p class="text-xs text-gray-800 flex items-center">
@@ -74,7 +74,7 @@
   </div>
 </div>
 {% elif not article.is_public and user == article.author %}
-<div class="flex bg-red-100 shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <p class="text-xs text-gray-800 flex items-center">
@@ -131,7 +131,7 @@
 {% endfor %}
 {% else %}
 <div class="flex my-10">
-  <div class="w-1/5 m-auto rounded-lg overflow-hidden">
+  <div class="w-1/5 m-auto rounded-md overflow-hidden">
     <img src="{% static 'img/cow.png' %}" alt="" class="w-full object-cover object-center py-4" />
     <div class="p-4">
       <p class="mb-1 text-gray-900 font-semibold">Moo!</p>

@@ -4,7 +4,7 @@
 
 {% if bookmark %}
 {% if bookmark.is_public %}
-<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
@@ -54,7 +54,7 @@
   </div>
 </div>
 {% elif not bookmark.is_public and user == bookmark.author %}
-<div class="flex bg-red-100 shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">

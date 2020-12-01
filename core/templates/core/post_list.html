@@ -14,7 +14,7 @@
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/inti.png' %}">{% endblock %}
 {% block content %}
 {% if category %}
-<div class="flex bg-blue-100 rounded border-b-2 border-blue-200 shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-blue-100 border-b-2 border-blue-200 shadow-lg rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="flex items-start px-4 py-4 items-center">
     <svg class="w-8 h-8 rounded-full object-cover mr-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
@@ -25,7 +25,7 @@
         {{ category.name }}
         </h2>
         <small class="text-sm text-gray-700">
-        <a href="{% url 'core:article-list-by-category-feed' category.slug %}" class="text-orange-600">
+        <a href="{% url 'core:article-list-by-category-feed' category.slug %}" class="text-yellow-600">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z" />
           </svg>
@@ -40,7 +40,7 @@
 </div>
 {% endif %}
 {% if tag %}
-<div class="flex bg-blue-100 rounded border-b-2 border-blue-200 shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-blue-100 border-b-2 border-blue-200 shadow-lg rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="flex items-start px-4 py-4 items-center">
     <svg class="w-8 h-8 rounded-full object-cover mr-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
@@ -51,7 +51,7 @@
         {{ tag.name }}
         </h2>
         <small class="text-sm text-gray-700">
-        <a href="{% url 'core:article-list-by-tag-feed' tag.slug %}" class="text-orange-600">
+        <a href="{% url 'core:article-list-by-tag-feed' tag.slug %}" class="text-yellow-600">
           <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z" />
           </svg>
@@ -68,7 +68,7 @@
 {% if post_list %}
 {% for post in post_list %}
 {% if post.is_public %}
-<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
@@ -125,7 +125,7 @@
   </div>
 </div>
 {% elif not post.is_public and user == post.author %}
-<div class="flex bg-red-100 shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
@@ -185,7 +185,7 @@
 {% endfor %}
 {% else %}
 <div class="flex my-10">
-  <div class="w-1/5 m-auto rounded-lg overflow-hidden">
+  <div class="w-1/5 m-auto rounded-md overflow-hidden">
     <img src="{% static 'img/cow.png' %}" alt="" class="w-full object-cover object-center py-4" />
     <div class="p-4">
       <p class="mb-1 text-gray-900 font-semibold">Moo!</p>

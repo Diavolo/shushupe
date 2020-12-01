@@ -2,10 +2,10 @@
 {% block titlepage %}{% if search_term %}Search: {{ search_term }} - {% endif %}{% endblock %}
 {% block content %}
 {% if not search_term %}
-<div class="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-56 md:my-64 max-w-md md:max-w-2xl">
+<div class="bg-white shadow-lg rounded-md mx-4 md:mx-auto my-56 md:my-64 max-w-md md:max-w-2xl">
   <form class="relative" action="{% url 'core:search' %}" method="GET">
     <input name="q" placeholder="Search" value="{{ search_term }}" required
-      class="text-md block px-3 py-2 rounded-lg w-full bg-white border-2
+      class="text-md block px-3 py-2 rounded-md w-full bg-white border-2
       border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-white 
       focus:border-gray-600 focus:outline-none">
     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -16,10 +16,10 @@
   </form>
 </div>
 {% else %}
-<div class="bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="bg-white shadow-lg rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <form class="relative" action="{% url 'core:search' %}" method="GET">
     <input name="q" placeholder="Search" value="{{ search_term }}"
-      class="text-md block px-3 py-2 rounded-lg w-full bg-white border-2
+      class="text-md block px-3 py-2 rounded-md w-full bg-white border-2
       border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-white 
       focus:border-gray-600 focus:outline-none">
     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
@@ -30,7 +30,7 @@
   </form>
 </div>
 {% if search_result_list %}
-<div class="flex bg-white bg-green-200 rounded border-b-2 border-green-300 rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white bg-green-200 rounded border-b-2 border-green-300 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="flex items-center px-4 py-4">
     <div class="alert-icon flex items-center bg-green-100 border-2 border-green-500 justify-center h-10 w-10 flex-shrink-0 rounded-full">
       <span class="text-green-500">
@@ -50,7 +50,7 @@
   </div>
 </div>
 {% else %}
-<div class="flex bg-white bg-red-200 rounded border-b-2 border-red-300 rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white bg-red-200 rounded border-b-2 border-red-300 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="flex items-center px-4 py-4">
     <div class="alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full">
       <span class="text-red-500">
@@ -75,7 +75,7 @@
 {% if search_result_list %}
 {% for post in search_result_list %}
 {% if post.is_public %}
-<div class="flex bg-white shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
@@ -132,7 +132,7 @@
   </div>
 </div>
 {% elif not post.is_public and user == post.author %}
-<div class="flex bg-red-100 shadow-lg rounded-lg mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
