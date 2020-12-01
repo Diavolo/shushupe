@@ -227,7 +227,7 @@ table tr td {
  ******************************************************************************/
 .post-content a {
   --text-opacity: 1;
-  color: rgba(229, 62, 62, var(--text-opacity)); }
+  color: rgba(220, 38, 38, var(--text-opacity)); }
 
 .post-content ol {
   list-style-position: inside;
