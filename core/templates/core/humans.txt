@@ -13,4 +13,4 @@
     Standards: HTML5, CSS3, W3C (as much as possible)
     Core: Python, Django
     Components: Tailwind CSS, alpine.js
-    Software: GNU/Linux, PostgreSQL, SASS, VSCode, VSCodium
+    Software: GNU/Linux, PostgreSQL, SASS, VSCodium
