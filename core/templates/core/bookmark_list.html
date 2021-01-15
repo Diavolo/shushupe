@@ -2,6 +2,32 @@
 {% block titlepage %}Bookmarks - {% endblock %}
 {% block content %}
 
+{% if tag %}
+<div class="flex bg-blue-100 border-b-2 border-blue-200 shadow-lg rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+  <div class="flex items-start px-4 py-4 items-center">
+    <svg class="w-8 h-8 rounded-full object-cover mr-4 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
+    </svg>
+    <div class="">
+      <div class="flex items-center">
+        <h2 class="text-sm font-semibold text-blue-600 -mt-1 items-center">
+        {{ tag.name }}
+        </h2>
+        <small class="text-sm text-gray-700">
+        <a href="{% url 'core:bookmark-list-by-tag-feed' tag.slug %}" class="text-yellow-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z" />
+          </svg>
+        </a>
+        </small>
+      </div>
+      <div class="text-blue-600 text-xs w-full">
+        {{ tag.content }}
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
 {% if bookmark_list %}
 {% for bookmark in bookmark_list %}
 {% if bookmark.is_public %}
@@ -32,7 +58,7 @@
       <div class="mt-4 flex items-center">
         {% for tag in bookmark.tags.all %}
         <div class="flex mr-2 text-xs text-blue-600 mr-3">
-          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+          <a href="{% url 'core:bookmark-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
         {% comment %}
@@ -82,7 +108,7 @@
       <div class="mt-4 flex items-center">
         {% for tag in bookmark.tags.all %}
         <div class="flex mr-2 text-xs text-blue-600 mr-3">
-          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+          <a href="{% url 'core:bookmark-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
         {% comment %}

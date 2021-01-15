@@ -81,11 +81,10 @@ class PostsByTagListView(ListView):
     def get_queryset(self):
         tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
         articles = PostList.get_article_list().filter(tags=tag.id)
-        bookmarks = PostList.get_bookmark_list().filter(tags=tag.id)
         notes = PostList.get_note_list().filter(tags=tag.id)
         pages = PostList.get_page_list().filter(tags=tag.id)
         return sorted(
-            chain(articles, bookmarks, notes, pages),
+            chain(articles, notes, pages),
             key=attrgetter('pub_date'), reverse=True
         )
 
@@ -231,6 +230,22 @@ class BookmarkDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        return context
+
+
+class BookmarkListByTagListView(ListView):
+    """
+    Bookmark list by tag
+    """
+    paginate_by = RECENTLY
+
+    def get_queryset(self):
+        tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
+        return PostList.get_bookmark_list().filter(tags=tag.id)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['tag'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
         return context
 
 
