@@ -135,7 +135,7 @@ class Bookmark(Post):
 
     def get_absolute_url(self):
         return reverse('core:bookmark-detail',
-                       kwargs={'bookmark_slug', self.slug})
+                       kwargs={'bookmark_slug': self.slug})
 
     def __str__(self):
         return self.name
