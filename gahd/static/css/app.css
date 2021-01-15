@@ -244,6 +244,16 @@ table tr td {
 .post-content ul {
   list-style: inside; }
 
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  font-weight: 600;
+  margin-top: 0.2rem;
+  margin-bottom: 0.2rem; }
+
 .highlight .hll { background-color: #ffffcc }
 .highlight  { background: #f8f8f8; }
 .highlight .c { color: #408080; font-style: italic } /* Comment */
