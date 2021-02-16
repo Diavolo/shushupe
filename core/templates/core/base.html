@@ -25,6 +25,16 @@
   <meta property="og:site_name" content="gahd.net">
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/inti.png' %}">
   {% endblock %}
+  <!-- Global site tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QL2XMS16GW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QL2XMS16GW');
+  </script>
+  <!-- End Global site tag (gtag.js) -->
 </head>
 
 <body class="bg-gray-50">
