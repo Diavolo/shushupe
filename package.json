@@ -12,15 +12,15 @@
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-sass": "^4.1.0",
-    "node-sass": "^5.0.0",
-    "ordered-read-streams": "^1.0.1"
+    "gulp-sass": "^5.0.0",
+    "ordered-read-streams": "^1.0.1",
+    "sass": "^1.37.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.3",
     "alpinejs": "^2.8.2",
-    "autoprefixer": "^10.2.5",
-    "postcss": "^8.2.9",
-    "tailwindcss": "^2.1.1"
+    "autoprefixer": "^10.3.1",
+    "postcss": "^8.3.6",
+    "tailwindcss": "^2.2.7"
   }
 }
