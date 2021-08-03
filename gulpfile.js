@@ -1,10 +1,8 @@
 const { dest, series, src, parallel } = require('gulp');
 const concat = require('gulp-concat');
-const sass = require('gulp-sass');
+const sass = require('gulp-sass')(require('sass'));
 const Ordered = require('ordered-read-streams');
 const del = require('del');
-
-sass.compiler = require('node-sass');
 
 const djStaticDir = 'gahd/static';
 
