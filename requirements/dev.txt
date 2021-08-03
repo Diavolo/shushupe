@@ -1,4 +1,4 @@
 -r common.txt
 
-flake8==3.9.0
-psycopg2==2.8.6
+flake8==3.9.2
+psycopg2==2.9.1

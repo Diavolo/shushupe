@@ -1,6 +1,6 @@
-Cython==0.29.22
-Django==3.2
+Cython==0.29.24
+Django==3.2.6
 mistune==0.8.4
 mistune-contrib==0.1
-Pygments==2.8.1
-python-dotenv==0.17.0
+Pygments==2.9.0
+python-dotenv==0.19.0
