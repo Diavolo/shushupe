@@ -36,7 +36,7 @@ class LatestEntriesFeed(Feed):
         return item.pub_date
 
     def item_updateddate(self, item):
-        return item.updated_date
+        return item.last_modified
 
     def item_author_name(self, item):
         return item.author.first_name
@@ -81,7 +81,7 @@ class EntriesByCategoryFeed(Feed):
         return item.pub_date
 
     def item_updateddate(self, item):
-        return item.updated_date
+        return item.last_modified
 
     def item_author_name(self, item):
         return item.author.first_name
@@ -131,7 +131,7 @@ class EntriesByTagFeed(Feed):
         return item.pub_date
 
     def item_updateddate(self, item):
-        return item.updated_date
+        return item.last_modified
 
     def item_author_name(self, item):
         return item.author.first_name
@@ -180,7 +180,7 @@ class BookmarksByTagFeed(Feed):
         return item.pub_date
 
     def item_updateddate(self, item):
-        return item.updated_date
+        return item.last_modified
 
     def item_author_name(self, item):
         return item.author.first_name

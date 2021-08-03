@@ -7,8 +7,9 @@ class ArticleAdmin(admin.ModelAdmin):
     exclude = ('author',)
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name',)
-    list_display = ('name', 'category', 'pub_date', 'updated_date', 'status',
-                    'is_public', 'protected_with_password', 'slug')
+    list_display = ('name', 'category', 'creation_date', 'pub_date',
+                    'last_modified', 'status', 'is_public',
+                    'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'category', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
@@ -32,8 +33,8 @@ class ArticleAdmin(admin.ModelAdmin):
 class BookmarkAdmin(admin.ModelAdmin):
     exclude = ('author', 'slug')
     search_fields = ('site_url',)
-    list_display = ('name', 'pub_date', 'updated_date', 'status',
-                    'is_public', 'protected_with_password', 'slug')
+    list_display = ('name', 'creation_date', 'pub_date', 'last_modified',
+                    'status', 'is_public', 'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
@@ -57,8 +58,8 @@ class BookmarkAdmin(admin.ModelAdmin):
 class ChangelogAdmin(admin.ModelAdmin):
     exclude = ('author', 'slug')
     search_fields = ('content',)
-    list_display = ('name', 'pub_date', 'updated_date', 'status',
-                    'is_public', 'protected_with_password', 'slug')
+    list_display = ('name', 'creation_date', 'pub_date', 'last_modified',
+                    'status', 'is_public', 'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
@@ -83,8 +84,8 @@ class NoteAdmin(admin.ModelAdmin):
     exclude = ('author',)
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('content',)
-    list_display = ('name', 'pub_date', 'updated_date', 'status',
-                    'is_public', 'protected_with_password', 'slug')
+    list_display = ('name', 'creation_date', 'pub_date', 'last_modified',
+                    'status', 'is_public', 'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
@@ -109,8 +110,8 @@ class PageAdmin(admin.ModelAdmin):
     exclude = ('author',)
     prepopulated_fields = {'slug': ('name',)}
     search_fields = ('name',)
-    list_display = ('name', 'pub_date', 'updated_date', 'status', 'author',
-                    'slug')
+    list_display = ('name', 'creation_date', 'pub_date', 'last_modified',
+                    'status', 'is_public', 'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
@@ -134,7 +135,7 @@ class PageAdmin(admin.ModelAdmin):
 class MediaAdmin(admin.ModelAdmin):
     list_display = ('image_thumb', 'name', 'pub_date', 'media_file')
     list_display_links = ('image_thumb', 'name')
-    list_filter = ('pub_date', 'updated_date')
+    list_filter = ('pub_date', 'last_modified')
     prepopulated_fields = {'name': ('media_file',)}
     fieldsets = [
         ('Media info', {'fields': ['name', 'media_file', 'content']}),

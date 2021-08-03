@@ -68,8 +68,9 @@ class Post(models.Model):
     status = models.CharField(choices=STATUS_CHOICES, default=PUBLISHED_STATUS,
                               max_length=9)
     tags = models.ManyToManyField('Tag', blank=True)
+    creation_date = models.DateTimeField(auto_now_add=True)
     pub_date = models.DateTimeField(default=timezone.now)
-    updated_date = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True)
     allow_comments = models.BooleanField(default=False)
     protected_with_password = models.BooleanField()
     post_password = models.CharField(max_length=500, blank=True)
@@ -229,7 +230,7 @@ class Media(models.Model):
     media_file = models.FileField(upload_to=user_directory_path)
     content = models.TextField()
     pub_date = models.DateTimeField(default=timezone.now)
-    updated_date = models.DateTimeField(auto_now=True)
+    last_modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.media_file.name

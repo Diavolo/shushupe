@@ -12,7 +12,7 @@
         <div>
           <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:note-detail' note.slug %}">{{ note.name }}</a></h2>
           <small class="text-sm text-gray-700"></small>
-          <p class="text-xs text-gray-700">{{ note.updated_date|date:'DATETIME_FORMAT' }}</p>
+          <p class="text-xs text-gray-700">{{ note.last_modified|date:'DATETIME_FORMAT' }}</p>
         </div>
       </div>
       <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
@@ -53,7 +53,7 @@
         <div>
           <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:note-detail' note.slug %}">{{ note.name }}</a></h2>
         <small class="text-sm text-gray-700"></small>
-        <p class="text-xs text-gray-700">{{ note.updated_date|date:'DATETIME_FORMAT' }}</p>
+        <p class="text-xs text-gray-700">{{ note.last_modified|date:'DATETIME_FORMAT' }}</p>
         </div>
       </div>
       <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">

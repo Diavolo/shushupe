@@ -27,7 +27,7 @@
         <small class="text-sm text-gray-700"></small>
       </div>
       <p class="text-xs text-gray-700">
-        {{ article.updated_date|date:'DATETIME_FORMAT' }}
+        {{ article.last_modified|date:'DATETIME_FORMAT' }}
       </p>
       <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
         {{ article.content_html|safe }}
@@ -59,7 +59,7 @@
   </div>
 </div>
 {% elif not article.is_public and user == article.author %}
-<div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <p class="text-xs text-gray-800 flex items-center">
@@ -76,7 +76,7 @@
         <small class="text-sm text-gray-700"></small>
       </div>
       <p class="text-xs text-gray-700">
-        {{ article.updated_date|date:'DATETIME_FORMAT' }}
+        {{ article.last_modified|date:'DATETIME_FORMAT' }}
       </p>
       <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
         {{ article.content_html|safe }}
