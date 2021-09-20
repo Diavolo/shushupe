@@ -1,14 +1,16 @@
-from operator import attrgetter
+from datetime import date
 from itertools import chain
+from operator import attrgetter
+from django.db.models import Q
+from django.shortcuts import redirect, render
 from django.views import View
 from django.views.generic import DetailView, ListView
-from django.shortcuts import redirect, render
-from django.db.models import Q
 
 from .models import (Article, Bookmark, Category, Changelog, Note, Page, Post,
                      Tag)
 
 RECENTLY = 5
+TODAY = date.today()
 
 
 class IndexView(ListView):
@@ -30,11 +32,11 @@ class ArticleListView(ListView):
     paginate_by = RECENTLY
 
     def get_queryset(self):
-        return PostList.get_article_list()
+        return PostList.get_published_article_list()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_article_list'] = PostList.get_article_list()[:RECENTLY]
+        context['latest_article_list'] = PostList.get_published_article_list()[:RECENTLY]
         context['categories'] = Category.objects.all()
         return context
 
@@ -45,14 +47,14 @@ class ArticlesByCategoryListView(ListView):
 
     def get_queryset(self):
         category = Category.objects.get(slug=self.kwargs['category_slug'])
-        return PostList.get_article_list().filter(category=category.id)
+        return PostList.get_published_article_list().filter(category=category.id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['category'] = Category.objects.get(
             slug=self.kwargs['category_slug'])
         context['categories'] = Category.objects.all()
-        context['latest_article_list'] = PostList.get_article_list()[:RECENTLY]
+        context['latest_article_list'] = PostList.get_published_article_list()[:RECENTLY]
         return context
 
 
@@ -62,13 +64,13 @@ class ArticlesByTagListView(ListView):
 
     def get_queryset(self):
         tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
-        return PostList.get_article_list().filter(tags=tag.id)
+        return PostList.get_published_article_list().filter(tags=tag.id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['tag'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
         context['categories'] = Category.objects.all()
-        context['latest_article_list'] = PostList.get_article_list()[:RECENTLY]
+        context['latest_article_list'] = PostList.get_published_article_list()[:RECENTLY]
         return context
 
 
@@ -80,9 +82,9 @@ class PostsByTagListView(ListView):
 
     def get_queryset(self):
         tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
-        articles = PostList.get_article_list().filter(tags=tag.id)
-        notes = PostList.get_note_list().filter(tags=tag.id)
-        pages = PostList.get_page_list().filter(tags=tag.id)
+        articles = PostList.get_published_article_list().filter(tags=tag.id)
+        notes = PostList.get_published_note_list().filter(tags=tag.id)
+        pages = PostList.get_published_page_list().filter(tags=tag.id)
         return sorted(
             chain(articles, notes, pages),
             key=attrgetter('pub_date'), reverse=True
@@ -102,6 +104,7 @@ class SearchView(View):
         # https://docs.djangoproject.com/en/3.0/topics/db/queries/#complex-lookups-with-q-objects
         article_search_result_list = Article.objects.filter(
             Q(status=Post.PUBLISHED_STATUS),
+            Q(pub_date__date__lte=TODAY),
             Q(name__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
@@ -109,6 +112,7 @@ class SearchView(View):
         article_search_result_list = article_search_result_list.distinct()
         bookmark_search_result_list = Bookmark.objects.filter(
             Q(status=Post.PUBLISHED_STATUS),
+            Q(pub_date__date__lte=TODAY),
             Q(name__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
@@ -116,6 +120,7 @@ class SearchView(View):
         bookmark_search_result_list = bookmark_search_result_list.distinct()
         note_search_result_list = Note.objects.filter(
             Q(status=Post.PUBLISHED_STATUS),
+            Q(pub_date__date__lte=TODAY),
             Q(name__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
@@ -123,6 +128,7 @@ class SearchView(View):
         note_search_result_list = note_search_result_list.distinct()
         page_search_result_list = Page.objects.filter(
             Q(status=Post.PUBLISHED_STATUS),
+            Q(pub_date__date__lte=TODAY),
             Q(name__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
@@ -151,12 +157,12 @@ class PageOrCategoryView(View):
             )
         category = Category.objects.get(slug=self.kwargs['page_slug'])
         context = dict()
-        context['post_list'] = PostList.get_article_list().filter(
+        context['post_list'] = PostList.get_published_article_list().filter(
             category=category.id
         )
         context['category'] = category
         context['categories'] = Category.objects.all()
-        context['latest_article_list'] = PostList.get_article_list()[:RECENTLY]
+        context['latest_article_list'] = PostList.get_published_article_list()[:RECENTLY]
         return render(request, 'core/post_list.html', context)
 
 
@@ -167,12 +173,12 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_article_list'] = PostList.get_article_list()[:RECENTLY]
+        context['latest_article_list'] = PostList.get_published_article_list()[:RECENTLY]
         context['categories'] = Category.objects.all()
-        context['previous_article'] = PostList.get_article_list()\
+        context['previous_article'] = PostList.get_published_article_list()\
             .filter(pub_date__lt=self.object.pub_date)\
             .order_by('-pub_date').first()
-        context['next_article'] = PostList.get_article_list()\
+        context['next_article'] = PostList.get_published_article_list()\
             .filter(pub_date__gt=self.object.pub_date)\
             .order_by('pub_date').first()
         return context
@@ -192,6 +198,9 @@ class NoteListView(ListView):
     """Note list"""
     model = Note
     paginate_by = RECENTLY
+
+    def get_queryset(self):
+        return PostList.get_published_note_list()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -218,9 +227,7 @@ class BookmarkListView(ListView):
     paginate_by = RECENTLY**2
 
     def get_queryset(self):
-        return Bookmark.objects.filter(
-            status=Post.PUBLISHED_STATUS
-        )
+        return PostList.get_published_bookmark_list()
 
 
 class BookmarkDetailView(DetailView):
@@ -241,7 +248,7 @@ class BookmarkListByTagListView(ListView):
 
     def get_queryset(self):
         tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
-        return PostList.get_bookmark_list().filter(tags=tag.id)
+        return PostList.get_published_bookmark_list().filter(tags=tag.id)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -254,7 +261,8 @@ class ChangelogListView(ListView):
 
     def get_queryset(self):
         return Changelog.objects.filter(
-            status=Post.PUBLISHED_STATUS
+            Q(status=Post.PUBLISHED_STATUS) |
+            Q(pub_date__date__lte=TODAY)
         )
 
 
@@ -269,8 +277,8 @@ class PostList():
 
     def get_post_list(filter_public_post=False):
         """Post list"""
-        articles = PostList.get_article_list()
-        notes = PostList.get_note_list()
+        articles = PostList.get_published_article_list()
+        notes = PostList.get_published_note_list()
         if filter_public_post:
             articles = articles.filter(is_public=True)
             notes = notes.filter(is_public=True)
@@ -279,26 +287,38 @@ class PostList():
             chain(articles, notes), key=attrgetter('pub_date'), reverse=True
         )
 
-    def get_article_list():
-        """Article list"""
+    def get_published_article_list():
+        """
+        Get published article list with pub_date less than or equal to today
+        """
         return Article.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS)
+            Q(status=Post.PUBLISHED_STATUS) |
+            Q(pub_date__date__lte=TODAY)
         )
 
-    def get_note_list():
-        """Note list"""
+    def get_published_note_list():
+        """
+        Get published note list with pub_date less than or equal to today
+        """
         return Note.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS)
+            Q(status=Post.PUBLISHED_STATUS) |
+            Q(pub_date__date__lte=TODAY)
         )
 
-    def get_page_list():
-        """Page list"""
+    def get_published_page_list():
+        """
+        Get published page list with pub_date less than or equal to today
+        """
         return Page.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS)
+            Q(status=Post.PUBLISHED_STATUS) |
+            Q(pub_date__date__lte=TODAY)
         )
 
-    def get_bookmark_list():
-        """Bookmark list"""
+    def get_published_bookmark_list():
+        """
+        Get published bookmark list with pub_date less than or equal to today
+        """
         return Bookmark.objects.filter(
-            Q(status=Bookmark.PUBLISHED_STATUS)
+            Q(status=Bookmark.PUBLISHED_STATUS) |
+            Q(pub_date__date__lte=TODAY)
         )

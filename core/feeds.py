@@ -1,9 +1,10 @@
-from operator import attrgetter
-from itertools import chain
 from django.conf import settings
+from itertools import chain
+from operator import attrgetter
 from django.contrib.syndication.views import Feed
-from django.utils.feedgenerator import Atom1Feed
 from django.shortcuts import get_object_or_404
+from django.utils.feedgenerator import Atom1Feed
+
 from .views import Category, PostList, Tag, RECENTLY
 
 
@@ -65,8 +66,8 @@ class EntriesByCategoryFeed(Feed):
         return f'/feed/{obj.name}/'
 
     def items(self, obj):
-        return PostList.get_article_list().filter(category=obj.id,
-                                                  is_public=True)[:RECENTLY]
+        return PostList.get_published_article_list()\
+                       .filter(category=obj.id, is_public=True)[:RECENTLY]
 
     def item_title(self, item):
         return item.name
@@ -110,10 +111,10 @@ class EntriesByTagFeed(Feed):
         return f'/tags/{obj.name}'
 
     def items(self, obj):
-        articles = PostList.get_article_list().filter(tags=obj.id,
-                                                      is_public=True)
-        notes = PostList.get_note_list().filter(tags=obj.id,
-                                                is_public=True)
+        articles = PostList.get_published_article_list()\
+                           .filter(tags=obj.id, is_public=True)
+        notes = PostList.get_published_note_list()\
+                        .filter(tags=obj.id, is_public=True)
         return sorted(
             chain(articles, notes), key=attrgetter('pub_date'), reverse=True
         )
@@ -160,8 +161,8 @@ class BookmarksByTagFeed(Feed):
         return f'/tags/{obj.name}'
 
     def items(self, obj):
-        bookmarks = PostList.get_bookmark_list().filter(tags=obj.id,
-                                                        is_public=True)
+        bookmarks = PostList.get_published_bookmark_list()\
+                            .filter(tags=obj.id, is_public=True)
         return sorted(
             chain(bookmarks), key=attrgetter('pub_date'),
             reverse=True
@@ -190,4 +191,3 @@ class BookmarksByTagFeed(Feed):
 
     def item_copyright(self):
         return self.feed_copyright
-
