@@ -5,7 +5,8 @@ from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
 from django.utils.feedgenerator import Atom1Feed
 
-from .views import Category, PostList, Tag, RECENTLY
+from core.entry import Entry
+from core.views import Category, Tag, RECENTLY
 
 
 site_name = settings.SITE_NAME
@@ -22,7 +23,7 @@ class LatestEntriesFeed(Feed):
     feed_copyright = f'{site_name} - {site_url}'
 
     def items(self):
-        return PostList.get_post_list(True)[:RECENTLY]
+        return Entry.get_post_list(True)[:RECENTLY]
 
     def item_title(self, item):
         return item.name
@@ -66,8 +67,8 @@ class EntriesByCategoryFeed(Feed):
         return f'/feed/{obj.name}/'
 
     def items(self, obj):
-        return PostList.get_published_article_list()\
-                       .filter(category=obj.id, is_public=True)[:RECENTLY]
+        return Entry.get_published_article_list()\
+                    .filter(category=obj.id, is_public=True)[:RECENTLY]
 
     def item_title(self, item):
         return item.name
@@ -111,10 +112,10 @@ class EntriesByTagFeed(Feed):
         return f'/tags/{obj.name}'
 
     def items(self, obj):
-        articles = PostList.get_published_article_list()\
-                           .filter(tags=obj.id, is_public=True)
-        notes = PostList.get_published_note_list()\
+        articles = Entry.get_published_article_list()\
                         .filter(tags=obj.id, is_public=True)
+        notes = Entry.get_published_note_list()\
+                     .filter(tags=obj.id, is_public=True)
         return sorted(
             chain(articles, notes), key=attrgetter('pub_date'), reverse=True
         )
@@ -161,8 +162,8 @@ class BookmarksByTagFeed(Feed):
         return f'/tags/{obj.name}'
 
     def items(self, obj):
-        bookmarks = PostList.get_published_bookmark_list()\
-                            .filter(tags=obj.id, is_public=True)
+        bookmarks = Entry.get_published_bookmark_list()\
+                         .filter(tags=obj.id, is_public=True)
         return sorted(
             chain(bookmarks), key=attrgetter('pub_date'),
             reverse=True
