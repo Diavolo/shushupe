@@ -31,6 +31,28 @@ renderer = HighlightRenderer()
 markdown = mistune.Markdown(renderer=renderer)
 
 
+class Taxonomy(models.Model):
+    name = models.CharField(max_length=200)
+    slug = models.SlugField(max_length=200)
+    content = models.TextField()
+
+    class Meta:
+        abstract = True
+
+
+class Category(Taxonomy):
+    class Meta():
+        verbose_name_plural = "Categories"
+
+    def __str__(self):
+        return self.name
+
+
+class Tag(Taxonomy):
+    def __str__(self):
+        return self.name
+
+
 class Post(models.Model):
     """The Post type serves as the base type for most of the other kinds of
     objects such as Article, Page, etc.
@@ -46,7 +68,7 @@ class Post(models.Model):
     status = models.CharField(choices=PostStatus.POST_STATUSES,
                               default=PostStatus.PUBLISHED,
                               max_length=9)
-    tags = models.ManyToManyField('Tag', blank=True)
+    tags = models.ManyToManyField(Tag, blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)
     pub_date = models.DateTimeField(default=timezone.now)
     last_modified = models.DateTimeField(auto_now=True)
@@ -68,7 +90,7 @@ class Post(models.Model):
 class Article(Post):
     pub_type = models.CharField(choices=PostType.POST_TYPES,
                                 default=PostType.ARTICLE, max_length=10)
-    category = models.ForeignKey('Category', on_delete=models.PROTECT)
+    category = models.ForeignKey(Category, on_delete=models.PROTECT)
 
     def get_absolute_url(self):
         return reverse('core:article-detail',
@@ -155,7 +177,7 @@ class Comment(models.Model):
 
 
 class ArticleComment(Comment):
-    post = models.ForeignKey('Article', on_delete=models.CASCADE)
+    post = models.ForeignKey(Article, on_delete=models.CASCADE)
     parent = models.ForeignKey('ArticleComment', on_delete=models.CASCADE,
                                blank=True, null=True, default=None)
 
@@ -164,34 +186,12 @@ class ArticleComment(Comment):
 
 
 class PageComment(Comment):
-    post = models.ForeignKey('Page', on_delete=models.CASCADE)
+    post = models.ForeignKey(Page, on_delete=models.CASCADE)
     parent = models.ForeignKey('PageComment', on_delete=models.CASCADE,
                                blank=True, null=True, default=None)
 
     def __str__(self):
         return f'{self.title} - {self.author}'
-
-
-class Taxonomy(models.Model):
-    name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200)
-    content = models.TextField()
-
-    class Meta:
-        abstract = True
-
-
-class Category(Taxonomy):
-    class Meta():
-        verbose_name_plural = "Categories"
-
-    def __str__(self):
-        return self.name
-
-
-class Tag(Taxonomy):
-    def __str__(self):
-        return self.name
 
 
 def user_directory_path(instance, filename):
