@@ -3,7 +3,8 @@ from operator import attrgetter
 from django.db.models import Q
 from django.utils import timezone
 
-from core.models import Article, Bookmark, Note, Page, Post
+from core.models import Article, Bookmark, Note, Page
+from core.utils import PostStatus
 
 
 class Entry():
@@ -28,7 +29,7 @@ class Entry():
         Get published article list with pub_date less than or equal to today
         """
         return Article.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now())
         )
 
@@ -37,7 +38,7 @@ class Entry():
         Get published note list with pub_date less than or equal to today
         """
         return Note.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now())
         )
 
@@ -46,7 +47,7 @@ class Entry():
         Get published page list with pub_date less than or equal to today
         """
         return Page.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now())
         )
 
@@ -55,6 +56,6 @@ class Entry():
         Get published bookmark list with pub_date less than or equal to today
         """
         return Bookmark.objects.filter(
-            Q(status=Bookmark.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now())
         )

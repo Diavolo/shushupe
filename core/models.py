@@ -14,6 +14,8 @@ from pygments import highlight
 from pygments.formatters import html
 from pygments.lexers import get_lexer_by_name
 
+from core.utils import PostStatus, PostType
+
 
 class HighlightRenderer(mistune.Renderer):
     def block_code(self, code, lang):
@@ -33,39 +35,16 @@ class Post(models.Model):
     """The Post type serves as the base type for most of the other kinds of
     objects such as Article, Page, etc.
     """
-
-    # Types
-    ARTICLE = 'Article'
-    NOTE = 'Note'
-    PAGE = 'Page'
-    BOOKMARK = 'Bookmark'
-    CHANGELOG = 'Changelog'
-
-    PUB_TYPE_CHOICES = (
-        (ARTICLE.lower(), ARTICLE.title()),
-        (NOTE.lower(), NOTE.title()),
-        (PAGE.lower(), PAGE.title())
-    )
-    PUB_TYPE_CHOICES = sorted(PUB_TYPE_CHOICES)
-
-    # Post status
-    PUBLISHED_STATUS = 'published'
-    DRAFT_STATUS = 'draft'
-    STATUS_CHOICES = (
-        (PUBLISHED_STATUS.lower(), PUBLISHED_STATUS.title()),
-        (DRAFT_STATUS.lower(), DRAFT_STATUS.title())
-    )
-    STATUS_CHOICES = sorted(STATUS_CHOICES)
-
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.PROTECT)
     name = models.CharField(max_length=500)
     slug = models.SlugField(unique=True, max_length=200)
     content = models.TextField()
     content_html = models.TextField(editable=False)
-    pub_type = models.CharField(choices=PUB_TYPE_CHOICES, max_length=10)
+    pub_type = models.CharField(choices=PostType.POST_TYPES, max_length=10)
     is_public = models.BooleanField(default=True)
-    status = models.CharField(choices=STATUS_CHOICES, default=PUBLISHED_STATUS,
+    status = models.CharField(choices=PostStatus.POST_STATUSES,
+                              default=PostStatus.PUBLISHED,
                               max_length=9)
     tags = models.ManyToManyField('Tag', blank=True)
     creation_date = models.DateTimeField(auto_now_add=True)
@@ -87,8 +66,8 @@ class Post(models.Model):
 
 
 class Article(Post):
-    pub_type = models.CharField(choices=Post.PUB_TYPE_CHOICES,
-                                default=Post.ARTICLE, max_length=10)
+    pub_type = models.CharField(choices=PostType.POST_TYPES,
+                                default=PostType.ARTICLE, max_length=10)
     category = models.ForeignKey('Category', on_delete=models.PROTECT)
 
     def get_absolute_url(self):
@@ -101,8 +80,8 @@ class Article(Post):
 
 
 class Note(Post):
-    pub_type = models.CharField(choices=Post.PUB_TYPE_CHOICES,
-                                default=Post.NOTE, max_length=10)
+    pub_type = models.CharField(choices=PostType.POST_TYPES,
+                                default=PostType.NOTE, max_length=10)
 
     def get_absolute_url(self):
         return reverse('core:note-detail', kwargs={'note_slug': self.slug})
@@ -112,8 +91,8 @@ class Note(Post):
 
 
 class Page(Post):
-    pub_type = models.CharField(choices=Post.PUB_TYPE_CHOICES,
-                                default=Post.PAGE, max_length=10)
+    pub_type = models.CharField(choices=PostType.POST_TYPES,
+                                default=PostType.PAGE, max_length=10)
     parent = models.ForeignKey('Page', on_delete=models.SET_NULL,
                                limit_choices_to={'parent': None},
                                blank=True, null=True)
@@ -126,8 +105,8 @@ class Bookmark(Post):
     site_url = models.URLField(unique=True)
     content = models.TextField(blank=True)
     content_html = models.TextField(blank=True, editable=False)
-    pub_type = models.CharField(choices=Post.PUB_TYPE_CHOICES,
-                                default=Post.BOOKMARK, max_length=10)
+    pub_type = models.CharField(choices=PostType.POST_TYPES,
+                                default=PostType.BOOKMARK, max_length=10)
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -143,8 +122,8 @@ class Bookmark(Post):
 
 
 class Changelog(Post):
-    pub_type = models.CharField(choices=Post.PUB_TYPE_CHOICES,
-                                default=Post.CHANGELOG, max_length=10)
+    pub_type = models.CharField(choices=PostType.POST_TYPES,
+                                default=PostType.CHANGELOG, max_length=10)
 
     def save(self, *args, **kwargs):
         if not self.slug:

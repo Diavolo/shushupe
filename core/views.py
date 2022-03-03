@@ -10,6 +10,7 @@ from core.entry import Entry
 from core.models import (
     Article, Bookmark, Category, Changelog, Note, Page, Post, Tag
 )
+from core.utils import PostStatus
 
 RECENTLY = 5
 
@@ -19,7 +20,6 @@ class IndexView(ListView):
     paginate_by = RECENTLY
 
     def get_queryset(self):
-        print('usuario', self.request.user)
         return Entry.get_post_list(True)[:RECENTLY]
 
     def get_context_data(self, **kwargs):
@@ -150,6 +150,7 @@ class SearchView(View):
 
 class PageOrCategoryView(View):
     """Page or Articles by Category"""
+
     def get(self, request, *args, **kwargs):
         page = Page.objects.filter(slug=self.kwargs['page_slug'])
         if page.count() != 0:
@@ -261,7 +262,7 @@ class ChangelogListView(ListView):
 
     def get_queryset(self):
         return Changelog.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now())
         )
 
