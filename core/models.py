@@ -14,7 +14,7 @@ from pygments import highlight
 from pygments.formatters import html
 from pygments.lexers import get_lexer_by_name
 
-from core.utils import PostStatus, PostType
+from core.utils.post import PostStatus, PostType
 
 
 class HighlightRenderer(mistune.Renderer):

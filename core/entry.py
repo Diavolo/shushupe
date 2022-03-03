@@ -4,7 +4,7 @@ from django.db.models import Q
 from django.utils import timezone
 
 from core.models import Article, Bookmark, Note, Page
-from core.utils import PostStatus
+from core.utils.post import PostStatus
 
 
 class Entry():

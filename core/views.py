@@ -10,7 +10,7 @@ from core.entry import Entry
 from core.models import (
     Article, Bookmark, Category, Changelog, Note, Page, Post, Tag
 )
-from core.utils import PostStatus
+from core.utils.post import PostStatus
 
 RECENTLY = 5
 
