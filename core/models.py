@@ -2,6 +2,9 @@ from mimetypes import guess_type
 from os import path
 from time import strftime
 from uuid import uuid4
+
+import mistune
+
 from django.conf import settings
 from django.db import models
 from django.urls import reverse
@@ -9,22 +12,8 @@ from django.utils import timezone
 from django.utils.html import format_html
 from django.utils.text import slugify
 
-import mistune
-from pygments import highlight
-from pygments.formatters import html
-from pygments.lexers import get_lexer_by_name
-
+from core.utils.markdown import HighlightRenderer
 from core.utils.post import PostStatus, PostType
-
-
-class HighlightRenderer(mistune.Renderer):
-    def block_code(self, code, lang):
-        if not lang:
-            return '\n<pre><code>%s</code></pre>\n' % mistune.escape(code)
-
-        lexer = get_lexer_by_name(lang, stripall=True)
-        formatter = html.HtmlFormatter()
-        return highlight(code, lexer, formatter)
 
 
 renderer = HighlightRenderer()
