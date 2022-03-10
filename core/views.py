@@ -1,16 +1,13 @@
 from itertools import chain
 from operator import attrgetter
 from django.db.models import Q
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
 
 from core.entry import Entry
-from core.models import (
-    Article, Bookmark, Category, Changelog, Note, Page, Post, Tag
-)
-from core.utils.post import PostStatus
+from core.models import Article, Bookmark, Category, Note, Page, Post, Tag
 
 RECENTLY = 5
 
@@ -255,19 +252,3 @@ class BookmarkListByTagListView(ListView):
         context = super().get_context_data(**kwargs)
         context['tag'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
         return context
-
-
-class ChangelogListView(ListView):
-    """Changelog list"""
-
-    def get_queryset(self):
-        return Changelog.objects.filter(
-            Q(status=PostStatus.PUBLISHED),
-            Q(pub_date__date__lte=timezone.now())
-        )
-
-
-class ChangelogDetailView(View):
-    def get(self, request, *args, **kwargs):
-        detail = kwargs['changelog_slug']
-        return redirect(f'/changelog/#{detail}')

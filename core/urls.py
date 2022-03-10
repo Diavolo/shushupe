@@ -36,10 +36,6 @@ urlpatterns = [
          name='bookmark-list-by-tag-feed'),
     path('bookmarks/<slug:bookmark_slug>/', views.BookmarkDetailView.as_view(),
          name='bookmark-detail'),
-    path('changelog/', views.ChangelogListView.as_view(),
-         name='changelog-list'),
-    path('changelog/<slug:changelog_slug>/',
-         views.ChangelogDetailView.as_view(), name='changelog-detail'),
     # page detail or articles by category
     path('<slug:page_slug>/', views.PageOrCategoryView.as_view(),
          name='page-detail'),
