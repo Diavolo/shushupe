@@ -51,6 +51,7 @@ ALLOWED_HOSTS = [] + SECRETS.get('allowed_hosts', [])
 
 INSTALLED_APPS = [
     'core.apps.CoreConfig',
+    'bookmark.apps.BookmarkConfig',
     'changelog.apps.ChangelogConfig',
     'django.contrib.admin',
     'django.contrib.auth',

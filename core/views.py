@@ -7,7 +7,8 @@ from django.views import View
 from django.views.generic import DetailView, ListView
 
 from core.entry import Entry
-from core.models import Article, Bookmark, Category, Note, Page, Post, Tag
+from core.models import Article, Category, Note, Page, Post, Tag
+from bookmark.models import Bookmark
 
 RECENTLY = 5
 
@@ -34,7 +35,8 @@ class ArticleListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_article_list'] = Entry.get_published_article_list()[:RECENTLY]
+        context['latest_article_list'] = Entry.get_published_article_list()[
+            :RECENTLY]
         context['categories'] = Category.objects.all()
         return context
 
@@ -52,7 +54,8 @@ class ArticlesByCategoryListView(ListView):
         context['category'] = Category.objects.get(
             slug=self.kwargs['category_slug'])
         context['categories'] = Category.objects.all()
-        context['latest_article_list'] = Entry.get_published_article_list()[:RECENTLY]
+        context['latest_article_list'] = Entry.get_published_article_list()[
+            :RECENTLY]
         return context
 
 
@@ -68,7 +71,8 @@ class ArticlesByTagListView(ListView):
         context = super().get_context_data(**kwargs)
         context['tag'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
         context['categories'] = Category.objects.all()
-        context['latest_article_list'] = Entry.get_published_article_list()[:RECENTLY]
+        context['latest_article_list'] = Entry.get_published_article_list()[
+            :RECENTLY]
         return context
 
 
@@ -160,7 +164,8 @@ class PageOrCategoryView(View):
                                     .filter(category=category.id)
         context['category'] = category
         context['categories'] = Category.objects.all()
-        context['latest_article_list'] = Entry.get_published_article_list()[:RECENTLY]
+        context['latest_article_list'] = Entry.get_published_article_list()[
+            :RECENTLY]
         return render(request, 'core/post_list.html', context)
 
 
@@ -171,7 +176,8 @@ class ArticleDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['latest_article_list'] = Entry.get_published_article_list()[:RECENTLY]
+        context['latest_article_list'] = Entry.get_published_article_list()[
+            :RECENTLY]
         context['categories'] = Category.objects.all()
         context['previous_article'] = Entry.get_published_article_list()\
             .filter(pub_date__lt=self.object.pub_date)\
@@ -217,38 +223,4 @@ class TagListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        return context
-
-
-class BookmarkListView(ListView):
-    """Bookmark list"""
-    paginate_by = RECENTLY**2
-
-    def get_queryset(self):
-        return Entry.get_published_bookmark_list()
-
-
-class BookmarkDetailView(DetailView):
-    """Bookmark detail"""
-    model = Bookmark
-    slug_url_kwarg = 'bookmark_slug'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
-class BookmarkListByTagListView(ListView):
-    """
-    Bookmark list by tag
-    """
-    paginate_by = RECENTLY
-
-    def get_queryset(self):
-        tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
-        return Entry.get_published_bookmark_list().filter(tags=tag.id)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['tag'] = Tag.objects.get(slug=self.kwargs['tag_slug'])
         return context

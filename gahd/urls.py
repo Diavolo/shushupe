@@ -30,6 +30,7 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     # https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LogoutView
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('bookmarks/', include('bookmark.urls')),
     path('changelog/', include('changelog.urls')),
     path('', include('core.urls'))
 ]

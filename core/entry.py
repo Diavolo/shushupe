@@ -1,9 +1,11 @@
 from itertools import chain
 from operator import attrgetter
+
 from django.db.models import Q
 from django.utils import timezone
 
-from core.models import Article, Bookmark, Note, Page
+from bookmark.models import Bookmark
+from core.models import Article, Note, Page
 from core.utils.post import PostStatus
 
 
