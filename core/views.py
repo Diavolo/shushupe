@@ -6,9 +6,10 @@ from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
 
-from core.entry import Entry
-from core.models import Article, Category, Note, Page, Post, Tag
 from bookmark.models import Bookmark
+from core.entry import Entry
+from core.models import Article, Category, Page, Post, Tag
+from note.models import Note
 
 RECENTLY = 5
 
@@ -196,25 +197,6 @@ class PageDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
-
-
-class NoteListView(ListView):
-    """Note list"""
-    model = Note
-    paginate_by = RECENTLY
-
-    def get_queryset(self):
-        return Entry.get_published_note_list()
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
-class NoteDetailView(DetailView):
-    """Note detail"""
-    model = Note
-    slug_url_kwarg = 'note_slug'
 
 
 class TagListView(ListView):

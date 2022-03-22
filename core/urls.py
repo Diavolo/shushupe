@@ -25,9 +25,6 @@ urlpatterns = [
     # articles by tag feed
     path('tags/<slug:tag_slug>/feed/', feeds.EntriesByTagFeed(),
          name='article-list-by-tag-feed'),
-    path('notes/', views.NoteListView.as_view(), name='note-list'),
-    path('notes/<slug:note_slug>/', views.NoteDetailView.as_view(),
-         name='note-detail'),
     # page detail or articles by category
     path('<slug:page_slug>/', views.PageOrCategoryView.as_view(),
          name='page-detail'),

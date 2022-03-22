@@ -5,8 +5,9 @@ from django.db.models import Q
 from django.utils import timezone
 
 from bookmark.models import Bookmark
-from core.models import Article, Note, Page
+from core.models import Article, Page
 from core.utils.post import PostStatus
+from note.models import Note
 
 
 class Entry():

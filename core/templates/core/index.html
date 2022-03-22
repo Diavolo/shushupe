@@ -52,7 +52,7 @@
                 {% elif post.pub_type == 'Bookmark' %}
                 <a href="{{ post.site_url }}" rel="nofollow">{{ post.name }}</a>
                 {% elif post.pub_type == 'Note' %}
-                <a href="{% url 'core:note-detail' post.slug %}">{{ post.name }}</a>
+                <a href="{% url 'note:note-detail' post.slug %}">{{ post.name }}</a>
                 {% elif post.pub_type == 'Page' %}
                 <a href="{% url 'core:page-detail' post.slug %}">{{ post.name }}</a>
                 {% endif %}

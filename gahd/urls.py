@@ -32,5 +32,6 @@ urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('bookmarks/', include('bookmark.urls')),
     path('changelog/', include('changelog.urls')),
+    path('notes/', include('note.urls')),
     path('', include('core.urls'))
 ]

@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'bookmark.apps.BookmarkConfig',
     'changelog.apps.ChangelogConfig',
+    'note.apps.NoteConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
