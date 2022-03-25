@@ -4,7 +4,13 @@
   "description": "Gustavo Huarcaya's Personal Page",
   "scripts": {
     "clean": "gulp clean",
-    "build": "gulp build"
+    "build:dev": "npm run assets:build && npm run tailwindcss:build",
+    "build:prod": "npm run assets:build && npm run tailwindcss:prod",
+    "assets:build": "gulp build",
+    "tailwindcss:build": "npx tailwindcss -i ./gahd/assets/css/tailwind.css -o ./gahd/static/css/tailwind.min.css",
+    "tailwindcss:minify": "npx tailwindcss -i ./gahd/assets/css/tailwind.css -o ./gahd/static/css/tailwind.min.css --minify",
+    "tailwindcss:watch": "npx tailwindcss -i ./gahd/assets/css/tailwind.css -o ./gahd/static/css/tailwind.min.css --watch",
+    "tailwindcss:prod": "npx tailwindcss -i ./gahd/assets/css/tailwind.css -o ./gahd/static/css/tailwind.min.css --minify"
   },
   "author": "Gustavo Huarcaya <diavolo@gahd.net>",
   "license": "MIT",
@@ -12,15 +18,15 @@
     "del": "^6.0.0",
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
-    "gulp-sass": "^5.0.0",
+    "gulp-sass": "^5.1.0",
     "ordered-read-streams": "^1.0.1",
-    "sass": "^1.37.2"
+    "sass": "^1.49.9"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.15.3",
-    "alpinejs": "^2.8.2",
-    "autoprefixer": "^10.3.1",
-    "postcss": "^8.3.6",
-    "tailwindcss": "^2.2.7"
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "alpinejs": "^3.9.2",
+    "autoprefixer": "^10.4.4",
+    "postcss": "^8.4.12",
+    "tailwindcss": "^3.0.23"
   }
 }

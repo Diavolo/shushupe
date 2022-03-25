@@ -23,8 +23,9 @@ async function clean() {
  */
 function js() {
   return src([
-    'node_modules/alpinejs/dist/alpine.js',
+    'node_modules/alpinejs/dist/cdn.min.js',
   ])
+    .pipe(concat('alpine.js'))
     .pipe(dest(`${djStaticDir}/js`));
 }
 
@@ -43,16 +44,6 @@ function scss() {
 
   return new Ordered([sassStream, cssStream])
     .pipe(concat('app.css'))
-    .pipe(dest(`${djStaticDir}/css`));
-}
-
-/**
- * Move tailwindcss to 'css' dir
- */
-function tailwindcss() {
-  return src([
-    'node_modules/tailwindcss/dist/tailwind.min.css'
-  ])
     .pipe(dest(`${djStaticDir}/css`));
 }
 
@@ -90,6 +81,6 @@ function img() {
 exports.clean = clean;
 exports.build = series(
   clean,
-  parallel(js, scss, facss, fafonts, tailwindcss),
+  parallel(js, scss, facss, fafonts),
   img
 );
