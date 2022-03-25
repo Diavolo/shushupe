@@ -20,7 +20,7 @@ class Bookmark(Post):
         super().save(*args, **kwargs)
 
     def get_absolute_url(self):
-        return reverse('core:bookmark-detail',
+        return reverse('bookmark:bookmark-detail',
                        kwargs={'bookmark_slug': self.slug})
 
     def __str__(self):
