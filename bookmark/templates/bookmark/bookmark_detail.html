@@ -1,110 +1,80 @@
-{% extends "core/base.html" %}{% load static %}
-{% block titlepage %}{% if bookmark %}{{ bookmark.name }} - {% endif %}{% endblock %}
+{% extends "bookmark/base.html" %}{% load static %}
+{% block titlepage %}{% if bookmark %}{{ bookmark.name }} - {{ block.super }}{% else %}{{ block.super }}{% endif %}{% endblock %}
 {% block content %}
 
-{% if bookmark %}
-{% if bookmark.is_public %}
-<div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
-    <div class="">
-      <div class="flex items-center">
-        <svg class="w-8 h-8 rounded-full object-cover mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-        </svg>
-        <div>
-          <h2 class="text-lg font-semibold text-gray-900 -mt-1">
-            <a href="{{ bookmark.site_url }}" rel="nofollow" class="inline-flex items-center">
-              {{ bookmark.name }}
-              <svg class="w-4 h-4 ml-1 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
-            </a>
-          </h2>
-          <small class="text-sm text-gray-700"></small>
-          <p class="text-xs text-gray-700">{{ bookmark.last_modified|date:'DATETIME_FORMAT' }}</p>
-        </div>
-      </div>
-      <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
-        {{ bookmark.content_html|safe|truncatewords_html:"25" }}
-      </div>
-      {% if bookmark.tags.count %}
-      <div class="mt-4 flex items-center">
-        {% for tag in bookmark.tags.all %}
-        <div class="flex mr-2 text-xs text-blue-600 mr-3">
-          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
-        </div>
-        {% endfor %}
-        {% comment %}
-        <div class="flex mr-2 text-gray-700 text-sm mr-8">
-          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
-          </svg>
-          <span>8</span>
-        </div>
-        <div class="flex mr-2 text-gray-700 text-sm mr-4">
-          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-          </svg>
-          <span>share</span>
-        </div>
-        {% endcomment %}
-      </div>
-      {% endif %}
+<section class="container mx-auto px-8 lg:px-32 my-4 flex flex-col">
+  <ul class="flex flex-row space-x-1 text-white indent-3 text-sm">
+    <li class="bg-blue-500 pr-3 font-semibold">
+      <a href="{% url 'bookmark:bookmark-list' %}">Latest Bookmarks</a>
+    </li>
+    <li class="bg-gray-400 pr-3">Explore Tags</li>
+  </ul>
+  <div class="border-y-4 border-t-blue-500 border-b-gray-300 pt-3 pb-2 mb-3">
+    <div class="text-gray-700">
+      The most latest bookmarks on Delicioso right now
+    </div>
+    <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 justify-between text-xs">
+      <p class="text-blue-600 font-semibold">
+        <a href="{% url 'bookmark:bookmark-list' %}"><i class="fa-solid fa-bookmark"></i> See more latest bookmarks</a>
+      </p>
+      <p>
+        <span class="text-gray-400">New bookmarks saved in the month</span>
+        <span class="bg-blue-500 text-white p-1">{{ current_month_total_bookmarks }}</span>
+      </p>
     </div>
   </div>
-</div>
-{% elif not bookmark.is_public and user == bookmark.author %}
-<div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
-    <div class="">
-      <div class="flex items-center">
-        <svg class="w-8 h-8 rounded-full object-cover text-red-600 mr-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-        </svg>
-        <div>
-          <h2 class="text-lg font-semibold text-gray-900 -mt-1">
-            <a href="{{ bookmark.site_url }}" rel="nofollow" class="inline-flex items-center">
+  <div class="flex flex-row space-x-6">
+    <div class="sm:basis-5/6">
+      {% if bookmark %}
+        {% if bookmark.is_public %}
+        <div class="flex flex-col border-b border-b-gray-200 mb-2 pb-1">
+          <div class="">
+            <a href="{{ bookmark.site_url }}" rel="nofollow" class="text-blue-600 hover:underline">{{ bookmark.name }}</a>
+          </div>
+          {% if bookmark.tags.count %}
+          <div class="flex flex-col sm:flex-row justify-between sm:space-x-0.5 space-y-0.5 sm:space-y-0">
+            <span class="flex flex-row">
+              <span class="text-[11px] bg-gray-50 text-gray-300 px-1"><i class="fa-regular fa-calendar"></i> {{ bookmark.pub_date|date:"DATE_FORMAT" }}</span>
+            </span>
+            <span class="flex flex-colum space-x-0.5">
+              {% for tag in bookmark.tags.all %}
+              <span class="text-[11px] bg-gray-200 text-gray-500 px-1 hover:bg-gray-500 hover:text-white">
+                <a href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+              </span>
+              {% endfor %}
+            </span>
+          </div>
+          {% endif %}
+        </div>
+        {% elif not bookmark.is_public and user == bookmark.author %}
+        <div class="flex flex-col border-b border-b-gray-200 bg-blue-50 mb-2 pb-1">
+          <div class="flex justify-between items-start">
+            <a href="{{ bookmark.site_url }}" rel="nofollow" class="text-blue-600 hover:underline">
               {{ bookmark.name }}
-              <svg class="w-4 h-4 ml-1 text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-              </svg>
             </a>
-          </h2>
-          <small class="text-sm text-gray-700"></small>
-          <p class="text-xs text-gray-700">{{ bookmark.last_modified|date:'DATETIME_FORMAT' }}</p>
+            <span class="bg-blue-500 text-white text-[11px] px-1">private</span>
+          </div>
+          {% if bookmark.tags.count %}
+          <div class="flex flex-col sm:flex-row justify-between sm:space-x-0.5 space-y-0.5 sm:space-y-0">
+            <span class="flex flex-row">
+              <span class="text-[11px] bg-blue-100 text-blue-400 px-1"><i class="fa-regular fa-calendar"></i> {{ bookmark.pub_date|date:"DATE_FORMAT" }}</span>
+            </span>
+            <span class="flex flex-row space-x-0.5">
+              {% for tag in bookmark.tags.all %}
+              <span class="text-[11px] bg-gray-200 text-gray-500 px-1 hover:bg-gray-500 hover:text-white">
+                <a href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+              </span>
+              {% endfor %}
+            </span>
+          </div>
+          {% endif %}
         </div>
-      </div>
-      <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
-        {{ bookmark.content_html|safe|truncatewords_html:"25" }}
-      </div>
-      {% if bookmark.tags.count %}
-      <div class="mt-4 flex items-center">
-        {% for tag in bookmark.tags.all %}
-        <div class="flex mr-2 text-xs text-blue-600 mr-3">
-          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
-        </div>
-        {% endfor %}
-        {% comment %}
-        <div class="flex mr-2 text-gray-700 text-sm mr-8">
-          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
-          </svg>
-          <span>8</span>
-        </div>
-        <div class="flex mr-2 text-gray-700 text-sm mr-4">
-          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-          </svg>
-          <span>share</span>
-        </div>
-        {% endcomment %}
-      </div>
+        {% else %}
+        {% endif %}
       {% endif %}
     </div>
+    {% include "bookmark/sidebar.html" %}
   </div>
-</div>
-{% endif %}
-{% else %}
-{% endif %}
+</section>
 
 {% endblock %}

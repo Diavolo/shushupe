@@ -1,0 +1,100 @@
+<!DOCTYPE html>{% load static %}
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>{% block titlepage %}Gustavo Huarcaya{% endblock %}</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/tailwind.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+  {% block feed %}
+  <link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="Gustavo Huarcaya">{% endblock %}
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">
+  <link type="text/plain" rel="author" href="{% url 'core:humans' %}">
+  {% block meta %}
+  <meta name="description" content="Gustavo Huarcaya's Personal Page">
+  <meta name="keywords" content="gustavo huarcaya, gustavo, huarcaya">{% endblock %}
+  {% block ogp %}
+  <meta property="og:title" content="Gustavo Huarcaya">
+  <meta property="og:description" content="Gustavo Huarcaya's Personal Page">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">
+  <meta property="og:site_name" content="gahd.net">
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/inti.png' %}">
+  {% endblock %}
+  <!-- Global site tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QL2XMS16GW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QL2XMS16GW');
+  </script>
+  <!-- End Global site tag (gtag.js) -->
+</head>
+<body>
+  {% block header %}
+  <header class="container mx-auto my-3 px-8 lg:px-32">
+    <nav class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 justify-between">
+      <a class="flex flex-row space-x-3 items-center" href="{% url 'bookmark:bookmark-list' %}">
+        <img class="rounded-none" src="{% static 'img/delicious.gif' %}" alt="logo">
+        <div class="flex flex-col">
+          <div class="text-2xl font-semibold">delicioso</div>
+          <div class="text-gray-400 font-medium sm:font-semibold">anti-social bookmarking</div>
+        </div>
+      </a>
+      <ul class="flex flex-row text-xs font-semibold space-x-0.5">
+        <li class="flex items-end w-20 pb-1">It's Free!</li>
+        <li class="flex items-end bg-lime-500 text-white indent-3 w-32 pb-1">Join Now</li>
+        <li class="flex items-end bg-blue-500 text-white indent-3 w-32 pb-1">Sign In</li>
+      </ul>
+    </nav>
+  </header>
+  {% endblock header %}
+  {% block hero %}
+  <section class="container mx-auto px-8 lg:px-32">
+    <a href="{% url 'bookmark:bookmark-list' %}">
+      <div class="bg-blue-500 text-white my-4 py-4 px-6">
+        <div class="text-2xl font-medium">The tastiest bookmarks on the web.</div>
+        <div class="sm:h-16">These are the tastiest bookmarks being saved on Delicioso right now by me.</div>
+        <div class="text-sm"><i class="fa-solid fa-circle-question"></i> Learn More</div>
+      </div>
+    </a>
+  </section>
+  <section class="container mx-auto px-8 lg:px-32">
+    <div class=" bg-gray-200 my-4 px-2 py-1 flex flex-row justify-end xl:justify-between items-center">
+      <div class="hidden xl:flex xl:flex-row text-gray-600">
+        <span><b>Search</b> the biggest collection of bookmarks in the universe...</span>
+      </div>
+      <form action="{% url 'bookmark:search' %}" method="GET">
+        <input type="text" name="q" placeholder="Search Delicioso" class="outline-none px-2 py-1 text-sm">
+        <button type="submit" class="bg-[#7CBA0F] text-white outline-none px-2 py-1 text-sm">Search</button>
+      </form>
+    </div>
+  </section>
+  {% endblock hero %}
+  {% block content %}{% endblock content %}
+  {% block footer %}
+  <footer class="container mx-auto px-8 lg:px-32">
+    <div class="bg-blue-500 my-4 flex flex-col sm:flex-row justify-between text-xs">
+      <div class="bg-blue-500 text-white p-1">
+        <ul class="flex flex-col sm:flex-row justify-around space-y-1 sm:space-y-0 sm:space-x-4 sm:divide-x indent-3">
+          <li class="hover:underline"><a href="{% url 'core:index' %}">home</a></li>
+          <li class="hover:underline"><a href="{% url 'core:article-list' %}">articles</a></li>
+          <li class="hover:underline"><a href="{% url 'note:note-list' %}">notes</a></li>
+          <li class="hover:underline"><a href="{% url 'bookmark:bookmark-list' %}">bookmarks</a></li>
+        </ul>
+      </div>
+      <div class="bg-lime-500 text-white px-1 sm:px-2 py-1 sm:border-l-2 sm:border-l-white hover:underline indent-3 sm:indent-0">
+        <a href="{% url 'changelog:changelog-list' %}">What's new?</a>
+      </div>
+    </div>
+  </footer>
+  {% endblock footer %}
+  <img src="https://c.statcounter.com/3283218/0/8f5e9817/1/" style="border:0; width:1px;" alt="">
+  <script defer src="{% static 'js/alpine.js' %}"></script>
+</body>
+</html>

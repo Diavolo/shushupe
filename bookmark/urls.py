@@ -6,6 +6,7 @@ from bookmark import feeds
 app_name = 'bookmark'
 urlpatterns = [
     path('', views.BookmarkListView.as_view(), name='bookmark-list'),
+    path('search/', views.SearchView.as_view(), name='search'),
     path('tags/<slug:tag_slug>/',
          views.BookmarkListByTagListView.as_view(),
          name='bookmark-list-by-tag'),

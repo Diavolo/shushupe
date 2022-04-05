@@ -1,0 +1,13 @@
+<aside class="hidden sm:flex sm:flex-col text-gray-500 sm:basis-1/6">
+  <div class="bg-gray-200 px-4 font-semibold">Popular Tags</div>
+  <ul class="px-4 divide-y text-sm">
+    {% for ptag in popular_tags %}
+    <li class="hover:text-blue-500 hover:font-medium">
+      <a href="{% url 'bookmark:bookmark-list-by-tag' ptag.slug %}">
+        {{ ptag }}
+        <span class="text-xs text-gray-300">({{ ptag.bookmark_count }})</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</aside>

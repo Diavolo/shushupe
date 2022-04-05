@@ -2,7 +2,7 @@
 {% block titlepage %}Bookmarks - {{ block.super }}{% endblock %}
 {% block content %}
 
-<section class="container flex flex-col mx-auto px-8 lg:px-32 my-4">
+<section class="container mx-auto px-8 lg:px-32 my-4 flex flex-col">
   <ul class="flex flex-row space-x-1 text-white indent-3 text-sm">
     <li class="bg-blue-500 pr-3 font-semibold">
       <a href="{% url 'bookmark:bookmark-list' %}">Latest Bookmarks</a>
@@ -11,24 +11,16 @@
   </ul>
   <div class="border-y-4 border-t-blue-500 border-b-gray-300 pt-3 pb-2 mb-3">
     <div class="text-gray-700">
-      {% if tag %}
-      The latest bookmarks on Delicioso with the tag
-      <a href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}" class="font-semibold hover:underline">{{ tag.name }}</a>
-      <a href="{% url 'bookmark:bookmark-list-by-tag-feed' tag.slug %}" class="text-yellow-600">
-        <i class="fa-solid fa-rss"></i>
-      </a>
+      {% if search_result_list %}
+      The following results were found for the term: <b>{{ search_term }}</b>
       {% else %}
-      The most latest bookmarks on Delicioso right now
+      No results were found for the term: <b>{{ search_term }}</b>
       {% endif %}
     </div>
     <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 justify-between text-xs">
-      {% if tag %}
-      <p class="text-gray-500 font-semibold"><i class="fa-regular fa-bookmark"></i> {{ tag.content }}</p>
-      {% else %}
       <p class="text-blue-600 font-semibold">
         <a href="{% url 'bookmark:bookmark-list' %}"><i class="fa-solid fa-bookmark"></i> See more latest bookmarks</a>
       </p>
-      {% endif %}
       <p>
         <span class="text-gray-400">New bookmarks saved in the month</span>
         <span class="bg-blue-500 text-white p-1">{{ current_month_total_bookmarks }}</span>
@@ -37,7 +29,7 @@
   </div>
   <div class="flex flex-row space-x-6">
     <div class="sm:basis-5/6">
-      {% for bookmark in bookmark_list %}
+      {% for bookmark in search_result_list %}
         {% if bookmark.is_public %}
         <div class="flex flex-col border-b border-b-gray-200 mb-2 pb-1">
           <div class="">
@@ -85,7 +77,7 @@
         {% endif %}
       {% endfor %}
 
-      {% if is_paginated and not tag %}
+      {% if is_paginated %}
       <div class="flex flex-col items-center text-sm my-12">
         <div class="flex text-gray-700">
 
@@ -147,68 +139,7 @@
 
         </div>
       </div>
-      {% elif is_paginated and tag %}
-      <div class="flex flex-col items-center text-sm my-12">
-        <div class="flex text-gray-700">
-
-          {% if page_obj.has_previous %}
-            {% if page_obj.previous_page_number == 1 %}
-            <a class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-            </a>
-            {% else %}
-            <a class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ page_obj.previous_page_number }}">
-              <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
-                <polyline points="15 18 9 12 15 6"></polyline>
-              </svg>
-            </a>
-            {% endif %}
-          {% else %}
-          <div class="h-8 w-8 mr-1 flex justify-center items-center rounded-full bg-gray-200 cursor-not-allowed">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-left w-4 h-4">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </div>
-          {% endif %}
-
-          <div class="flex h-8 font-medium space-x-0.5">
-            {% for i in paginator.page_range %}
-            {% if page_obj.number == i %}
-              {% if i == 1 %}
-              <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-blue-500 text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">{{ i }}</a>
-              <a class="w-8 h-8 md:hidden flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in bg-blue-500 text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">{{ i }}</a>
-              {% else %}
-              <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-blue-500 text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ i }}">{{ i }}</a>
-              <a class="w-8 h-8 md:hidden flex justify-center items-center cursor-pointer leading-5 transition duration-150 ease-in bg-blue-500 text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ i }}">{{ i }}</a>
-              {% endif %}
-            {% else %}
-              {% if i == 1 %}
-              <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">{{ i }}</a>
-              {% else %}
-              <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ i }}">{{ i }}</a>
-              {% endif %}
-            {% endif %}
-            {% endfor %}
-          </div>
-
-          {% if page_obj.has_next %}
-          <a class="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-pointer hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ page_obj.next_page_number }}">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </a>
-          {% else %}
-          <div class="h-8 w-8 ml-1 flex justify-center items-center rounded-full bg-gray-200 cursor-not-allowed">
-            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right w-4 h-4">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </div>
-          {% endif %}
-
-        </div>
-      </div>
+      {% else %}
       {% endif %}
 
     </div>
