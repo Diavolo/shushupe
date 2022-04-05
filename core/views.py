@@ -9,9 +9,8 @@ from django.views.generic import DetailView, ListView
 from bookmark.models import Bookmark
 from core.entry import Entry
 from core.models import Article, Category, Page, Post, Tag
+from core.utils.post import RECENTLY
 from note.models import Note
-
-RECENTLY = 5
 
 
 class IndexView(ListView):

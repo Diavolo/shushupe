@@ -1,12 +1,14 @@
-from django.conf import settings
 from itertools import chain
 from operator import attrgetter
+
+from django.conf import settings
 from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
 from django.utils.feedgenerator import Atom1Feed
 
 from core.entry import Entry
-from core.views import Category, Tag, RECENTLY
+from core.utils.post import RECENTLY
+from core.views import Category, Tag
 
 
 site_name = settings.SITE_NAME

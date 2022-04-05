@@ -1,7 +1,7 @@
 from django.views.generic import DetailView, ListView
 
 from core.entry import Entry
-from core.views import RECENTLY
+from core.utils.post import RECENTLY
 from note.models import Note
 
 

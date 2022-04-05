@@ -1,3 +1,6 @@
+RECENTLY = 5
+
+
 class PostType:
     ARTICLE = 'Article'
     NOTE = 'Note'
