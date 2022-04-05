@@ -9,7 +9,7 @@ from django.views.generic import DetailView, ListView
 from bookmark.models import Bookmark
 from core.entry import Entry
 from core.models import Article, Category, Page, Post, Tag
-from core.utils.post import RECENTLY
+from core.utils.post import RECENTLY, PostStatus
 from note.models import Note
 
 
@@ -105,7 +105,7 @@ class SearchView(View):
             return render(request, 'core/search_result.html')
         # https://docs.djangoproject.com/en/3.0/topics/db/queries/#complex-lookups-with-q-objects
         article_search_result_list = Article.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
             Q(name__icontains=q) |
             Q(content__icontains=q) |
@@ -113,7 +113,7 @@ class SearchView(View):
         )
         article_search_result_list = article_search_result_list.distinct()
         bookmark_search_result_list = Bookmark.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
             Q(name__icontains=q) |
             Q(content__icontains=q) |
@@ -121,7 +121,7 @@ class SearchView(View):
         )
         bookmark_search_result_list = bookmark_search_result_list.distinct()
         note_search_result_list = Note.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
             Q(name__icontains=q) |
             Q(content__icontains=q) |
@@ -129,7 +129,7 @@ class SearchView(View):
         )
         note_search_result_list = note_search_result_list.distinct()
         page_search_result_list = Page.objects.filter(
-            Q(status=Post.PUBLISHED_STATUS),
+            Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
             Q(name__icontains=q) |
             Q(content__icontains=q) |

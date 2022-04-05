@@ -110,7 +110,7 @@
         {% for tag in post.tags.all %}
         <div class="flex mr-2 text-xs text-blue-600 mr-3">
           {% if post.pub_type == 'Bookmark' %}
-          <a href="{% url 'core:bookmark-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+          <a href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
           {% else %}
           <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
           {% endif %}
@@ -171,7 +171,7 @@
         {% for tag in post.tags.all %}
         <div class="flex mr-2 text-xs text-blue-600 mr-3">
           {% if post.pub_type == 'Bookmark' %}
-          <a href="{% url 'core:bookmark-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+          <a href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
           {% else %}
           <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
           {% endif %}
