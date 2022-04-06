@@ -23,7 +23,7 @@ async function clean() {
  */
 function js() {
   return src([
-    'node_modules/alpinejs/dist/cdn.min.js',
+    'node_modules/alpinejs/dist/alpine.js',
   ])
     .pipe(concat('alpine.min.js'))
     .pipe(dest(`${djStaticDir}/js`));
