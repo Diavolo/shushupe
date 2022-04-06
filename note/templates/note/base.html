@@ -1,0 +1,278 @@
+<!DOCTYPE html>{% load static %}
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>{% block titlepage %}{% endblock %}Gustavo Huarcaya</title>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/tailwind.min.css' %}">
+  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+  {% block feed %}
+  <link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="Gustavo Huarcaya">{% endblock %}
+  <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
+  <link rel="canonical" href="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">
+  <link type="text/plain" rel="author" href="{% url 'core:humans' %}">
+  {% block meta %}
+  <meta name="description" content="Gustavo Huarcaya's Personal Page">
+  <meta name="keywords" content="gustavo huarcaya, gustavo, huarcaya">{% endblock %}
+  {% block ogp %}
+  <meta property="og:title" content="Gustavo Huarcaya">
+  <meta property="og:description" content="Gustavo Huarcaya's Personal Page">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">
+  <meta property="og:site_name" content="gahd.net">
+  <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/inti.png' %}">
+  {% endblock %}
+  <!-- Global site tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QL2XMS16GW"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-QL2XMS16GW');
+  </script>
+  <!-- End Global site tag (gtag.js) -->
+</head>
+
+<body class="bg-gray-50">
+  {% block header %}
+  <section>
+    <div class="antialiased bg-gray-100 dark-mode:bg-gray-900">
+      <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 shadow">
+        <div x-data="{ open: false }"
+          class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-72">
+          <div class="flex flex-row items-center justify-between p-4">
+            <a href="/"
+              class="font-semibold tracking-widest text-gray-900 uppercase rounded dark-mode:text-white focus:outline-none focus:ring">
+              Gustavo Huarcaya
+            </a>
+            <button class="rounded md:hidden focus:outline-none focus:ring" @click="open = !open">
+              <svg fill="currentColor" viewBox="0 0 20 20" class="w-6 h-6">
+                <path x-show="!open" fill-rule="evenodd"
+                  d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM9 15a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+                  clip-rule="evenodd"></path>
+                <path x-show="open" fill-rule="evenodd"
+                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                  clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+          <nav :class="{'flex': open, 'hidden': !open}"
+            class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
+            <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
+              href="{% url 'core:article-list' %}">Articles</a>
+            <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
+              href="{% url 'note:note-list' %}">Notes</a>
+            <div @click.away="open = false" class="relative" x-data="{ open: false }">
+              <button @click="open = !open"
+                class="flex flex-row text-gray-900 bg-gray-100 items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-md dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring">
+                <span>More</span>
+                <svg fill="currentColor" viewBox="0 0 20 20" :class="{'rotate-180': open, 'rotate-0': !open}"
+                  class="inline w-4 h-4 mt-1 ml-1 transition-transform duration-200 transform md:-mt-1">
+                  <path fill-rule="evenodd"
+                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                    clip-rule="evenodd"></path>
+                </svg>
+              </button>
+              <div x-show="open" x-transition:enter="transition ease-out duration-100"
+                x-transition:enter-start="transform opacity-0 scale-95"
+                x-transition:enter-end="transform opacity-100 scale-100"
+                x-transition:leave="transition ease-in duration-75"
+                x-transition:leave-start="transform opacity-100 scale-100"
+                x-transition:leave-end="transform opacity-0 scale-95"
+                class="absolute right-0 w-full md:max-w-screen-sm md:w-screen mt-2 origin-top-right">
+                <div class="px-2 pt-2 pb-4 bg-white rounded-md shadow-lg dark-mode:bg-gray-700">
+                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <a class="flex flex row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
+                      href="/now/">
+                      <div class="bg-red-600 text-white rounded-lg p-3">
+                        <svg class="md:h-6 md:w-6 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div class="ml-3">
+                        <p class="font-semibold">Now</p>
+                        <p class="text-sm">What I’m doing now</p>
+                      </div>
+                    </a>
+
+                    <a class="flex flex row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
+                      href="/contact/">
+                      <div class="bg-red-600 text-white rounded-lg p-3">
+                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                          stroke-width="2" viewBox="0 0 24 24" class="md:h-6 md:w-6 h-4 w-4">
+                          <path
+                            d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z">
+                          </path>
+                        </svg>
+                      </div>
+                      <div class="ml-3">
+                        <p class="font-semibold">Contact</p>
+                        <p class="text-sm">Contact me</p>
+                      </div>
+                    </a>
+
+                    <a class="flex flex row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
+                      href="{% url 'core:search' %}">
+                      <div class="bg-red-600 text-white rounded-lg p-3">
+                        <svg class="md:h-6 md:w-6 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                      </div>
+                      <div class="ml-3">
+                        <p class="font-semibold">Search</p>
+                        <p class="text-sm">Articles, notes,...</p>
+                      </div>
+                    </a>
+
+                    <a class="flex flex row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
+                      href="{% url 'bookmark:bookmark-list' %}">
+                      <div class="bg-red-600 text-white rounded-lg p-3">
+                        <svg class="md:h-6 md:w-6 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+                        </svg>
+                      </div>
+                      <div class="ml-3">
+                        <p class="font-semibold">Bookmarks</p>
+                        <p class="text-sm">My favorite links</p>
+                      </div>
+                    </a>
+
+                    <a class="flex flex row items-start rounded-lg bg-transparent p-2 dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
+                      href="{% url 'changelog:changelog-list' %}">
+                      <div class="bg-red-600 text-white rounded-lg p-3">
+                        <svg class="md:h-6 md:w-6 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none"
+                          viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                        </svg>
+                      </div>
+                      <div class="ml-3">
+                        <p class="font-semibold">Changelog</p>
+                        <p class="text-sm">Website changes</p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div class="fixed bottom-0 right-0 text-gray-600">
+    {% if user.is_authenticated %}
+    <a href="/admin/">
+      <svg class="md:h-6 md:w-6 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M5.121 17.804A13.937 13.937 0 0112 16c2.5 0 4.847.655 6.879 1.804M15 10a3 3 0 11-6 0 3 3 0 016 0zm6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </a>
+    <a href="{% url 'logout' %}">
+      <svg class="md:h-6 md:w-6 h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+    </a>{% endif %}
+  </div>
+  {% endblock %}
+  {% block content %}{% endblock %}
+  {% block footer %}
+  <footer class="pt-1 pb-5">
+    <div
+      class="flex pt-3 pb-3 px-3 m-auto border-t border-b border-gray-300 text-gray-400 text-sm flex-col md:flex-row max-w-2xl">
+      <div class="flex mr-2 text-gray-500 text-xs mr-8">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-5 mr-1" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z" />
+        </svg>
+        <a href="{% url 'core:article-list' %}">Articles</a>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-5 ml-2 mr-1" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+        </svg>
+        <a href="{% url 'note:note-list' %}">Notes</a>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-5 ml-2 mr-1" fill="none" viewBox="0 0 24 24"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+        </svg>
+        <a href="{% url 'bookmark:bookmark-list' %}">Bookmarks</a>
+      </div>
+    </div>
+
+    <div
+      class="flex pt-0.5 pb-0.5 px-3 m-auto border-t border-gray-50 text-gray-400 text-sm flex-col md:flex-row max-w-2xl my-1">
+      <div class="mt-2 text-xs">
+        &copy; 2005-{% now "Y" %} by Gustavo Huarcaya.
+      </div>
+      <div class="md:flex-auto md:flex-row-reverse mt-2 flex-row flex">
+        <a href="/search/">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-6 mx-1 mt-0.5" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+          </svg>
+        </a>
+        <a href="/now/">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-6 mx-1 mt-0.5" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </a>
+        <a href="/contact/">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-6 mx-1 mt-0.5" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </a>
+        <a href="{% url 'changelog:changelog-list' %}">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-6 mx-1 mt-0.5" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+          </svg>
+        </a>
+      </div>
+    </div>
+    <div
+      class="flex pt-0.5 pb-0.5 px-3 m-auto border-t border-gray-50 text-gray-400 text-sm flex-col md:flex-row max-w-2xl my-1">
+      <div class="mt-2 text-xs">
+        Except where otherwise noted, text content on this site is licensed under a Creative Commons
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
+          <i class="fab fa-creative-commons"></i>
+          <i class="fab fa-creative-commons-by"></i>
+          <i class="fab fa-creative-commons-sa"></i>
+          Attribution-ShareAlike 4.0 International</a> License.
+        Excepto donde se indique lo contrario, el contenido de este sitio está licenciado bajo Creative Commons
+        <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.es">
+          <i class="fab fa-creative-commons"></i>
+          <i class="fab fa-creative-commons-by"></i>
+          <i class="fab fa-creative-commons-sa"></i>
+          Atribución-CompartirIgual 4.0 Internacional</a>.
+
+      </div>
+    </div>
+  </footer>
+  {% endblock %}
+  <img src="https://c.statcounter.com/3283218/0/8f5e9817/1/" style="border:0; width:1px;" alt="">
+  <script defer src="{% static 'js/alpine.min.js' %}"></script>
+</body>
+
+</html>
