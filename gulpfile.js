@@ -25,7 +25,7 @@ function js() {
   return src([
     'node_modules/alpinejs/dist/cdn.min.js',
   ])
-    .pipe(concat('alpine.js'))
+    .pipe(concat('alpine.min.js'))
     .pipe(dest(`${djStaticDir}/js`));
 }
 
