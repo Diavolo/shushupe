@@ -69,6 +69,26 @@ function fafonts() {
 }
 
 /**
+ * Move Inter UI fonts
+ */
+function interUiFonts() {
+  return src([
+    'node_modules/inter-ui/Inter (web)/*'
+  ])
+    .pipe(dest(`${djStaticDir}/css/Inter (web)`));
+}
+
+/**
+ * Move inter UI css
+ */
+function interUiCss() {
+  return src([
+    'node_modules/inter-ui/inter.css'
+  ])
+    .pipe(dest(`${djStaticDir}/css`));
+}
+
+/**
  * Move images to 'img' dir
  */
 function img() {
@@ -81,6 +101,6 @@ function img() {
 exports.clean = clean;
 exports.build = series(
   clean,
-  parallel(js, scss, facss, fafonts),
+  parallel(js, scss, facss, fafonts, interUiFonts, interUiCss),
   img
 );

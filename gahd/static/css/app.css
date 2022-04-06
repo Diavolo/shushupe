@@ -1,3 +1,15 @@
+/*@import url('https://rsms.me/inter/inter.css');*/
+@import "inter.css";
+html {
+  font-family: "Inter", sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    /*font-family: 'Inter var', sans-serif;*/
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Roboto", Roboto, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+}
 /******************************************************************************
  * Colors
  ******************************************************************************/
