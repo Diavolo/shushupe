@@ -28,7 +28,7 @@ class LatestEntriesFeed(Feed):
         return Entry.get_post_list(True)[:RECENTLY]
 
     def item_title(self, item):
-        return item.name
+        return item.title
 
     def item_description(self, item):
         if item.protected_with_password:
@@ -73,7 +73,7 @@ class EntriesByCategoryFeed(Feed):
                     .filter(category=obj.id, is_public=True)[:RECENTLY]
 
     def item_title(self, item):
-        return item.name
+        return item.title
 
     def item_description(self, item):
         if item.protected_with_password:
@@ -123,7 +123,7 @@ class EntriesByTagFeed(Feed):
         )
 
     def item_title(self, item):
-        return item.name
+        return item.title
 
     def item_description(self, item):
         if item.protected_with_password:

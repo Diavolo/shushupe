@@ -87,7 +87,7 @@ class SearchView(View):
         bookmark_search_result_list = Bookmark.objects.filter(
             Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
-            Q(name__icontains=q) |
+            Q(title__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
         )

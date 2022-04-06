@@ -107,7 +107,7 @@ class SearchView(View):
         article_search_result_list = Article.objects.filter(
             Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
-            Q(name__icontains=q) |
+            Q(title__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
         )
@@ -115,7 +115,7 @@ class SearchView(View):
         bookmark_search_result_list = Bookmark.objects.filter(
             Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
-            Q(name__icontains=q) |
+            Q(title__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
         )
@@ -123,7 +123,7 @@ class SearchView(View):
         note_search_result_list = Note.objects.filter(
             Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
-            Q(name__icontains=q) |
+            Q(title__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
         )
@@ -131,7 +131,7 @@ class SearchView(View):
         page_search_result_list = Page.objects.filter(
             Q(status=PostStatus.PUBLISHED),
             Q(pub_date__date__lte=timezone.now()),
-            Q(name__icontains=q) |
+            Q(title__icontains=q) |
             Q(content__icontains=q) |
             Q(tags__name__icontains=q)
         )

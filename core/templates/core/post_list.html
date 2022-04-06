@@ -82,13 +82,13 @@
         <div>
           <h2 class="text-lg font-semibold text-gray-900 -mt-1">
             {% if post.pub_type == 'Article' %}
-            <a href="{% url 'core:article-detail' post.category.slug post.slug %}">{{ post.name }}</a>
+            <a href="{% url 'core:article-detail' post.category.slug post.slug %}">{{ post.title }}</a>
             {% elif post.pub_type == 'Bookmark' %}
-            <a href="{{ post.site_url }}" rel="nofollow">{{ post.name }}</a>
+            <a href="{{ post.site_url }}" rel="nofollow">{{ post.title }}</a>
             {% elif post.pub_type == 'Note' %}
-            <a href="{% url 'note:note-detail' post.slug %}">{{ post.name }}</a>
+            <a href="{% url 'note:note-detail' post.slug %}">{{ post.title }}</a>
             {% elif post.pub_type == 'Page' %}
-            <a href="{% url 'core:page-detail' post.slug %}">{{ post.name }}</a>
+            <a href="{% url 'core:page-detail' post.slug %}">{{ post.title }}</a>
             {% endif %}
           </h2>
           <small class="text-sm text-gray-700"></small>
@@ -139,13 +139,13 @@
         <div>
           <h2 class="text-lg font-semibold text-gray-900 -mt-1">
             {% if post.pub_type == 'Article' %}
-            <a href="{% url 'core:article-detail' post.category.slug post.slug %}">{{ post.name }}</a>
+            <a href="{% url 'core:article-detail' post.category.slug post.slug %}">{{ post.title }}</a>
             {% elif post.pub_type == 'Bookmark' %}
-            <a href="{{ post.site_url }}" rel="nofollow">{{ post.name }}</a>
+            <a href="{{ post.site_url }}" rel="nofollow">{{ post.title }}</a>
             {% elif post.pub_type == 'Note' %}
-            <a href="{% url 'note:note-detail' post.slug %}">{{ post.name }}</a>
+            <a href="{% url 'note:note-detail' post.slug %}">{{ post.title }}</a>
             {% elif post.pub_type == 'Page' %}
-            <a href="{% url 'core:page-detail' post.slug %}">{{ post.name }}</a>
+            <a href="{% url 'core:page-detail' post.slug %}">{{ post.title }}</a>
             {% endif %}
           </h2>
           <small class="text-sm text-gray-700"></small>

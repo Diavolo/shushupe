@@ -13,4 +13,4 @@ class Note(Post):
         return reverse('note:note-detail', kwargs={'note_slug': self.slug})
 
     def __str__(self):
-        return self.name
+        return self.title

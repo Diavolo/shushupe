@@ -5,14 +5,14 @@ from note.models import Note
 
 class NoteAdmin(admin.ModelAdmin):
     exclude = ('author',)
-    prepopulated_fields = {'slug': ('name',)}
+    prepopulated_fields = {'slug': ('title',)}
     search_fields = ('content',)
-    list_display = ('name', 'creation_date', 'pub_date', 'last_modified',
+    list_display = ('title', 'creation_date', 'pub_date', 'last_modified',
                     'status', 'is_public', 'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
-        ('Note info', {'fields': ['name', 'slug', 'content']}),
+        ('Note info', {'fields': ['title', 'slug', 'content']}),
         ('Visibility', {'fields': ['is_public', 'status'],
                         'classes': ['collapse']}),
         ('Meta', {'fields': ['pub_date', 'allow_comments',

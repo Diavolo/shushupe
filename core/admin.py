@@ -5,15 +5,15 @@ from .models import Article, Category, Page, Media, Tag
 
 class ArticleAdmin(admin.ModelAdmin):
     exclude = ('author',)
-    prepopulated_fields = {'slug': ('name',)}
-    search_fields = ('name',)
-    list_display = ('name', 'category', 'creation_date', 'pub_date',
+    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ('title',)
+    list_display = ('title', 'category', 'creation_date', 'pub_date',
                     'last_modified', 'status', 'is_public',
                     'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'category', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
-        ('Article info', {'fields': ['name', 'slug', 'content']}),
+        ('Article info', {'fields': ['title', 'slug', 'content']}),
         ('Visibility', {'fields': ['is_public', 'status'],
                         'classes': ['collapse']}),
         ('Meta', {'fields': ['pub_date', 'allow_comments',
@@ -32,14 +32,14 @@ class ArticleAdmin(admin.ModelAdmin):
 
 class PageAdmin(admin.ModelAdmin):
     exclude = ('author',)
-    prepopulated_fields = {'slug': ('name',)}
-    search_fields = ('name',)
-    list_display = ('name', 'creation_date', 'pub_date', 'last_modified',
+    prepopulated_fields = {'slug': ('title',)}
+    search_fields = ('title',)
+    list_display = ('title', 'creation_date', 'pub_date', 'last_modified',
                     'status', 'is_public', 'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
-        ('Page info', {'fields': ['name', 'slug', 'content']}),
+        ('Page info', {'fields': ['title', 'slug', 'content']}),
         ('Visibility', {'fields': ['is_public', 'status'],
                         'classes': ['collapse']}),
         ('Meta', {'fields': ['parent', 'pub_date', 'allow_comments',

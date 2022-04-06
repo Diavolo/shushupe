@@ -12,7 +12,7 @@
         <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
         <div>
           <h2 class="text-lg font-semibold text-gray-900 -mt-1">
-            <a href="{% url 'note:note-detail' note.slug %}">{{ note.name }}</a>
+            <a href="{% url 'note:note-detail' note.slug %}">{{ note.title }}</a>
           </h2>
           <small class="text-sm text-gray-700"></small>
           <p class="text-xs text-gray-700">{{ note.last_modified|date:'DATETIME_FORMAT' }}</p>
@@ -55,7 +55,7 @@
         <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
         <div>
           <h2 class="text-lg font-semibold text-gray-900 -mt-1">
-            <a href="{% url 'note:note-detail' note.slug %}">{{ note.name }}</a>
+            <a href="{% url 'note:note-detail' note.slug %}">{{ note.title }}</a>
           </h2>
           <small class="text-sm text-gray-700"></small>
           <p class="text-xs text-gray-700">{{ note.last_modified|date:'DATETIME_FORMAT' }}</p>

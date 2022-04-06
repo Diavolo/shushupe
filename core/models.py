@@ -48,7 +48,7 @@ class Post(models.Model):
     """
     author = models.ForeignKey(settings.AUTH_USER_MODEL,
                                on_delete=models.PROTECT)
-    name = models.CharField(max_length=500)
+    title = models.CharField(max_length=500)
     slug = models.SlugField(unique=True, max_length=200)
     content = models.TextField()
     content_html = models.TextField(editable=False)
@@ -87,7 +87,7 @@ class Article(Post):
                                'article_slug': self.slug})
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Page(Post):
@@ -98,7 +98,7 @@ class Page(Post):
                                blank=True, null=True)
 
     def __str__(self):
-        return self.name
+        return self.title
 
 
 class Comment(models.Model):

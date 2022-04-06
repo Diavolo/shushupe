@@ -6,12 +6,12 @@ from bookmark.models import Bookmark
 class BookmarkAdmin(admin.ModelAdmin):
     exclude = ('author', 'slug')
     search_fields = ('site_url',)
-    list_display = ('name', 'creation_date', 'pub_date', 'last_modified',
+    list_display = ('title', 'creation_date', 'pub_date', 'last_modified',
                     'status', 'is_public', 'protected_with_password', 'slug')
     list_filter = ('author', 'pub_date', 'status', 'tags')
     filter_horizontal = ('tags',)
     fieldsets = [
-        ('Article info', {'fields': ['name', 'site_url', 'content']}),
+        ('Article info', {'fields': ['title', 'site_url', 'content']}),
         ('Visibility', {'fields': ['is_public', 'status'],
                         'classes': ['collapse']}),
         ('Meta', {'fields': ['pub_date', 'allow_comments',

@@ -35,7 +35,7 @@ class BookmarksByTagFeed(Feed):
         )
 
     def item_title(self, item):
-        return item.name
+        return item.title
 
     def item_description(self, item):
         if item.protected_with_password:

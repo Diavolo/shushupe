@@ -1,8 +1,8 @@
 {% extends "core/base_page.html" %}{% load static %}
-{% block titlepage %}{% if page %}{{ page.name }} - {% endif %}{% endblock %}
+{% block titlepage %}{% if page %}{{ page.title }} - {% endif %}{% endblock %}
 {% block meta %}<meta name="description" content="{{page.content_html|striptags|truncatewords:"25"}}">
   <meta name="keywords" content="{% for tag in page.tags.all %}{{ tag.name }}, {% endfor %}gustavo huarcaya, gustavo, huarcaya">{% endblock %}
-{% block ogp %}<meta property="og:title" content="{% if page %}{{ page.name }} - {% endif %}Gustavo Huarcaya" />
+{% block ogp %}<meta property="og:title" content="{% if page %}{{ page.title }} - {% endif %}Gustavo Huarcaya" />
   <meta property="og:description" content="{{page.content_html|striptags|truncatewords:"25"}}">
   <meta property="og:type" content="website">
   <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">
@@ -14,7 +14,7 @@
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:page-detail' page.slug %}">{{ page.name }}</a></h2>
+        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:page-detail' page.slug %}">{{ page.title }}</a></h2>
         <small class="text-sm text-gray-700"></small>
       </div>
       <p class="text-xs text-gray-700">
@@ -54,7 +54,7 @@
   <div class="rounded overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center justify-between">
-        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:page-detail' page.slug %}">{{ page.name }}</a></h2>
+        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:page-detail' page.slug %}">{{ page.title }}</a></h2>
         <small class="text-sm text-gray-700"></small>
       </div>
       <p class="text-xs text-gray-700">
