@@ -1,4 +1,7 @@
+from django.conf import settings
+
 RECENTLY = 5
+_site_url = settings.SITE_URL
 
 
 class PostType:
@@ -19,3 +22,7 @@ class PostStatus:
 
     POST_STATUSES = sorted(((PUBLISHED.lower(), PUBLISHED.title()),
                             (DRAFT.lower(), DRAFT.title())))
+
+
+def get_post_reference(post_url: str) -> str:
+    return f"{_site_url}{post_url}"
