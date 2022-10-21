@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import include, path
+from drf_spectacular.views import (
+    SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView)
 
 # https://docs.djangoproject.com/en/3.2/ref/contrib/admin/#adminsite-attributes
 admin.site.site_header = 'Shushupe Administration'
@@ -30,6 +32,12 @@ urlpatterns = [
     path('login/', auth_views.LoginView.as_view(), name='login'),
     # https://docs.djangoproject.com/en/3.2/topics/auth/default/#django.contrib.auth.views.LogoutView
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
+    path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'),
+         name='swagger-ui'),
+    path('api/redoc/', SpectacularRedocView.as_view(url_name='schema'),
+         name='redoc'),
+    path('api/', include('api.urls')),
     path('bookmarks/', include('bookmark.urls')),
     path('changelog/', include('changelog.urls')),
     path('notes/', include('note.urls')),

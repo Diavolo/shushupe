@@ -60,6 +60,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -172,3 +174,21 @@ LOGOUT_REDIRECT_URL = '/login'
 
 SITE_NAME = 'Gustavo Huarcaya'
 SITE_URL = 'https://gahd.net'
+
+
+# Django Rest Framework
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    ),
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': f'{SITE_NAME} API',
+    'DESCRIPTION': f'A set of APIs of {SITE_NAME}.',
+    'CONTACT': {'name': f'{SITE_NAME}','url': f'{SITE_URL}'},
+    'VERSION': '0.1.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+}
