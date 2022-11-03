@@ -24,7 +24,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 load_dotenv(os.path.join(PROJECT_PACKAGE, '.env'))
 data_dir_key = 'SHUSHUPE_DATA_DIR'
-DATA_DIR = Path(os.environ[data_dir_key]) if data_dir_key in os.environ else PROJECT_PACKAGE.parent
+DATA_DIR = Path(os.environ[data_dir_key]
+                ) if data_dir_key in os.environ else PROJECT_PACKAGE.parent
 
 try:
     with DATA_DIR.joinpath('secrets.json').open() as handle:
@@ -186,9 +187,9 @@ REST_FRAMEWORK = {
 }
 
 SPECTACULAR_SETTINGS = {
-    'TITLE': f'{SITE_NAME} API',
+    'TITLE': f'{SITE_NAME} - API',
     'DESCRIPTION': f'A set of APIs of {SITE_NAME}.',
-    'CONTACT': {'name': f'{SITE_NAME}','url': f'{SITE_URL}'},
+    'CONTACT': {'name': f'{SITE_NAME}', 'url': f'{SITE_URL}'},
     'VERSION': '0.1.0',
     'SERVE_INCLUDE_SCHEMA': False,
 }
