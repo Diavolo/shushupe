@@ -162,7 +162,8 @@ class Media(models.Model):
     def image_thumb(self):
         if self.media_file:
             if guess_type(str(self.media_file))[0].split('/')[0] == 'image':
-                return format_html(f'<img src="{settings.MEDIA_URL}{self.media_file}" \
+                return format_html(
+                    f'<img src="{settings.MEDIA_URL}{self.media_file}" \
                     width="100px" alt="{self.name}" />')
             else:
                 return self.name
