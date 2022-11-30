@@ -2,7 +2,7 @@ from itertools import chain
 from operator import attrgetter
 
 from django.db.models import Q
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
@@ -78,10 +78,16 @@ class ArticlesByTagListView(ListView):
 
 
 class PostsByTagListView(ListView):
-    """Post list by tag"""
+    """Post (articles, pages, and notes) list by tag"""
     paginate_by = RECENTLY
     template_name = 'core/post_list.html'
     context_object_name = 'post_list'
+
+    def get(self, *args, **kwargs):
+        if not self.kwargs['tag_slug'].islower():
+            return redirect('core:post-list-by-tag',
+                            self.kwargs['tag_slug'].lower())
+        return super(PostsByTagListView, self).get(*args, **kwargs)
 
     def get_queryset(self):
         tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
@@ -154,6 +160,10 @@ class PageOrCategoryView(View):
     """Page or Articles by Category"""
 
     def get(self, request, *args, **kwargs):
+        if not self.kwargs['page_slug'].islower():
+            return redirect('core:page-detail-or-article-list-by-category',
+                            self.kwargs['page_slug'].lower())
+
         page = Page.objects.filter(slug=self.kwargs['page_slug'])
         if page.count() != 0:
             return render(
