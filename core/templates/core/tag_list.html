@@ -9,7 +9,7 @@
   </header>
   <section class="ui container">
     {% for tag in tag_list %}
-    <a class="ui tag label" href="{% url 'core:article-list-by-tag' tag.slug %}">{{ tag.name }}</a>
+    <a class="ui tag label" href="{% url 'core:post-list-by-tag' tag.slug %}">{{ tag.name }}</a>
     {% endfor %}
   </section>
 {% else %}

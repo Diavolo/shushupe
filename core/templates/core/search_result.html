@@ -6,7 +6,7 @@
   <form class="relative" action="{% url 'core:search' %}" method="GET">
     <input name="q" placeholder="Search" value="{{ search_term }}" required
       class="text-md block px-3 py-2 rounded-md w-full bg-white border-2
-      border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-white 
+      border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-white
       focus:border-gray-600 focus:outline-none">
     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
       <svg class="h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -20,7 +20,7 @@
   <form class="relative" action="{% url 'core:search' %}" method="GET">
     <input name="q" placeholder="Search" value="{{ search_term }}"
       class="text-md block px-3 py-2 rounded-md w-full bg-white border-2
-      border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-white 
+      border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-white
       focus:border-gray-600 focus:outline-none">
     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
       <svg class="h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -95,7 +95,7 @@
             {% elif post.pub_type == 'Note' %}
             <a href="{% url 'note:note-detail' post.slug %}">{{ post.title }}</a>
             {% elif post.pub_type == 'Page' %}
-            <a href="{% url 'core:page-detail' post.slug %}">{{ post.title }}</a>
+            <a href="{% url 'core:page-detail-or-article-list-by-category' post.slug %}">{{ post.title }}</a>
             {% endif %}
           </h2>
           <small class="text-sm text-gray-700"></small>
@@ -112,7 +112,7 @@
           {% if post.pub_type == 'Bookmark' %}
           <a href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
           {% else %}
-          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+          <a href="{% url 'core:post-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
           {% endif %}
         </div>
         {% endfor %}
@@ -156,7 +156,7 @@
             {% elif post.pub_type == 'Note' %}
             <a href="{% url 'note:note-detail' post.slug %}">{{ post.title }}</a>
             {% elif post.pub_type == 'Page' %}
-            <a href="{% url 'core:page-detail' post.slug %}">{{ post.title }}</a>
+            <a href="{% url 'core:page-detail-or-article-list-by-category' post.slug %}">{{ post.title }}</a>
             {% endif %}
           </h2>
           <small class="text-sm text-gray-700"></small>
@@ -173,7 +173,7 @@
           {% if post.pub_type == 'Bookmark' %}
           <a href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
           {% else %}
-          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+          <a href="{% url 'core:post-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
           {% endif %}
         </div>
         {% endfor %}

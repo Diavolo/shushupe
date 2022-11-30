@@ -50,7 +50,7 @@
                 {% elif post.pub_type == 'Note' %}
                 <a href="{% url 'note:note-detail' post.slug %}">{{ post.title }}</a>
                 {% elif post.pub_type == 'Page' %}
-                <a href="{% url 'core:page-detail' post.slug %}">{{ post.title }}</a>
+                <a href="{% url 'core:page-detail-or-article-list-by-category' post.slug %}">{{ post.title }}</a>
                 {% endif %}
                 <span class="text-gray-300">{{ post.pub_date|date:"DATE_FORMAT" }}</span>
               </li>

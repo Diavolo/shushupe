@@ -1,9 +1,9 @@
 {% extends "core/base_page.html" %}{% load static %}
 {% block titlepage %}{% if article %}{{ article.title }} - {% endif %}{% endblock %}
-{% block meta %}<meta name="description" content="{{article.content_html|striptags|truncatewords:"25"}}">
+{% block meta %}<meta name="description" content="{{article.content_html|striptags|truncatewords:'25'}}">
   <meta name="keywords" content="{% for tag in article.tags.all %}{{ tag.name }}, {% endfor %}gustavo huarcaya, gustavo, huarcaya">{% endblock %}
   {% block ogp %}<meta property="og:title" content="{% if article %}{{ article.title }} - {% endif %}Gustavo Huarcaya">
-  <meta property="og:description" content="{{article.content_html|striptags|truncatewords:"25"}}">
+  <meta property="og:description" content="{{article.content_html|striptags|truncatewords:'25'}}">
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{{ request.scheme }}://{{ request.get_host }}{{ request.get_full_path }}">
   <meta property="og:site_name" content="gahd.net">
@@ -18,7 +18,7 @@
           <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd" />
           <path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
         </svg>
-        <a href="{% url 'core:article-list-by-category' article.category.slug %}">{{ article.category }}</a>
+        <a href="{% url 'core:page-detail-or-article-list-by-category' article.category.slug %}">{{ article.category }}</a>
       </p>
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-gray-900 -mt-1">
@@ -36,7 +36,7 @@
       <div class="mt-4 flex items-center">
         {% for tag in article.tags.all %}
         <div class="flex mr-2 text-xs text-blue-600 mr-3">
-          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+          <a href="{% url 'core:post-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
         {% comment %}
@@ -67,7 +67,7 @@
           <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4l2 2h4a2 2 0 012 2v1H8a3 3 0 00-3 3v1.5a1.5 1.5 0 01-3 0V6z" clip-rule="evenodd" />
           <path d="M6 12a2 2 0 012-2h8a2 2 0 012 2v2a2 2 0 01-2 2H2h2a2 2 0 002-2v-2z" />
         </svg>
-        <a href="{% url 'core:article-list-by-category' article.category.slug %}">{{ article.category }}</a>
+        <a href="{% url 'core:page-detail-or-article-list-by-category' article.category.slug %}">{{ article.category }}</a>
       </p>
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-gray-900 -mt-1">
@@ -85,7 +85,7 @@
       <div class="mt-4 flex items-center">
         {% for tag in article.tags.all %}
         <div class="flex mr-2 text-xs text-blue-600 mr-3">
-          <a href="{% url 'core:article-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+          <a href="{% url 'core:post-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
         </div>
         {% endfor %}
         {% comment %}
