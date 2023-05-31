@@ -2,5 +2,5 @@
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.linting.enabled": true,
-  "python.pythonPath": "~/.pyenv/versions/gahd.net/bin/python"
+  "python.pythonPath": "~/.pyenv/versions/shushupe/bin/python"
 }

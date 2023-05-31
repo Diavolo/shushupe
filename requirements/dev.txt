@@ -1,5 +1,0 @@
--r common.txt
-
-autopep8==1.7.0
-flake8==5.0.4
-psycopg2-binary==2.9.4

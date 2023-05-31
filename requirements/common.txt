@@ -1,9 +1,0 @@
-Cython==0.29.32
-Django==3.2.6
-djangorestframework==3.14.0
-drf-spectacular==0.24.2
-mistune==0.8.4
-mistune-contrib==0.1
-nanoid==2.0.0
-Pygments==2.13.0
-python-dotenv==0.21.0

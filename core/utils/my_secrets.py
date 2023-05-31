@@ -13,7 +13,7 @@ def get_my_random_secret_key(length: int = 50):
     Returns:
        string: Random secret key.
     """
-    MY_STRING_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(-_=+)"
+    MY_STRING_CHARS = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(-_=+)"  # noqa
     return "".join(secrets.choice(MY_STRING_CHARS) for i in range(length))
 
 

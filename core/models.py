@@ -17,7 +17,7 @@ from core.utils.post import PostStatus, PostType
 
 
 renderer = HighlightRenderer()
-markdown = mistune.Markdown(renderer=renderer)
+markdown = mistune.create_markdown(renderer=renderer)
 
 
 class Taxonomy(models.Model):

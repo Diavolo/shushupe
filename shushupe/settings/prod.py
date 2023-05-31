@@ -1,36 +1,33 @@
 import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
-from .common import *
+
+from .common import *  # noqa
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS += [
-    'gahd.net'
-]
-
-# https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/#csrf-cookie-secure
+# https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/#csrf-cookie-secure
 CSRF_COOKIE_SECURE = True
 
-# https://docs.djangoproject.com/en/3.2/ref/settings/#secure-hsts-include-subdomains
+# https://docs.djangoproject.com/en/4.2/ref/settings/#secure-hsts-include-subdomains
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
-# https://docs.djangoproject.com/en/3.2/ref/settings/#secure-hsts-preload
+# https://docs.djangoproject.com/en/4.2/ref/settings/#secure-hsts-preload
 SECURE_HSTS_PRELOAD = True
 
-# https://docs.djangoproject.com/en/3.2/ref/settings/#secure-hsts-seconds
+# https://docs.djangoproject.com/en/4.2/ref/settings/#secure-hsts-seconds
 SECURE_HSTS_SECONDS = 3600
 
-# https://docs.djangoproject.com/en/3.2/ref/settings/#secure-referrer-policy
+# https://docs.djangoproject.com/en/4.2/ref/settings/#secure-referrer-policy
 SECURE_REFERRER_POLICY = 'same-origin'
 
-# https://docs.djangoproject.com/en/3.2/ref/settings/#secure-ssl-redirect
+# https://docs.djangoproject.com/en/4.2/ref/settings/#secure-ssl-redirect
 SECURE_SSL_REDIRECT = True
 
-# https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/#session-cookie-secure
+# https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/#session-cookie-secure
 SESSION_COOKIE_SECURE = True
 
-# https://docs.djangoproject.com/en/3.2/ref/settings/#media-root
+# https://docs.djangoproject.com/en/4.2/ref/settings/#media-root
 MEDIA_ROOT = str(DATA_DIR.joinpath('media'))
 
 # https://docs.sentry.io/platforms/python/guides/django/#configure

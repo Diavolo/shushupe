@@ -4,8 +4,8 @@ from pygments.formatters import html
 from pygments.lexers import get_lexer_by_name
 
 
-class HighlightRenderer(mistune.Renderer):
-    def block_code(self, code, lang):
+class HighlightRenderer(mistune.HTMLRenderer):
+    def block_code(self, code, lang=None):
         if not lang:
             return '\n<pre><code>%s</code></pre>\n' % mistune.escape(code)
 
