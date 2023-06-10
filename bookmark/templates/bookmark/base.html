@@ -5,9 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>{% block titlepage %}Gustavo Huarcaya{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/tailwind.min.css' %}">
-  <link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}">
-  <link rel="stylesheet" type="text/css" href="{% static 'css/app.css' %}">
+  <link rel="preload" href="{% static 'css/tailwind.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{% static 'css/tailwind.min.css' %}"></noscript>
+  <link rel="preload" href="{% static 'css/fontawesome.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}"></noscript>
+  <link rel="preload" href="{% static 'css/app.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="{% static 'css/app.css' %}"></noscript>
   {% block feed %}
   <link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="Gustavo Huarcaya">{% endblock %}
   <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
@@ -73,14 +76,14 @@
     <div class="bg-blue-500 my-4 flex flex-col sm:flex-row justify-between text-xs">
       <div class="bg-blue-500 text-white p-1">
         <ul class="flex flex-col sm:flex-row justify-around space-y-1 sm:space-y-0 sm:space-x-4 sm:divide-x indent-3">
-          <li class="hover:underline"><a href="{% url 'core:index' %}">home</a></li>
-          <li class="hover:underline"><a href="{% url 'core:article-list' %}">articles</a></li>
-          <li class="hover:underline"><a href="{% url 'note:note-list' %}">notes</a></li>
-          <li class="hover:underline"><a href="{% url 'bookmark:bookmark-list' %}">bookmarks</a></li>
+          <li class="hover:underline"><a href="{% url 'core:index' %}" title="Home">home</a></li>
+          <li class="hover:underline"><a href="{% url 'core:article-list' %}" title="Articles">articles</a></li>
+          <li class="hover:underline"><a href="{% url 'note:note-list' %}" title="Notes">notes</a></li>
+          <li class="hover:underline"><a href="{% url 'bookmark:bookmark-list' %}" title="Bookmarks">bookmarks</a></li>
         </ul>
       </div>
       <div class="bg-lime-500 text-white px-1 sm:px-2 py-1 sm:border-l-2 sm:border-l-white hover:underline indent-3 sm:indent-0">
-        <a href="{% url 'changelog:changelog-list' %}">What's new?</a>
+        <a href="{% url 'changelog:changelog-list' %}" title="Changelog">What's new?</a>
       </div>
     </div>
   </footer>
