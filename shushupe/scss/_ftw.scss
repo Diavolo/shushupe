@@ -30,7 +30,7 @@ main article header a:hover {
 
 main article header a.item,
 main article header a.item i {
-  color: #0F9A0F !important; 
+  color: #0F9A0F !important;
 }
 
 main article section a {
@@ -148,12 +148,9 @@ table tr th:first-child {
 }
 
 table tr th {
-  border-left: 1px solid rgba(34,36,38,.1);
-}
-
-table tr th {
-  padding: .92857143em .78571429em;
   border-bottom: 1px solid rgba(34,36,38,.1);
+  border-left: 1px solid rgba(34,36,38,.1);
+  padding: .92857143em .78571429em;
 }
 
 table tr:first-child td {
