@@ -24,16 +24,7 @@
   <meta property="og:site_name" content="gahd.net">
   <meta property="og:image" content="{{ request.scheme }}://{{ request.get_host }}{% static 'img/inti.png' %}">
   {% endblock %}
-  <!-- Global site tag (gtag.js) -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-QL2XMS16GW"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'G-QL2XMS16GW');
-  </script>
-  <!-- End Global site tag (gtag.js) -->
+  <script async src="https://analytics.umami.is/script.js" data-website-id="ecee205e-815b-43cc-a5ad-4dc41f8d56d9"></script>
 </head>
 <body>
   {% block header %}
@@ -94,7 +85,6 @@
     </div>
   </footer>
   {% endblock footer %}
-  <img src="https://c.statcounter.com/3283218/0/8f5e9817/1/" style="border:0; width:1px;" alt="">
-  <script defer src="{% static 'js/alpine.js' %}"></script>
+  <script defer src="{% static 'js/alpine.min.js' %}"></script>
 </body>
 </html>
