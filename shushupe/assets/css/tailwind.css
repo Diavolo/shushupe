@@ -7,3 +7,34 @@
 .link-blue {
   @apply text-blue-600
 }
+
+.bg-yellow {
+  @apply bg-yellow-400
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6,
+.post-content p {
+  @apply my-2
+}
+
+.post-content h1,
+.post-content h2,
+.post-content h3,
+.post-content h4,
+.post-content h5,
+.post-content h6 {
+  @apply font-semibold
+}
+
+.footnotes {
+  @apply text-xs
+}
+
+.footnotes hr {
+  @apply mt-4 mb-1
+}

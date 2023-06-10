@@ -30,27 +30,10 @@ html {
   list-style-type: decimal;
 }
 
-.post-content p {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
-.post-content p:first-of-type,
-.post-content p:last-of-type {
-  margin: 0;
-}
-
 .post-content ul {
   list-style: inside;
 }
 
-.post-content h1,
-.post-content h2,
-.post-content h3,
-.post-content h4,
-.post-content h5,
-.post-content h6 {
-  font-weight: 600;
-  margin-top: 0.2rem;
-  margin-bottom: 0.2rem;
+.post-content li p {
+  display: inline;
 }
