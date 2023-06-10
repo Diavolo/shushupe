@@ -4,7 +4,7 @@ const sass = require('gulp-sass')(require('sass'));
 const Ordered = require('ordered-read-streams');
 const del = require('del');
 
-const djStaticDir = 'gahd/static';
+const djStaticDir = 'shushupe/static';
 
 const filesToDelete = [
   `${djStaticDir}/*`
@@ -33,13 +33,13 @@ function js() {
  * Combine scss and css files into one
  */
 function scss() {
-  sassStream = src([
-    './gahd/scss/**/*.scss'
+  let sassStream = src([
+    './shushupe/scss/**/*.scss'
   ])
     .pipe(sass().on('error', sass.logError));
 
-  cssStream = src([
-    './gahd/assets/css/pygments.css',
+  let cssStream = src([
+    './shushupe/assets/css/pygments.css',
   ]);
 
   return new Ordered([sassStream, cssStream])
@@ -93,7 +93,7 @@ function interUiCss() {
  */
 function img() {
   return src([
-    './gahd/assets/img/*',
+    './shushupe/assets/img/*',
   ])
     .pipe(dest(`${djStaticDir}/img`));
 }

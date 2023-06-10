@@ -1,18 +1,18 @@
 {
-  "name": "gahd.net",
-  "version": "1.0.0",
-  "description": "Gustavo Huarcaya's Personal Page",
+  "name": "shushupe",
+  "version": "0.1.0",
+  "description": "Shushupe is a free and open source blogging platform.",
   "scripts": {
     "clean": "gulp clean",
     "build:dev": "npm run assets:build && npm run tailwindcss:build",
     "build:prod": "npm run assets:build && npm run tailwindcss:prod",
     "assets:build": "gulp build",
-    "tailwindcss:build": "npx tailwindcss -i ./gahd/assets/css/tailwind.css -o ./gahd/static/css/tailwind.min.css",
-    "tailwindcss:minify": "npx tailwindcss -i ./gahd/assets/css/tailwind.css -o ./gahd/static/css/tailwind.min.css --minify",
-    "tailwindcss:watch": "npx tailwindcss -i ./gahd/assets/css/tailwind.css -o ./gahd/static/css/tailwind.min.css --watch",
-    "tailwindcss:prod": "npx tailwindcss -i ./gahd/assets/css/tailwind.css -o ./gahd/static/css/tailwind.min.css --minify"
+    "tailwindcss:build": "npx tailwindcss -i ./shushupe/assets/css/tailwind.css -o ./shushupe/static/css/tailwind.min.css",
+    "tailwindcss:minify": "npx tailwindcss -i ./shushupe/assets/css/tailwind.css -o ./shushupe/static/css/tailwind.min.css --minify",
+    "tailwindcss:watch": "npx tailwindcss -i ./shushupe/assets/css/tailwind.css -o ./shushupe/static/css/tailwind.min.css --watch",
+    "tailwindcss:prod": "npx tailwindcss -i ./shushupe/assets/css/tailwind.css -o ./shushupe/static/css/tailwind.min.css --minify"
   },
-  "author": "Gustavo Huarcaya <diavolo@gahd.net>",
+  "author": "Gustavo Adolfo Huarcaya Delgado <diavolo@gahd.net>",
   "license": "MIT",
   "devDependencies": {
     "del": "^6.0.0",
