@@ -25,9 +25,19 @@ SHUSHUPE_PROJECT = SHUSHUPE_PACKAGE.parent
 BASE_DIR = SHUSHUPE_PROJECT
 
 load_dotenv(os.path.join(BASE_DIR, '.env'))
+
 data_dir_key = 'SHUSHUPE_DATA_DIR'
+shushupe_media_root = 'SHUSHUPE_MEDIA_ROOT'
+shushupe_static_root = 'SHUSHUPE_STATIC_ROOT'
+
 DATA_DIR = Path(os.environ[data_dir_key]
                 ) if data_dir_key in os.environ else BASE_DIR.parent
+
+SHUSHUPE_MEDIA_ROOT = Path(os.environ[shushupe_media_root]
+                           ) if shushupe_media_root in os.environ else str(DATA_DIR.joinpath('media'))
+
+SHUSHUPE_STATIC_ROOT = Path(os.environ[shushupe_static_root]
+                            ) if shushupe_static_root in os.environ else str(DATA_DIR.joinpath('static'))
 
 try:
     with DATA_DIR.joinpath('secrets.json').open() as handle:
@@ -180,12 +190,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ###
 # https://docs.djangoproject.com/en/4.2/ref/settings/#static-files
 
-STATIC_ROOT = str(DATA_DIR.joinpath('static'))
+STATIC_ROOT = SHUSHUPE_STATIC_ROOT
 STATICFILES_DIRS = [str(SHUSHUPE_PACKAGE.joinpath('static')), ]
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#media-root
 
-MEDIA_ROOT = str(BASE_DIR.joinpath('media'))
+MEDIA_ROOT = SHUSHUPE_MEDIA_ROOT
 MEDIA_URL = '/media/'
 
 # https://docs.djangoproject.com/en/4.2/ref/settings/#login-redirect-url

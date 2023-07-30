@@ -27,9 +27,6 @@ SECURE_SSL_REDIRECT = True
 # https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/#session-cookie-secure
 SESSION_COOKIE_SECURE = True
 
-# https://docs.djangoproject.com/en/4.2/ref/settings/#media-root
-MEDIA_ROOT = str(DATA_DIR.joinpath('media'))
-
 # https://docs.sentry.io/platforms/python/guides/django/#configure
 sentry_sdk.init(
     dsn=str(SECRETS['sentry']),
