@@ -40,7 +40,7 @@ SHUSHUPE_STATIC_ROOT = Path(os.environ[shushupe_static_root]
                             ) if shushupe_static_root in os.environ else str(DATA_DIR.joinpath('static'))
 
 try:
-    with DATA_DIR.joinpath('shushupe.json').open() as handle:
+    with BASE_DIR.joinpath('config.json').open() as handle:
         SECRETS = json.load(handle)
 except OSError:
     SECRETS = {
