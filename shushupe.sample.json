@@ -1,12 +1,6 @@
 {
   "secret_key": "mysecretkey",
   "allowed_hosts": [],
-  "db_engine": "django.db.backends.postgresql",
-  "db_name": "mydatabase",
-  "db_user": "mydatabaseuser",
-  "db_password": "mypassword",
-  "db_host": "localhost",
-  "db_port": "5432",
   "language_code": "en-us",
   "time_zone": "America/Lima",
   "sentry": "sentry_key",

@@ -40,7 +40,7 @@ SHUSHUPE_STATIC_ROOT = Path(os.environ[shushupe_static_root]
                             ) if shushupe_static_root in os.environ else str(DATA_DIR.joinpath('static'))
 
 try:
-    with DATA_DIR.joinpath('secrets.json').open() as handle:
+    with DATA_DIR.joinpath('shushupe.json').open() as handle:
         SECRETS = json.load(handle)
 except OSError:
     SECRETS = {
@@ -135,12 +135,12 @@ WSGI_APPLICATION = 'shushupe.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': str(SECRETS['db_engine']),
-        'NAME': str(SECRETS['db_name']),
-        'USER': str(SECRETS['db_user']),
-        'PASSWORD': str(SECRETS['db_password']),
-        'HOST': str(SECRETS['db_host']),
-        'PORT': str(SECRETS['db_port']),
+        'ENGINE': os.environ['DB_ENGINE'],
+        'NAME': os.environ['DB_NAME'],
+        'USER': os.environ['DB_USER'],
+        'PASSWORD': os.environ['DB_PASSWORD'],
+        'HOST': os.environ['DB_HOST'],
+        'PORT': os.environ['DB_PORT'],
     }
 }
 
