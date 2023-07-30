@@ -4,7 +4,7 @@ version = "0.1.0"
 description = "Shushupe is a free and open source blogging platform."
 homepage = "https://gahd.net/shushupe/"
 authors = ["Gustavo Adolfo Huarcaya Delgado <diavolo@gahd.net>"]
-license = "Apache-2.0"
+license = "MIT"
 readme = "README.md"
 
 [tool.poetry.dependencies]
