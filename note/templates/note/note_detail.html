@@ -4,87 +4,83 @@
 
 {% if note %}
 {% if note.is_public %}
-<div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
-    <div class="">
-      <div class="flex items-center">
-        <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
-        <div>
-          <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'note:note-detail' note.slug %}">{{ note.title }}</a></h2>
-          <small class="text-sm text-gray-700"></small>
-          <p class="text-xs text-gray-700">{{ note.last_modified|date:'DATETIME_FORMAT' }}</p>
-        </div>
-      </div>
-      <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
-        {{ note.content_html|safe }}
-      </div>
-      {% if note.tags.count %}
-      <div class="mt-4 flex items-center">
-        {% for tag in note.tags.all %}
-        <div class="flex mr-2 text-xs text-blue-600 mr-3">
-          <a href="{% url 'core:post-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
-        </div>
-        {% endfor %}
-        {% comment %}
-        <div class="flex mr-2 text-gray-700 text-sm mr-8">
-          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
-          </svg>
-          <span>8</span>
-        </div>
-        <div class="flex mr-2 text-gray-700 text-sm mr-4">
-          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-          </svg>
-          <span>share</span>
-        </div>
-        {% endcomment %}
-      </div>
-      {% endif %}
-    </div>
-  </div>
-</div>
-{% elif not note.is_public and user == note.author %}
-<div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
-    <div class="">
-      <div class="flex items-center">
-        <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
-        <div>
-          <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'note:note-detail' note.slug %}">{{ note.title }}</a></h2>
+<article class="note-card">
+  <div class="note-post">
+    <section class="note-header">
+      <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
+      <div>
+        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'note:note-detail' note.slug %}">{{ note.title }}</a></h2>
         <small class="text-sm text-gray-700"></small>
         <p class="text-xs text-gray-700">{{ note.last_modified|date:'DATETIME_FORMAT' }}</p>
-        </div>
       </div>
-      <div class="mt-3 text-gray-700 text-sm w-full text-justify post-content">
-        {{ note.content_html|safe }}
+    </section>
+    <section class="note-content">
+      {{ note.content_html|safe }}
+    </section>
+    {% if note.tags.count %}
+    <section class="note-footer">
+      {% for tag in note.tags.all %}
+      <div class="flex mr-2 text-xs text-blue-600 mr-3">
+        <a href="{% url 'core:post-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
       </div>
-      {% if note.tags.count %}
-      <div class="mt-4 flex items-center">
-        {% for tag in note.tags.all %}
-        <div class="flex mr-2 text-xs text-blue-600 mr-3">
-          <a href="{% url 'core:post-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
-        </div>
-        {% endfor %}
-        {% comment %}
-        <div class="flex mr-2 text-gray-700 text-sm mr-8">
-          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
-          </svg>
-          <span>8</span>
-        </div>
-        <div class="flex mr-2 text-gray-700 text-sm mr-4">
-          <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
-          </svg>
-          <span>share</span>
-        </div>
-        {% endcomment %}
+      {% endfor %}
+      {% comment %}
+      <div class="flex mr-2 text-gray-700 text-sm mr-8">
+        <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+        </svg>
+        <span>8</span>
       </div>
-      {% endif %}
-    </div>
+      <div class="flex mr-2 text-gray-700 text-sm mr-4">
+        <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+        </svg>
+        <span>share</span>
+      </div>
+      {% endcomment %}
+    </section>
+    {% endif %}
   </div>
-</div>
+</article>
+{% elif not note.is_public and user == note.author %}
+<article class="note-private-card">
+  <div class="note-post">
+    <section class="note-header">
+      <img class="w-12 h-12 rounded-full object-cover mr-4" src="{% static 'img/inti.png' %}" alt="avatar">
+      <div>
+        <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'note:note-detail' note.slug %}">{{ note.title }}</a></h2>
+      <small class="text-sm text-gray-700"></small>
+      <p class="text-xs text-gray-700">{{ note.last_modified|date:'DATETIME_FORMAT' }}</p>
+      </div>
+    </section>
+    <section class="note-content">
+      {{ note.content_html|safe }}
+    </section>
+    {% if note.tags.count %}
+    <section class="note-footer">
+      {% for tag in note.tags.all %}
+      <div class="flex mr-2 text-xs text-blue-600 mr-3">
+        <a href="{% url 'core:post-list-by-tag' tag.slug %}">#{{ tag.name }}</a>
+      </div>
+      {% endfor %}
+      {% comment %}
+      <div class="flex mr-2 text-gray-700 text-sm mr-8">
+        <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"/>
+        </svg>
+        <span>8</span>
+      </div>
+      <div class="flex mr-2 text-gray-700 text-sm mr-4">
+        <svg fill="none" viewBox="0 0 24 24" class="w-4 h-4 mr-1" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"/>
+        </svg>
+        <span>share</span>
+      </div>
+      {% endcomment %}
+    </section>
+    {% endif %}
+  </div>
+</article>
 {% endif %}
 
 {% else %}

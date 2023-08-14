@@ -31,8 +31,37 @@
   <script async src="https://analytics.umami.is/script.js" data-website-id="ecee205e-815b-43cc-a5ad-4dc41f8d56d9"></script>
 </head>
 
-<body class="bg-gray-50">
+<body id="note">
   {% block header %}
+  {% comment %}
+  <nav class="flex justify-center py-4 bg-white/80 backdrop-blur-md shadow-md w-full fixed" aria-label="navbar">
+    <section class="flex items-center space-x-12">
+        <a class="flex text-gray-600 hover:text-red-500 transition-colors duration-300" href="{% url 'core:index' %}" title="Home">
+          <i class="fa-solid fa-house"></i>
+        </a>
+        <a class="flex text-gray-600 transition-colors duration-300 font-semibold" href="{% url 'core:article-list' %}" title="Articles">
+          <i class="fa-solid fa-newspaper"></i>
+        </a>
+        <a class="flex text-gray-600 hover:text-red-500 transition-colors duration-300" href="{% url 'note:note-list' %}" title="Notes">
+          <i class="fa-solid fa-note-sticky"></i>
+        </a>
+        <a class="flex text-gray-600 hover:text-red-500 transition-colors duration-300" href="{% url 'bookmark:bookmark-list' %}" title="Bookmarks">
+          <i class="fa-solid fa-bookmark"></i>
+        </a>
+        <a class="flex text-gray-600 hover:text-red-500 transition-colors duration-300 hidden">
+          <i class="fa-solid fa-photo-film"></i>
+        </a>
+        <a class="flex text-gray-600 hover:text-red-500 transition-colors duration-300" href="/now/" title="Now">
+          <i class="fa-solid fa-clock"></i>
+        </a>
+        <a class="flex text-gray-600 hover:text-red-500 transition-colors duration-300" href="/contact/" title="Contact">
+          <i class="fa-solid fa-at"></i>
+        </a>
+    </section>
+  </nav>
+  <div class="p-6"></div>
+  {% endcomment %}
+
   <section>
     <div class="antialiased bg-gray-100 dark-mode:bg-gray-900">
       <div class="w-full text-gray-700 bg-white dark-mode:text-gray-200 dark-mode:bg-gray-800 shadow">
@@ -54,12 +83,16 @@
               </svg>
             </button>
           </div>
-          <nav :class="{'flex': open, 'hidden': !open}"
+          <nav :class="{'flex': open, 'hidden': !open}" aria-label="more"
             class="flex-col flex-grow hidden pb-4 md:pb-0 md:flex md:justify-end md:flex-row">
             <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
-              href="{% url 'core:article-list' %}">Articles</a>
+              href="{% url 'core:article-list' %}">
+              Articles
+            </a>
             <a class="px-4 py-2 mt-2 text-sm font-semibold bg-transparent rounded-md dark-mode:bg-transparent dark-mode:hover:bg-gray-600 dark-mode:focus:bg-gray-600 dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:text-gray-200 md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring"
-              href="{% url 'note:note-list' %}">Notes</a>
+              href="{% url 'note:note-list' %}">
+              Notes
+            </a>
             <div @click.away="open = false" class="relative" x-data="{ open: false }">
               <button @click="open = !open"
                 class="flex flex-row text-gray-900 bg-gray-100 items-center w-full px-4 py-2 mt-2 text-sm font-semibold text-left bg-transparent rounded-md dark-mode:bg-transparent dark-mode:focus:text-white dark-mode:hover:text-white dark-mode:focus:bg-gray-600 dark-mode:hover:bg-gray-600 md:w-auto md:inline md:mt-0 md:ml-4 hover:text-gray-900 focus:text-gray-900 hover:bg-gray-200 focus:bg-gray-200 focus:outline-none focus:ring">
@@ -246,7 +279,7 @@
       </div>
     </div>
     <div
-      class="flex pt-0.5 pb-0.5 px-3 m-auto border-t border-gray-50 text-gray-400 text-sm flex-col md:flex-row max-w-2xl my-1">
+      class="flex flex-row items-center pt-0.5 pb-0.5 px-3 m-auto border-t border-gray-50 text-gray-400 text-sm max-w-2xl my-1">
       <div class="mt-2 text-xs">
         Except where otherwise noted, text content on this site is licensed under a Creative Commons
         <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">
