@@ -1,5 +1,6 @@
 from itertools import chain
 from operator import attrgetter
+import random
 
 from django.db.models import Q
 from django.shortcuts import redirect, render
@@ -17,6 +18,7 @@ from note.models import Note
 class IndexView(ListView):
     template_name = 'core/index.html'
     paginate_by = RECENTLY
+    featured_image = ['escudo', 'inti']
 
     def get_queryset(self):
         return Entry.get_post_list(True)[:RECENTLY]
@@ -24,7 +26,11 @@ class IndexView(ListView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['latest_article_list'] = Entry.get_post_list(True)[:RECENTLY]
+        context['featured_image'] = self.get_featured_image()
         return context
+
+    def get_featured_image(self):
+        return f'img/{random.choice(self.featured_image)}.png'
 
 
 class ArticleListView(ListView):
