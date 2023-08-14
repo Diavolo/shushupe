@@ -8,8 +8,20 @@
   @apply text-blue-600
 }
 
-.bg-yellow {
-  @apply bg-yellow-400
+.callout {
+  @apply flex items-center rounded m-1 p-3
+}
+
+.callout-green {
+  @apply callout bg-green-400
+}
+
+.callout-red {
+  @apply callout bg-red-400
+}
+
+.callout-yellow {
+  @apply callout bg-yellow-400
 }
 
 .post-content h1,
@@ -37,4 +49,106 @@
 
 .footnotes hr {
   @apply mt-4 mb-1
+}
+
+/*
+ * Article
+ */
+
+.post-card {
+  /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
+  @apply flex bg-white border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+}
+
+.post-private-card {
+  /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
+  @apply flex bg-red-100 border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+}
+
+.post-card .post-post {
+  @apply rounded overflow-auto w-full items-start px-4 py-6
+}
+
+.post-card .post-header {
+  @apply flex items-center
+}
+
+.post-card .post-content {
+  @apply mt-3 text-gray-700 text-sm w-full
+}
+
+.post-card .post-footer {
+  @apply mt-4 flex items-center
+}
+
+/*
+ * Note
+ */
+
+#note {
+  /* @apply bg-slate-900 text-slate-400 text-lg */
+  @apply bg-gray-50
+}
+
+#note .note-card {
+  /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
+  @apply flex bg-white border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+}
+
+#note .note-private-card {
+  /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
+  @apply flex bg-red-100 border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+}
+
+#note .note-card .note-post {
+  @apply rounded overflow-auto w-full items-start px-4 py-6
+}
+
+#note .note-card .note-header {
+  @apply flex items-center
+}
+
+#note .note-card .note-content {
+  @apply mt-3 text-gray-700 text-sm w-full
+}
+
+#note .note-card .note-content h1,
+#note .note-card .note-content h2,
+#note .note-card .note-content h3,
+#note .note-card .note-content h4,
+#note .note-card .note-content h5,
+#note .note-card .note-content h6,
+#note .note-card .note-content p {
+  @apply my-2
+}
+
+#note .note-card .note-content h1,
+#note .note-card .note-content h2,
+#note .note-card .note-content h3,
+#note .note-card .note-content h4,
+#note .note-card .note-content h5,
+#note .note-card .note-content h6 {
+  @apply font-semibold
+}
+
+#note .note-card .note-content a {
+  --text-opacity: 1;
+  color: rgba(220, 38, 38, var(--text-opacity));
+}
+
+#note .note-card .note-content ol {
+  list-style-position: inside;
+  list-style-type: decimal;
+}
+
+#note .note-card .note-content ul {
+  list-style: inside;
+}
+
+#note .note-card .note-content li p {
+  display: inline;
+}
+
+#note .note-card .note-footer {
+  @apply mt-4 flex items-center
 }
