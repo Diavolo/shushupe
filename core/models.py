@@ -16,7 +16,7 @@ from core.utils.markdown import HighlightRenderer
 from core.utils.post import PostStatus, PostType
 
 
-renderer = HighlightRenderer()
+renderer = HighlightRenderer(escape=False)
 markdown = mistune.create_markdown(renderer=renderer)
 
 
