@@ -44,11 +44,7 @@
 }
 
 .footnotes {
-  @apply text-xs
-}
-
-.footnotes hr {
-  @apply mt-4 mb-1
+  @apply text-xs border-dashed border-t pt-3 mt-4 mb-1
 }
 
 /*
