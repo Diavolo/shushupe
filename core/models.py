@@ -3,6 +3,11 @@ from os import path
 from time import strftime
 from uuid import uuid4
 
+from mistune.plugins.footnotes import footnotes
+from mistune.plugins.formatting import strikethrough
+from mistune.plugins.formatting import subscript
+from mistune.plugins.formatting import superscript
+from mistune.plugins.table import table
 import mistune
 
 from django.conf import settings
@@ -17,7 +22,9 @@ from core.utils.post import PostStatus, PostType
 
 
 renderer = HighlightRenderer(escape=False)
-markdown = mistune.create_markdown(renderer=renderer)
+markdown = mistune.create_markdown(
+    renderer=renderer,
+    plugins=[footnotes, strikethrough, subscript, superscript, table])
 
 
 class Taxonomy(models.Model):
