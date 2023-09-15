@@ -64,6 +64,12 @@ class BookmarkListByTagListView(ListView):
     """
     paginate_by = RECENTLY
 
+    def get(self, *args, **kwargs):
+        if not self.kwargs['tag_slug'].islower():
+            return redirect('bookmark:bookmark-list-by-tag',
+                            self.kwargs['tag_slug'].lower())
+        return super().get(*args, **kwargs)
+
     def get_queryset(self):
         tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
         return Entry.get_published_bookmark_list().filter(tags=tag.id)
