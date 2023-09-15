@@ -19,6 +19,7 @@ from django.utils.text import slugify
 
 from core.utils.markdown import HighlightRenderer
 from core.utils.post import PostStatus, PostType
+from core.utils.slug import generate_slug
 
 
 renderer = HighlightRenderer(escape=False)
@@ -74,6 +75,10 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         self.content_html = markdown(self.content)
+
+        if not self.slug:
+            self.slug = generate_slug()
+
         # TODO: use bcrypt to encrypt post passwd
         super().save(*args, **kwargs)
 
