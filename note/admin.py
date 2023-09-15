@@ -1,9 +1,26 @@
+from django import forms
 from django.contrib import admin
 
 from note.models import Note
 
 
+class NoteForm(forms.ModelForm):
+    """Custom validation form for NoteAdmin.
+
+    - https://docs.djangoproject.com/en/4.2/ref/contrib/admin/#adding-custom-validation-to-the-admin
+    - https://docs.python.org/3/library/functions.html#super
+    - https://stackoverflow.com/questions/1060281/in-django-admin-can-i-require-fields-in-a-model-but-not-when-it-is-inline
+
+    Args:
+        forms (_type_): _description_
+    """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['slug'].required = False
+
+
 class NoteAdmin(admin.ModelAdmin):
+    form = NoteForm
     exclude = ('author',)
     prepopulated_fields = {'slug': ('title',)}
     search_fields = ('content',)
