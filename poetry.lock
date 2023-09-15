@@ -224,6 +224,17 @@ files = [
 ]
 
 [[package]]
+name = "nanoid"
+version = "2.0.0"
+description = "A tiny, secure, URL-friendly, unique string ID generator for Python"
+optional = false
+python-versions = "*"
+files = [
+    {file = "nanoid-2.0.0-py3-none-any.whl", hash = "sha256:90aefa650e328cffb0893bbd4c236cfd44c48bc1f2d0b525ecc53c3187b653bb"},
+    {file = "nanoid-2.0.0.tar.gz", hash = "sha256:5a80cad5e9c6e9ae3a41fa2fb34ae189f7cb420b2a5d8f82bd9d23466e4efa68"},
+]
+
+[[package]]
 name = "psycopg"
 version = "3.1.10"
 description = "PostgreSQL database adapter for Python"
@@ -678,4 +689,4 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.10"
-content-hash = "4eada7dcbecf3a697a9c5946e250529e3c53cac0728ac4f5067c77a87c6bb4db"
+content-hash = "3876c7ceedb17ca60adfc4309f055677d14c1cae2186796cca780cd05bfbb5b6"
