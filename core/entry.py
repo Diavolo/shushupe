@@ -13,6 +13,7 @@ from note.models import Note
 class Entry():
     """Entries"""
 
+    @staticmethod
     def get_post_list(filter_public_post=False):
         """
         Get entries list
@@ -27,6 +28,7 @@ class Entry():
             chain(articles, notes), key=attrgetter('pub_date'), reverse=True
         )
 
+    @staticmethod
     def get_published_article_list():
         """
         Get published article list with pub_date less than or equal to today
@@ -36,6 +38,7 @@ class Entry():
             Q(pub_date__date__lte=timezone.now())
         )
 
+    @staticmethod
     def get_published_note_list():
         """
         Get published note list with pub_date less than or equal to today
@@ -45,6 +48,7 @@ class Entry():
             Q(pub_date__date__lte=timezone.now())
         )
 
+    @staticmethod
     def get_published_page_list():
         """
         Get published page list with pub_date less than or equal to today
@@ -54,6 +58,7 @@ class Entry():
             Q(pub_date__date__lte=timezone.now())
         )
 
+    @staticmethod
     def get_published_bookmark_list():
         """
         Get published bookmark list with pub_date less than or equal to today
