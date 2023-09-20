@@ -3,6 +3,7 @@ from operator import attrgetter
 import random
 
 from django.db.models import Q
+from django.http import JsonResponse
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views import View
@@ -10,6 +11,7 @@ from django.views.generic import DetailView, ListView
 
 from bookmark.models import Bookmark
 from core.entry import Entry
+from core.feeds import latest_entries_json_feed
 from core.models import Article, Category, Page, Tag
 from core.utils.post import RECENTLY, PostStatus
 from note.models import Note
@@ -31,6 +33,12 @@ class IndexView(ListView):
 
     def get_featured_image(self):
         return f'img/{random.choice(self.featured_image)}.png'
+
+
+class JsonFeedView(View):
+    def get(self, request, *args, **kwargs):
+        json_feed = latest_entries_json_feed()
+        return JsonResponse(json_feed)
 
 
 class ArticleListView(ListView):

@@ -24,6 +24,7 @@ urlpatterns = [
          name='humans'),
     path('articles/', views.ArticleListView.as_view(), name='article-list'),
     path('feed/', feeds.LatestEntriesFeed(), name='feed'),
+    path('feed/json/', views.JsonFeedView.as_view(), name='json-feed'),
     path('search/', views.SearchView.as_view(), name='search'),
 
     # TAGS

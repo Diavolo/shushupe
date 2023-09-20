@@ -3,7 +3,9 @@ from operator import attrgetter
 
 from django.contrib.syndication.views import Feed
 from django.shortcuts import get_object_or_404
+from django.urls import reverse
 from django.utils.feedgenerator import Atom1Feed
+import html2text
 
 from core.entry import Entry
 from core.models import Category, Tag
@@ -137,3 +139,36 @@ class EntriesByTagFeed(Feed):
 
     def item_copyright(self):
         return self.feed_copyright
+
+
+def latest_entries_json_feed():
+    latest_posts = Entry.get_post_list(True)[:RECENTLY]
+    return {
+        "version": "https://jsonfeed.org/version/1.1",
+        "title": SITE_NAME,
+        "home_page_url": SITE_URL,
+        "feed_url": get_full_path(reverse('core:json-feed')),
+        "favicon": get_full_path("/static/img/favicon.png"),
+        "items": [
+            {
+                "id": get_full_path(i.get_absolute_url()),
+                "url": get_full_path(i.get_absolute_url()),
+                "title": i.title,
+                "content_html": i.content_html
+                if not i.protected_with_password else PASSWD_PROTECTED_MSG,
+                "content_text": html2text.html2text(i.content_html).strip()
+                if not i.protected_with_password else PASSWD_PROTECTED_MSG,
+                "date_published": i.pub_date,
+                "date_modified": i.last_modified,
+                "authors": [
+                    {
+                        "id": i.author.id,
+                        "name": f"{i.author.first_name} {i.author.last_name}",
+                        "url": SITE_URL,
+                        "avatar": get_full_path("/static/img/avatar.png")
+                    }
+                ],
+                "tags": [j.get("slug") for j in (i.tags.values())
+                         if len((i.tags.values())) > 0]
+            } for i in latest_posts]
+    }
