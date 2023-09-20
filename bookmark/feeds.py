@@ -6,20 +6,21 @@ from django.shortcuts import get_object_or_404
 from django.utils.feedgenerator import Atom1Feed
 
 from core.entry import Entry
-from core.feeds import site_name, site_url, passwd_protected_msg
 from core.models import Tag
+from core.utils.constants import PASSWD_PROTECTED_MSG
 from core.utils.post import get_full_path
+from core.utils.shushupe import SITE_NAME, SITE_URL
 
 
 class BookmarksByTagFeed(Feed):
     feed_type = Atom1Feed
-    feed_copyright = f'{site_name} - {site_url}'
+    feed_copyright = f'{SITE_NAME} - {SITE_URL}'
 
     def get_object(self, request, tag_slug):
         return get_object_or_404(Tag, slug=tag_slug)
 
     def title(self, obj):
-        return f'{site_name}: {obj.name}'
+        return f'{SITE_NAME}: {obj.name}'
 
     def subtitle(self, obj):
         return f'Latest bookmarks in: {obj.name}'
@@ -40,7 +41,7 @@ class BookmarksByTagFeed(Feed):
 
     def item_description(self, item):
         if item.protected_with_password:
-            return passwd_protected_msg
+            return PASSWD_PROTECTED_MSG
         return item.content_html + get_full_path(item.get_absolute_url())
 
     def item_pubdate(self, item):
@@ -53,7 +54,7 @@ class BookmarksByTagFeed(Feed):
         return item.author.first_name
 
     def item_author_link(self):
-        return site_url
+        return SITE_URL
 
     def item_copyright(self):
         return self.feed_copyright
