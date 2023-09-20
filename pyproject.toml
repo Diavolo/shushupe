@@ -19,6 +19,8 @@ gunicorn = "^21.2.0"
 sentry-sdk = "^1.31.0"
 psycopg = {extras = ["binary"], version = "^3.1.10"}
 nanoid = "^2.0.0"
+html2text = "^2020.1.16"
+beautifulsoup4 = "^4.12.2"
 
 [tool.poetry.group.dev.dependencies]
 autopep8 = "^2.0.4"
