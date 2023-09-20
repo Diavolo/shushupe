@@ -162,7 +162,6 @@ def latest_entries_json_feed():
                 "date_modified": i.last_modified,
                 "authors": [
                     {
-                        "id": i.author.id,
                         "name": f"{i.author.first_name} {i.author.last_name}",
                         "url": SITE_URL,
                         "avatar": get_full_path("/static/img/avatar.png")
