@@ -1,3 +1,4 @@
+from bs4 import BeautifulSoup
 from django.conf import settings
 
 RECENTLY = 5
@@ -24,5 +25,13 @@ class PostStatus:
                             (DRAFT.lower(), DRAFT.title())))
 
 
-def get_post_reference(post_url: str) -> str:
-    return f"{_site_url}{post_url}"
+def get_full_path(item_url: str) -> str:
+    """Get the complete path of an 'item'.
+
+    Args:
+        item_url (str): Item URL (i.e. /about/) without the base name.
+
+    Returns:
+        str: Full path of the item (including the base URL i.e. https://...)
+    """
+    return f"{_site_url}{item_url}"

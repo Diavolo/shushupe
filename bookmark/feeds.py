@@ -8,7 +8,7 @@ from django.utils.feedgenerator import Atom1Feed
 from core.entry import Entry
 from core.feeds import site_name, site_url, passwd_protected_msg
 from core.models import Tag
-from core.utils.post import get_post_reference
+from core.utils.post import get_full_path
 
 
 class BookmarksByTagFeed(Feed):
@@ -41,7 +41,7 @@ class BookmarksByTagFeed(Feed):
     def item_description(self, item):
         if item.protected_with_password:
             return passwd_protected_msg
-        return item.content_html + get_post_reference(item.get_absolute_url())
+        return item.content_html + get_full_path(item.get_absolute_url())
 
     def item_pubdate(self, item):
         return item.pub_date
