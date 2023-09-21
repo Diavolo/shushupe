@@ -38,7 +38,7 @@ class IndexView(ListView):
 class JsonFeedView(View):
     def get(self, request, *args, **kwargs):
         json_feed = latest_entries_json_feed()
-        return JsonResponse(json_feed)
+        return JsonResponse(json_feed, content_type='application/feed+json')
 
 
 class ArticleListView(ListView):
