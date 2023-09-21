@@ -3,7 +3,8 @@
 {% block feed %}{% if category %}
   <link rel="alternate" href="{% url 'core:article-list-by-category-feed' category.slug %}" type="application/atom+xml" title="Gustavo Huarcaya - {{ category.name }}">{% elif tag %}
   <link rel="alternate" href="{% url 'core:post-list-by-tag-feed' tag.slug %}" type="application/atom+xml" title="Gustavo Huarcaya - {{ tag.name }}">{% else %}
-  <link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="Gustavo Huarcaya">{% endif %}{% endblock %}
+  <link rel="alternate" href="{% url 'core:feed' %}" type="application/atom+xml" title="Gustavo Huarcaya (Atom)">
+  <link rel="alternate" href="{% url 'core:json-feed' %}" type="application/feed+json" title="Gustavo Huarcaya (JSON)" />{% endif %}{% endblock %}
   {% block meta %}<meta name="description" content="Gustavo Huarcaya{% if category %}, anotaciones de la categoría {{ category.name }}{% elif tag %}, anotaciones del tag {{ tag.name }}{% else %}'s Weblog{% endif %}">
   <meta name="keywords" content="gustavo huarcaya, gustavo, huarcaya, {% if category %}{{ category.name }}{% elif tag %}{{ tag.name }}{% endif %}">{% endblock %}
   {% block ogp %}<meta property="og:title" content="{% if category %}{{ category.name }} - {% elif tag %}{{ tag.name }} - {% endif %}Gustavo Huarcaya">
