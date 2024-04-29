@@ -15,11 +15,11 @@
   "author": "Gustavo Adolfo Huarcaya Delgado <diavolo@gahd.net>",
   "license": "MIT",
   "devDependencies": {
-    "del": "^6.0.0",
-    "gulp": "^4.0.2",
+    "del": "^6.1.1",
+    "gulp": "^5.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^5.1.0",
-    "inter-ui": "^3.19.3",
+    "inter-ui": "^4.0.2",
     "ordered-read-streams": "^2.0.0",
     "sass": "^1.65.1"
   },
