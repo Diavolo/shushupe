@@ -73,8 +73,7 @@ function fafonts() {
  */
 function interUiFonts() {
   return src([
-    'node_modules/inter-ui/web/*',
-    'node_modules/inter-ui/web-latin/*'
+    'node_modules/inter-ui/web/*'
   ])
     .pipe(dest(`${djStaticDir}/css/web`));
 }
@@ -84,8 +83,7 @@ function interUiFonts() {
  */
 function interUiCss() {
   return src([
-    'node_modules/inter-ui/inter.css',
-    'node_modules/inter-ui/inter-latin.css'
+    'node_modules/inter-ui/inter.css'
   ])
     .pipe(dest(`${djStaticDir}/css`));
 }
