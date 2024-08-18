@@ -3,12 +3,7 @@
 {% block content %}
 
 <section class="container mx-auto px-8 lg:px-32 my-4 flex flex-col">
-  <ul class="flex flex-row space-x-1 text-white indent-3 text-sm">
-    <li class="bg-blue-500 pr-3 font-semibold">
-      <a href="{% url 'bookmark:bookmark-list' %}">Latest Bookmarks</a>
-    </li>
-    <li class="bg-gray-400 pr-3">Explore Tags</li>
-  </ul>
+  {% include "bookmark/content_tabs.html" %}
   <div class="border-y-4 border-t-blue-500 border-b-gray-300 pt-3 pb-2 mb-3">
     <div class="text-gray-700">
       The most latest bookmarks on Delicioso right now
