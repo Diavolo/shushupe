@@ -40,8 +40,8 @@
         <div x-data="{ open: false }"
           class="flex flex-col max-w-screen-xl px-4 mx-auto md:items-center md:justify-between md:flex-row md:px-6 lg:px-72">
           <div class="flex flex-row items-center justify-between p-4">
-            <a href="/"
-              class="font-semibold tracking-widest text-gray-900 uppercase rounded dark-mode:text-white focus:outline-none focus:ring">
+            <a href="{% url 'core:index' %}"
+              class="font-semibold tracking-widest text-gray-900 uppercase dark-mode:text-white">
                Gustavo Huarcaya
             </a>
             <button class="rounded md:hidden focus:outline-none focus:ring" @click="open = !open">
@@ -92,7 +92,7 @@
                       </div>
                       <div class="ml-3">
                         <p class="font-semibold">Now</p>
-                        <p class="text-sm">What I’m doing now</p>
+                        <p class="text-sm">What I'm doing now</p>
                       </div>
                     </a>
 
