@@ -104,7 +104,7 @@ class PostsByTagListView(ListView):
         return super(PostsByTagListView, self).get(*args, **kwargs)
 
     def get_queryset(self):
-        tag = Tag.objects.get(slug=self.kwargs['tag_slug'])
+        tag = get_object_or_404(Tag, slug=self.kwargs['tag_slug'])
         articles = Entry.get_published_article_list().filter(tags=tag.id)
         notes = Entry.get_published_note_list().filter(tags=tag.id)
         pages = Entry.get_published_page_list().filter(tags=tag.id)
