@@ -4,7 +4,7 @@ import random
 
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.views import View
 from django.views.generic import DetailView, ListView
@@ -183,7 +183,8 @@ class PageOrCategoryView(View):
             return render(
                 request, 'core/page_detail.html', {'page': page.first()}
             )
-        category = Category.objects.get(slug=self.kwargs['page_slug'])
+        category = get_object_or_404(Category, slug=self.kwargs['page_slug'])
+
         context = dict()
         context['post_list'] = Entry.get_published_article_list()\
                                     .filter(category=category.id)
