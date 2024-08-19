@@ -1,0 +1,13 @@
+{% extends "core/base.html" %}{% load static %}
+{% block titlepage %}Ouch! - {% endblock %}
+{% block content %}
+<div class="flex my-10">
+  <div class="w-1/5 m-auto rounded-lg overflow-hidden">
+    <img src="{% static 'img/cow.png' %}" alt="" class="w-full object-cover object-center py-4" />
+    <div class="p-4">
+      <p class="mb-1 text-gray-900 font-semibold">Moo!</p>
+      <span class="text-gray-700">Something's wrong here.</span>
+    </div>
+  </div>
+</div>
+{% endblock %}
