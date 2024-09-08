@@ -7,6 +7,7 @@ from note.models import Note
 
 class NoteListView(ListView):
     """Note list"""
+
     model = Note
     paginate_by = RECENTLY
 
@@ -20,5 +21,6 @@ class NoteListView(ListView):
 
 class NoteDetailView(DetailView):
     """Note detail"""
+
     model = Note
-    slug_url_kwarg = 'note_slug'
+    slug_url_kwarg = "note_slug"

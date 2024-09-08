@@ -12,13 +12,16 @@ class ChangelogListView(ListView):
     """Changelog list"""
 
     def get_queryset(self):
-        return Changelog.objects.filter(
-            Q(status=PostStatus.PUBLISHED),
-            Q(pub_date__date__lte=timezone.now())
+        return (
+            Changelog.objects.select_related("author")
+            .prefetch_related("tags")
+            .filter(
+                Q(status=PostStatus.PUBLISHED), Q(pub_date__date__lte=timezone.now())
+            )
         )
 
 
 class ChangelogDetailView(View):
     def get(self, request, *args, **kwargs):
-        detail = kwargs['changelog_slug']
-        return redirect(f'/changelog/#{detail}')
+        detail = kwargs["changelog_slug"]
+        return redirect(f"/changelog/#{detail}")

@@ -10,7 +10,7 @@ from core.utils.post import PostStatus
 from note.models import Note
 
 
-class Entry():
+class Entry:
     """Entries"""
 
     @staticmethod
@@ -24,18 +24,20 @@ class Entry():
             articles = articles.filter(is_public=True)
             notes = notes.filter(is_public=True)
         # https://docs.python.org/3/howto/sorting.html#operator-module-functions
-        return sorted(
-            chain(articles, notes), key=attrgetter('pub_date'), reverse=True
-        )
+        return sorted(chain(articles, notes), key=attrgetter("pub_date"), reverse=True)
 
     @staticmethod
     def get_published_article_list():
         """
         Get published article list with pub_date less than or equal to today
         """
-        return Article.objects.filter(
-            Q(status=PostStatus.PUBLISHED),
-            Q(pub_date__date__lte=timezone.now())
+        return (
+            Article.objects.select_related("author")
+            .prefetch_related("category")
+            .prefetch_related("tags")
+            .filter(
+                Q(status=PostStatus.PUBLISHED), Q(pub_date__date__lte=timezone.now())
+            )
         )
 
     @staticmethod
@@ -43,9 +45,12 @@ class Entry():
         """
         Get published note list with pub_date less than or equal to today
         """
-        return Note.objects.filter(
-            Q(status=PostStatus.PUBLISHED),
-            Q(pub_date__date__lte=timezone.now())
+        return (
+            Note.objects.select_related("author")
+            .prefetch_related("tags")
+            .filter(
+                Q(status=PostStatus.PUBLISHED), Q(pub_date__date__lte=timezone.now())
+            )
         )
 
     @staticmethod
@@ -53,9 +58,12 @@ class Entry():
         """
         Get published page list with pub_date less than or equal to today
         """
-        return Page.objects.filter(
-            Q(status=PostStatus.PUBLISHED),
-            Q(pub_date__date__lte=timezone.now())
+        return (
+            Page.objects.select_related("author")
+            .prefetch_related("tags")
+            .filter(
+                Q(status=PostStatus.PUBLISHED), Q(pub_date__date__lte=timezone.now())
+            )
         )
 
     @staticmethod
@@ -63,7 +71,10 @@ class Entry():
         """
         Get published bookmark list with pub_date less than or equal to today
         """
-        return Bookmark.objects.filter(
-            Q(status=PostStatus.PUBLISHED),
-            Q(pub_date__date__lte=timezone.now())
+        return (
+            Bookmark.objects.select_related("author")
+            .prefetch_related("tags")
+            .filter(
+                Q(status=PostStatus.PUBLISHED), Q(pub_date__date__lte=timezone.now())
+            )
         )
