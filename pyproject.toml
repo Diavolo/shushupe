@@ -22,6 +22,10 @@ nanoid = "^2.0.0"
 html2text = "^2020.1.16"
 beautifulsoup4 = "^4.12.2"
 
+[tool.poetry.group.dev.dependencies]
+pip-tools = "^7.4.1"
+django-debug-toolbar = "^4.4.6"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
