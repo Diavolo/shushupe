@@ -8,7 +8,7 @@ register = template.Library()
 def bookmark_domain(value):
     """Bookmark custom template to show the network location of the saved URI.
 
-    - https://docs.djangoproject.com/en/4.2/howto/custom-template-tags/
+    - https://docs.djangoproject.com/en/5.2/howto/custom-template-tags/
     - https://docs.python.org/3/library/urllib.parse.html
 
     Args:
