@@ -21,7 +21,7 @@
     "gulp-sass": "^5.1.0",
     "inter-ui": "^4.1.0",
     "ordered-read-streams": "^2.0.0",
-    "sass": "^1.65.1"
+    "sass": "^1.87.0"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.7.2",
