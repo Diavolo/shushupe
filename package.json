@@ -19,7 +19,7 @@
     "gulp": "^4.0.2",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^5.1.0",
-    "inter-ui": "^4.0.2",
+    "inter-ui": "^4.1.0",
     "ordered-read-streams": "^2.0.0",
     "sass": "^1.65.1"
   },
