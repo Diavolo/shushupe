@@ -27,7 +27,7 @@ async function clean() {
  * Move JS files to 'js' dir
  */
 async function js() {
-  const sourceFile = 'node_modules/alpinejs/dist/alpine.js';
+  const sourceFile = 'node_modules/alpinejs/dist/cdn.min.js';
   const targetDir = `${djStaticDir}/js`;
   const targetFile = path.join(targetDir, 'alpine.min.js');
 
