@@ -3,7 +3,7 @@ import concat from 'gulp-concat';
 import sass from 'gulp-sass';
 import * as dartSass from 'sass';
 import ordered from 'ordered-read-streams';
-import del from 'del';
+import { deleteAsync } from 'del';
 import fs from 'fs-extra';
 import path from 'path';
 
@@ -19,7 +19,7 @@ const filesToDelete = [
  * Clean files
  */
 async function clean() {
-  const deletedFilePaths = await del(filesToDelete, { force: true });
+  const deletedFilePaths = await deleteAsync(filesToDelete, { force: true });
   deletedFilePaths.forEach((i) => console.log('Deleted', i));
 }
 

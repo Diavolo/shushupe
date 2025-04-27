@@ -16,7 +16,7 @@
   "author": "Gustavo Adolfo Huarcaya Delgado <diavolo@gahd.net>",
   "license": "MIT",
   "devDependencies": {
-    "del": "^6.1.1",
+    "del": "^8.0.0",
     "fs-extra": "^11.3.0",
     "gulp": "^5.0.0",
     "gulp-concat": "^2.6.1",
