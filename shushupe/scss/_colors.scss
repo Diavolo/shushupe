@@ -1,3 +1,4 @@
+@use "sass:map";
 /******************************************************************************
  * Colors
  ******************************************************************************/
@@ -14,7 +15,7 @@ $cream: #fffce8;
 $cream-translucent: #fffce8ee;
 
 $colors: ();
-$colors: map-merge(
+$colors: map.merge(
   (
     "forest-green": $forest-green,
     "leaf-green": $leaf-green,

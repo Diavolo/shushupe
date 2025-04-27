@@ -1,0 +1,19 @@
+@use "../../node_modules/inter-ui/default" with (
+  $inter-font-display: swap,
+  $inter-font-path: '../../node_modules/inter-ui/web'
+);
+
+@use "../../node_modules/inter-ui/variable" with (
+  $inter-font-display: swap,
+  $inter-font-path: '../../node_modules/inter-ui/variable'
+);
+
+html {
+  font-family: 'Inter', sans-serif;
+}
+
+@supports (font-variation-settings: normal) {
+  html {
+    font-family: "Inter", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Roboto, Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  }
+}

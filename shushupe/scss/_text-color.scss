@@ -1,4 +1,6 @@
-@each $colorName, $color in $colors {
+@use "colors";
+
+@each $colorName, $color in colors.$colors {
   .text-#{$colorName} {
     color: $color;
   }
