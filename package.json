@@ -2,6 +2,7 @@
   "name": "shushupe",
   "version": "0.1.0",
   "description": "Shushupe is a free and open source blogging platform.",
+  "type": "module",
   "scripts": {
     "clean": "gulp clean",
     "build:dev": "npm run assets:build && npm run tailwindcss:build",
@@ -16,7 +17,8 @@
   "license": "MIT",
   "devDependencies": {
     "del": "^6.1.1",
-    "gulp": "^4.0.2",
+    "fs-extra": "^11.3.0",
+    "gulp": "^5.0.0",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^6.0.1",
     "inter-ui": "^4.1.0",

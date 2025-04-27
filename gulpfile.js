@@ -1,8 +1,13 @@
-const { dest, series, src, parallel } = require('gulp');
-const concat = require('gulp-concat');
-const sass = require('gulp-sass')(require('sass'));
-const Ordered = require('ordered-read-streams');
-const del = require('del');
+import { dest, series, src, parallel } from 'gulp';
+import concat from 'gulp-concat';
+import sass from 'gulp-sass';
+import * as dartSass from 'sass';
+import ordered from 'ordered-read-streams';
+import del from 'del';
+import fs from 'fs-extra';
+import path from 'path';
+
+const sassCompiler = sass(dartSass);
 
 const djStaticDir = 'shushupe/static';
 
@@ -21,12 +26,13 @@ async function clean() {
 /**
  * Move JS files to 'js' dir
  */
-function js() {
-  return src([
-    'node_modules/alpinejs/dist/alpine.js',
-  ])
-    .pipe(concat('alpine.min.js'))
-    .pipe(dest(`${djStaticDir}/js`));
+async function js() {
+  const sourceFile = 'node_modules/alpinejs/dist/alpine.js';
+  const targetDir = `${djStaticDir}/js`;
+  const targetFile = path.join(targetDir, 'alpine.min.js');
+
+  await fs.ensureDir(targetDir);
+  await fs.copy(sourceFile, targetFile);
 }
 
 /**
@@ -36,13 +42,13 @@ function scss() {
   let sassStream = src([
     './shushupe/scss/**/*.scss'
   ])
-    .pipe(sass().on('error', sass.logError));
+    .pipe(sassCompiler().on('error', sassCompiler.logError));
 
   let cssStream = src([
     './shushupe/assets/css/pygments.css',
   ]);
 
-  return new Ordered([sassStream, cssStream])
+  return ordered([sassStream, cssStream])
     .pipe(concat('app.css'))
     .pipe(dest(`${djStaticDir}/css`));
 }
@@ -50,56 +56,62 @@ function scss() {
 /**
  * Move FontAwesome css to 'css' dir
  */
-function facss() {
-  return src([
-    'node_modules/@fortawesome/fontawesome-free/css/all.min.css',
-  ])
-    .pipe(concat('fontawesome.min.css'))
-    .pipe(dest(`${djStaticDir}/css`));
+async function facss() {
+  const sourceFile = 'node_modules/@fortawesome/fontawesome-free/css/all.min.css';
+  const targetDir = `${djStaticDir}/css`;
+  const targetFile = path.join(targetDir, 'fontawesome.min.css');
+
+  await fs.ensureDir(targetDir);
+  await fs.copy(sourceFile, targetFile);
 }
 
 /**
  * Move FontAwesome fonts to 'webfonts' css dir
  */
-function fafonts() {
-  return src([
-    'node_modules/@fortawesome/fontawesome-free/webfonts/*',
-  ])
-    .pipe(dest(`${djStaticDir}/webfonts`));
+async function fafonts() {
+  const sourceDir = 'node_modules/@fortawesome/fontawesome-free/webfonts';
+  const targetDir = `${djStaticDir}/webfonts`;
+
+  await fs.ensureDir(targetDir);
+  await fs.copy(sourceDir, targetDir);
 }
 
 /**
  * Move Inter UI fonts
  */
-function interUiFonts() {
-  return src([
-    'node_modules/inter-ui/web/*'
-  ])
-    .pipe(dest(`${djStaticDir}/css/web`));
+async function interUiFonts() {
+  const sourceDir = 'node_modules/inter-ui/web';
+  const targetDir = `${djStaticDir}/css/web`;
+
+  await fs.ensureDir(targetDir);
+  await fs.copy(sourceDir, targetDir);
 }
 
 /**
  * Move inter UI css
  */
-function interUiCss() {
-  return src([
-    'node_modules/inter-ui/inter.css'
-  ])
-    .pipe(dest(`${djStaticDir}/css`));
+async function interUiCss() {
+  const sourceFile = 'node_modules/inter-ui/inter.css';
+  const targetDir = `${djStaticDir}/css`;
+  const targetFile = path.join(targetDir, 'inter.css');
+
+  await fs.ensureDir(targetDir);
+  await fs.copy(sourceFile, targetFile);
 }
 
 /**
  * Move images to 'img' dir
  */
-function img() {
-  return src([
-    './shushupe/assets/img/*',
-  ])
-    .pipe(dest(`${djStaticDir}/img`));
+async function img() {
+  const sourceDir = './shushupe/assets/img';
+  const targetDir = `${djStaticDir}/img`;
+
+  await fs.ensureDir(targetDir);
+  await fs.copy(sourceDir, targetDir);
 }
 
-exports.clean = clean;
-exports.build = series(
+export { clean };
+export const build = series(
   clean,
   parallel(js, scss, facss, fafonts, interUiFonts, interUiCss),
   img
