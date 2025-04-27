@@ -36,7 +36,7 @@
                     aria-describedby="username" autofocus autocapitalize="none" autocomplete="username" maxlength="150"
                     required id="id_username" class="text-md block px-3 py-2 rounded-lg w-full bg-white border-2
                     border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white
-                    focus:border-gray-600 focus:outline-none">
+                    focus:border-gray-600 focus:outline-hidden">
                 </div>
                 <div class="py-2" x-data="{ show: true }">
                   <span class="px-1 text-sm text-gray-600" for="id_password">Password</span>
@@ -45,7 +45,7 @@
                       aria-label="Password" aria-describedby="password" autocomplete="current-password" required
                       id="id_password" class="text-md block px-3 py-2 rounded-lg w-full bg-white border-2
                       border-gray-300 placeholder-gray-600 shadow-md focus:placeholder-gray-500 focus:bg-white 
-                      focus:border-gray-600 focus:outline-none">
+                      focus:border-gray-600 focus:outline-hidden">
                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
                       <svg class="h-6 text-gray-700" fill="none" @click="show = !show"
                         :class="{'hidden': !show, 'block':show }" xmlns="http://www.w3.org/2000/svg"

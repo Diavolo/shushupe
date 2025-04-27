@@ -7,7 +7,7 @@
     <input name="q" placeholder="Search" value="{{ search_term }}" required
       class="text-md block px-3 py-2 rounded-md w-full bg-white border-2
       border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-white
-      focus:border-gray-600 focus:outline-none">
+      focus:border-gray-600 focus:outline-hidden">
     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
       <svg class="h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -21,7 +21,7 @@
     <input name="q" placeholder="Search" value="{{ search_term }}"
       class="text-md block px-3 py-2 rounded-md w-full bg-white border-2
       border-gray-300 placeholder-gray-600 focus:placeholder-gray-500 focus:bg-white
-      focus:border-gray-600 focus:outline-none">
+      focus:border-gray-600 focus:outline-hidden">
     <div class="absolute inset-y-0 right-0 pr-3 flex items-center text-sm leading-5">
       <svg class="h-6 text-gray-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
@@ -30,9 +30,9 @@
   </form>
 </div>
 {% if search_result_list %}
-<div class="flex bg-white bg-green-200 rounded border-b-2 border-green-300 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white bg-green-200 rounded-sm border-b-2 border-green-300 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="flex items-center px-4 py-4">
-    <div class="alert-icon flex items-center bg-green-100 border-2 border-green-500 justify-center h-10 w-10 flex-shrink-0 rounded-full">
+    <div class="alert-icon flex items-center bg-green-100 border-2 border-green-500 justify-center h-10 w-10 shrink-0 rounded-full">
       <span class="text-green-500">
         <svg fill="currentColor" viewBox="0 0 20 20" class="h-6 w-6">
           <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
@@ -50,9 +50,9 @@
   </div>
 </div>
 {% else %}
-<div class="flex bg-white bg-red-200 rounded border-b-2 border-red-300 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+<div class="flex bg-white bg-red-200 rounded-sm border-b-2 border-red-300 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
   <div class="flex items-center px-4 py-4">
-    <div class="alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 flex-shrink-0 rounded-full">
+    <div class="alert-icon flex items-center bg-red-100 border-2 border-red-500 justify-center h-10 w-10 shrink-0 rounded-full">
       <span class="text-red-500">
         <svg fill="currentColor" viewBox="0 0 20 20" class="h-6 w-6">
         	<path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -76,7 +76,7 @@
 {% for post in search_result_list %}
 {% if post.is_public %}
 <div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
+  <div class="rounded-sm overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
         {% if post.pub_type == 'Bookmark' %}
@@ -137,7 +137,7 @@
 </div>
 {% elif not post.is_public and user == post.author %}
 <div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
+  <div class="rounded-sm overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
         {% if post.pub_type == 'Bookmark' %}

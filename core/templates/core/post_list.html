@@ -69,7 +69,7 @@
 {% for post in post_list %}
 {% if post.is_public %}
 <div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
+  <div class="rounded-sm overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
         {% if post.pub_type == 'Bookmark' %}
@@ -126,7 +126,7 @@
 </div>
 {% elif not post.is_public and user == post.author %}
 <div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
+  <div class="rounded-sm overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center">
         {% if post.pub_type == 'Bookmark' %}

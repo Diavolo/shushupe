@@ -11,7 +11,7 @@
 {% block content %}
 {% if page.is_public %}
 <div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
+  <div class="rounded-sm overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:page-detail-or-article-list-by-category' page.slug %}">{{ page.title }}</a></h2>
@@ -51,7 +51,7 @@
 </div>
 {% elif not page.is_public and user == page.author %}
 <div class="flex bg-red-100 border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
-  <div class="rounded overflow-auto w-full items-start px-4 py-6">
+  <div class="rounded-sm overflow-auto w-full items-start px-4 py-6">
     <div class="">
       <div class="flex items-center justify-between">
         <h2 class="text-lg font-semibold text-gray-900 -mt-1"><a href="{% url 'core:page-detail-or-article-list-by-category' page.slug %}">{{ page.title }}</a></h2>
