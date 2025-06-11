@@ -167,7 +167,6 @@ def latest_entries_json_feed():
                         "avatar": get_full_path("/static/img/avatar.png")
                     }
                 ],
-                "tags": [j.get("slug") for j in (i.tags.values())
-                         if len((i.tags.values())) > 0]
+                "tags": [tag.slug for tag in i.tags.all()]
             } for i in latest_posts]
     }
