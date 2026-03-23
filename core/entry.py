@@ -86,7 +86,9 @@ class Entry:
         Get published review list with pub_date less than or equal to today
         """
         return (
-            Review.objects.select_related("author")
+            Review.objects.select_related(
+                "author", "review_topic", "review_topic__parent"
+            )
             .prefetch_related("tags")
             .filter(
                 Q(status=PostStatus.PUBLISHED), Q(pub_date__date__lte=timezone.now())

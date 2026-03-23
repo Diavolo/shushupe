@@ -109,6 +109,10 @@ class Page(Post):
                                limit_choices_to={'parent': None},
                                blank=True, null=True)
 
+    def get_absolute_url(self):
+        return reverse('core:page-detail-or-article-list-by-category',
+                       kwargs={'page_slug': self.slug})
+
     def __str__(self):
         return self.title
 

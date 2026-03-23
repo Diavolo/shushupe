@@ -15,6 +15,7 @@ from core.feeds import latest_entries_json_feed
 from core.models import Article, Category, Page, Tag
 from core.utils.post import RECENTLY, PostStatus
 from note.models import Note
+from review.models import Review
 
 
 class IndexView(ListView):
@@ -174,12 +175,27 @@ class SearchView(View):
             )
             .distinct()
         )
+        review_search_result_list = (
+            Review.objects.select_related(
+                "author", "review_topic", "review_topic__parent"
+            )
+            .prefetch_related("tags")
+            .filter(
+                Q(status=PostStatus.PUBLISHED),
+                Q(pub_date__date__lte=timezone.now()),
+                Q(title__icontains=q)
+                | Q(content__icontains=q)
+                | Q(tags__name__icontains=q),
+            )
+            .distinct()
+        )
         search_result_list = sorted(
             chain(
                 article_search_result_list,
                 bookmark_search_result_list,
                 note_search_result_list,
                 page_search_result_list,
+                review_search_result_list,
             ),
             key=attrgetter("pub_date"),
             reverse=True,
