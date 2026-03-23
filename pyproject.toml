@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "shushupe"
-version = "0.1.0"
+version = "1.0.0"
 description = "Shushupe is a free and open source blogging platform."
 homepage = "https://gahd.net/shushupe/"
 authors = ["Gustavo Adolfo Huarcaya Delgado <diavolo@gahd.net>"]
