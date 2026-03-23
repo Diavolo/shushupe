@@ -106,8 +106,11 @@ class PostsByTagListView(ListView):
         articles = Entry.get_published_article_list().filter(tags=tag.id)
         notes = Entry.get_published_note_list().filter(tags=tag.id)
         pages = Entry.get_published_page_list().filter(tags=tag.id)
+        reviews = Entry.get_published_review_list().filter(tags=tag.id)
         return sorted(
-            chain(articles, notes, pages), key=attrgetter("pub_date"), reverse=True
+            chain(articles, notes, pages, reviews),
+            key=attrgetter("pub_date"),
+            reverse=True,
         )
 
     def get_context_data(self, **kwargs):
