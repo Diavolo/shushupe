@@ -82,11 +82,13 @@ SHUSHUPE_APPS = [
     'bookmark.apps.BookmarkConfig',
     'changelog.apps.ChangelogConfig',
     'note.apps.NoteConfig',
+    'review.apps.ReviewConfig',
 ]
 
 EXTRA_APPS = [
     'rest_framework',
     'drf_spectacular',
+    'imagekit'
 ]
 
 INSTALLED_APPS = SHUSHUPE_APPS + [

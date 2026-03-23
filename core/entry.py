@@ -8,6 +8,7 @@ from bookmark.models import Bookmark
 from core.models import Article, Page
 from core.utils.post import PostStatus
 from note.models import Note
+from review.models import Review
 
 
 class Entry:
@@ -73,6 +74,19 @@ class Entry:
         """
         return (
             Bookmark.objects.select_related("author")
+            .prefetch_related("tags")
+            .filter(
+                Q(status=PostStatus.PUBLISHED), Q(pub_date__date__lte=timezone.now())
+            )
+        )
+
+    @staticmethod
+    def get_published_review_list():
+        """
+        Get published review list with pub_date less than or equal to today
+        """
+        return (
+            Review.objects.select_related("author")
             .prefetch_related("tags")
             .filter(
                 Q(status=PostStatus.PUBLISHED), Q(pub_date__date__lte=timezone.now())

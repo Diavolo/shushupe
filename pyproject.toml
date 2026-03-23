@@ -21,6 +21,8 @@ psycopg = {extras = ["binary"], version = "^3.2.9"}
 nanoid = "^2.0.0"
 html2text = "^2025.4.15"
 beautifulsoup4 = "^4.13.5"
+pillow = "^11.3.0"
+django-imagekit = "^6.0.0"
 
 [tool.poetry.group.dev.dependencies]
 pip-tools = "^7.5.0"

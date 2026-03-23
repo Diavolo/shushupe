@@ -43,6 +43,7 @@ urlpatterns = [
     path('bookmarks/', include('bookmark.urls')),
     path('changelog/', include('changelog.urls')),
     path('notes/', include('note.urls')),
+    path('reviews/', include('review.urls')),
     path('', include('core.urls'))
 ]
 

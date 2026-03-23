@@ -1,0 +1,21 @@
+{% extends "review/base.html" %}
+
+{% block content %}
+  <section class="grid grid-cols-2 md:grid-cols-4 gap-4 mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-gray-700 body-font">
+    {% for topic in latest_review_topics %}
+      <div class="bg-white border rounded-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
+        <a href="{{ topic.get_absolute_url }}" class="block h-58">
+          {% if topic.image %}
+          <img
+              src="{{ topic.image.media_file.url }}"
+              alt="{{ topic.name }}"
+              class="w-full h-full object-cover"
+            >
+          {% endif %}
+        </a>
+      </div>
+    {% endfor %}
+  </section>
+  {% include "review/partials/latest_reviews.html" %}
+{% endblock content %}
+

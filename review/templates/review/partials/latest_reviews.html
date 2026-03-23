@@ -1,0 +1,41 @@
+<section class="text-gray-700 body-font">
+  <div class="flex bg-white border rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl">
+    <div class="rounded-sm overflow-auto w-full items-start px-4 py-6">
+      <div class="">
+        <div class="flex items-center justify-between">
+          <h2 class="text-base font-semibold text-gray-900 -mt-1"><a href="/">Latest reviews</a></h2>
+          <small class="text-sm text-gray-700">
+            <a href="{% url 'review:reviews-feed' %}" class="text-yellow-600">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 5c7.18 0 13 5.82 13 13M6 11a7 7 0 017 7m-6 0a1 1 0 11-2 0 1 1 0 012 0z" />
+              </svg>
+            </a>
+          </small>
+        </div>
+        <p class="text-xs text-gray-700">
+          {% if review_topic %}
+          {{ review_topic.name }}
+          {% else %}
+          Anime, movies, and more.
+          {% endif %}
+        </p>
+        <div class="mt-3 text-gray-700 text-sm w-full post-content">
+          {% if  review_list %}
+          <ul class="divide-y divide-dashed">
+            {% for post in review_list %}
+            <li class="flex justify-between">
+              <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
+              <span class="hidden md:flex text-gray-300">{{ post.pub_date|date:"DATE_FORMAT" }}</span>
+            </li>
+            {% endfor %}
+          </ul>
+          {% else %}
+          <ul class="divide-y divide-dashed">
+            <li>No reviews found</li>
+          </ul>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

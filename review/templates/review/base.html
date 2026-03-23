@@ -1,0 +1,35 @@
+<!DOCTYPE html>{% load static %}
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titlepage %}Gustavo Huarcaya{% endblock %}</title>
+    <link rel="preload" href="{% static 'css/tailwind.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{% static 'css/tailwind.min.css' %}"></noscript>
+    <link rel="preload" href="{% static 'css/fontawesome.min.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{% static 'css/fontawesome.min.css' %}"></noscript>
+    <link rel="preload" href="{% static 'css/app.css' %}" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="{% static 'css/app.css' %}"></noscript>
+    {% block feed %}
+
+    {% endblock feed %}
+    {% block meta %}
+
+    {% endblock meta %}
+    {% block ogp %}
+
+    {% endblock ogp %}
+</head>
+<body class="bg-gray-50">
+  {% block header %}
+  {% include "core/header.html" %}
+  {% endblock header %}
+  {% block content %}
+
+  {% endblock content %}
+  {% block footer %}
+  {% include "core/footer.html" %}
+  {% endblock footer %}
+  <script defer src="{% static 'js/alpine.min.js' %}"></script>
+</body>
+</html>

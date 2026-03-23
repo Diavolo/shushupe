@@ -162,3 +162,51 @@
 #note .note-card .note-footer {
   @apply mt-4 flex items-center
 }
+
+/*
+ * Review
+ */
+
+ .review-content h1,
+ .review-content h2,
+ .review-content h3,
+ .review-content h4,
+ .review-content h5,
+ .review-content h6,
+ .review-content p {
+   @apply my-2
+ }
+
+ .review-content h1,
+ .review-content h2,
+ .review-content h3,
+ .review-content h4,
+ .review-content h5,
+ .review-content h6 {
+   @apply font-semibold
+ }
+
+.review-card {
+  @apply flex bg-white border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+}
+
+.review-private-card {
+  /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
+  @apply flex bg-red-100 border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+}
+
+.review-card .review-post {
+  @apply rounded-sm overflow-auto w-full items-start px-4 py-6
+}
+
+.review-card .review-header {
+  @apply flex flex-col md:flex-row space-x-2 items-start
+}
+
+.review-card .review-content {
+  @apply mt-3 text-gray-700 text-sm w-full
+}
+
+.review-card .review-footer {
+  @apply mt-4 flex items-center
+}
