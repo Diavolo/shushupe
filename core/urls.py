@@ -3,7 +3,7 @@ from django.conf.urls.static import static
 from django.urls import path
 from django.views.generic.base import RedirectView, TemplateView
 
-from . import views, feeds
+from core import views, feeds
 
 app_name = 'core'
 urlpatterns = [
