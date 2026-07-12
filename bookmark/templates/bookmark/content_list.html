@@ -1,4 +1,4 @@
-{% load bookmark_extras %}
+{% load url_filters %}
 <div class="flex flex-row space-x-6">
   <div class="sm:basis-5/6">
     {% for bookmark in bookmark_list %}
@@ -6,7 +6,7 @@
       <div class="flex flex-col border-b border-b-gray-200 mb-2 pb-1">
         <div class="">
           <a href="{{ bookmark.site_url }}" rel="nofollow" class="text-blue-600 hover:underline">{{ bookmark.title }}</a>
-          <span class="text-gray-400 text-xs">{{ bookmark.site_url | bookmark_domain }}</span>
+          <span class="text-gray-400 text-xs">{{ bookmark.site_url|url_domain }}</span>
         </div>
         {% if bookmark.tags.count %}
         <div class="flex flex-col sm:flex-row justify-between sm:space-x-0.5 space-y-0.5 sm:space-y-0">
@@ -30,7 +30,7 @@
             <a href="{{ bookmark.site_url }}" rel="nofollow" class="text-blue-600 hover:underline">
               {{ bookmark.title }}
             </a>
-            <span class="text-gray-400 text-xs">{{ bookmark.site_url | bookmark_domain }}</span>
+            <span class="text-gray-400 text-xs">{{ bookmark.site_url|url_domain }}</span>
           </div>
           <span class="bg-blue-500 text-white text-[11px] px-1">private</span>
         </div>
