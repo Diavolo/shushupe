@@ -1,8 +1,8 @@
 from django.views.generic import DetailView, ListView
 
-from core.entry import Entry
 from core.utils.post import RECENTLY
 from note.models import Note
+from note.querysets import visible_note_for_user
 
 
 class NoteListView(ListView):
@@ -12,7 +12,7 @@ class NoteListView(ListView):
     paginate_by = RECENTLY
 
     def get_queryset(self):
-        return Entry.get_published_note_list()
+        return visible_note_for_user(self.request.user)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -24,3 +24,6 @@ class NoteDetailView(DetailView):
 
     model = Note
     slug_url_kwarg = "note_slug"
+
+    def get_queryset(self):
+        return visible_note_for_user(self.request.user)
