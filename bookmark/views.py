@@ -1,13 +1,13 @@
-from django.db.models import Q, Count
+from django.db.models import Count, Q
 from django.shortcuts import redirect, render
 from django.utils import timezone
 from django.views import View
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView, ListView
 
 from bookmark.models import Bookmark
 from core.entry import Entry
 from core.models import Tag
-from core.utils.post import PostStatus, RECENTLY
+from core.utils.post import RECENTLY, PostStatus
 
 RECENTLY **= 2
 
