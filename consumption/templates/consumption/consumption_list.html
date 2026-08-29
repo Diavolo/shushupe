@@ -1,0 +1,9 @@
+{% extends "consumption/base.html" %}
+
+{% block feed %}
+  <link rel="alternate" href="{{ feed_url }}" type="application/atom+xml" title="Gustavo Huarcaya - {{ section }}">
+{% endblock feed %}
+
+{% block content %}
+  {% include "consumption/partials/latest_consumptions.html" %}
+{% endblock content %}

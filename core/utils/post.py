@@ -12,6 +12,7 @@ class PostType:
     BOOKMARK = 'Bookmark'
     CHANGELOG = 'Changelog'
     REVIEW = 'Review'
+    CONSUMPTION = 'Consumption'
 
     POST_TYPES = sorted(((ARTICLE.lower(), ARTICLE.title()),
                          (NOTE.lower(), NOTE.title()),

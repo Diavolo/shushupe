@@ -44,6 +44,7 @@ urlpatterns = [
     path('changelog/', include('changelog.urls')),
     path('notes/', include('note.urls')),
     path('reviews/', include('review.urls')),
+    path('', include('consumption.urls')),
     path('', include('core.urls'))
 ]
 

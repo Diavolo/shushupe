@@ -81,6 +81,7 @@ SHUSHUPE_APPS = [
     'core.apps.CoreConfig',
     'bookmark.apps.BookmarkConfig',
     'changelog.apps.ChangelogConfig',
+    'consumption.apps.ConsumptionConfig',
     'note.apps.NoteConfig',
     'review.apps.ReviewConfig',
 ]
