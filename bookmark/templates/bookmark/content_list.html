@@ -34,7 +34,7 @@
           </div>
           <span class="bg-blue-500 text-white text-[11px] px-1">private</span>
         </div>
-        {% if bookmark.tags.count %}
+        {% if bookmark.tags.all %}
         <div class="flex flex-col sm:flex-row justify-between sm:space-x-0.5 space-y-0.5 sm:space-y-0">
           <span class="flex flex-row">
             <span class="text-[11px] bg-blue-100 text-blue-400 px-1"><i class="fa-regular fa-calendar"></i> {{ bookmark.pub_date|date:"DATE_FORMAT" }}</span>
@@ -80,7 +80,7 @@
         {% endif %}
 
         <div class="flex h-8 font-medium space-x-0.5">
-          {% for i in paginator.page_range %}
+          {% for i in paginator.get_elided_page_range %}
           {% if page_obj.number == i %}
             {% if i == 1 %}
             <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-blue-500 text-white" href="{% url 'bookmark:bookmark-list' %}">{{ i }}</a>
@@ -92,6 +92,22 @@
           {% else %}
             {% if i == 1 %}
             <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list' %}">{{ i }}</a>
+
+            {% elif i == paginator.ELLIPSIS %}
+              {% if page_obj.number not in paginator.get_elided_page_range %}
+                {% if page_obj.previous_page_number not in paginator.get_elided_page_range %}
+                  <span class="w-8 md:flex justify-center items-center hidden cursor-not-allowed leading-5 transition duration-150 ease-in bg-gray-200">{{ i }}</span>
+                  <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list' %}?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
+                <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-blue-500 text-white" href="{% url 'bookmark:bookmark-list' %}?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+                {% if page_obj.next_page_number not in paginator.get_elided_page_range %}
+                  <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list' %}?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                  <span class="w-8 md:flex justify-center items-center hidden cursor-not-allowed leading-5 transition duration-150 ease-in bg-gray-200">{{ i }}</span>
+                {% endif %}
+                {% else %}
+                <span class="w-8 md:flex justify-center items-center hidden cursor-not-allowed leading-5 transition duration-150 ease-in bg-gray-200">{{ i }}</span>
+              {% endif %}
+
             {% else %}
             <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list' %}?page={{ i }}">{{ i }}</a>
             {% endif %}
@@ -142,7 +158,7 @@
         {% endif %}
 
         <div class="flex h-8 font-medium space-x-0.5">
-          {% for i in paginator.page_range %}
+          {% for i in paginator.get_elided_page_range %}
           {% if page_obj.number == i %}
             {% if i == 1 %}
             <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-blue-500 text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">{{ i }}</a>
@@ -154,6 +170,22 @@
           {% else %}
             {% if i == 1 %}
             <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}">{{ i }}</a>
+
+            {% elif i == paginator.ELLIPSIS %}
+              {% if page_obj.number not in paginator.get_elided_page_range %}
+                {% if page_obj.previous_page_number not in paginator.get_elided_page_range %}
+                  <span class="w-8 md:flex justify-center items-center hidden cursor-not-allowed leading-5 transition duration-150 ease-in bg-gray-200">{{ i }}</span>
+                  <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ page_obj.previous_page_number }}">{{ page_obj.previous_page_number }}</a>
+                {% endif %}
+                <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-blue-500 text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ page_obj.number }}">{{ page_obj.number }}</a>
+                {% if page_obj.next_page_number not in paginator.get_elided_page_range %}
+                  <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ page_obj.next_page_number }}">{{ page_obj.next_page_number }}</a>
+                  <span class="w-8 md:flex justify-center items-center hidden cursor-not-allowed leading-5 transition duration-150 ease-in bg-gray-200">{{ i }}</span>
+                {% endif %}
+                {% else %}
+                <span class="w-8 md:flex justify-center items-center hidden cursor-not-allowed leading-5 transition duration-150 ease-in bg-gray-200">{{ i }}</span>
+              {% endif %}
+
             {% else %}
             <a class="w-8 md:flex justify-center items-center hidden cursor-pointer leading-5 transition duration-150 ease-in bg-gray-200 hover:bg-blue-500 hover:text-white" href="{% url 'bookmark:bookmark-list-by-tag' tag.slug %}?page={{ i }}">{{ i }}</a>
             {% endif %}
