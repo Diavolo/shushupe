@@ -72,22 +72,26 @@
 
 .post-private-card {
   /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
-  @apply flex bg-red-100 border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+  @apply flex bg-white border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl border-l-4 border-l-red-500
 }
 
-.post-card .post-post {
+.post-card .post-post,
+.post-private-card .post-post {
   @apply rounded-sm overflow-auto w-full items-start px-4 py-6
 }
 
-.post-card .post-header {
+.post-card .post-header,
+.post-private-card .post-header {
   @apply flex items-center
 }
 
-.post-card .post-content {
+.post-card .post-content,
+.post-private-card .post-content {
   @apply mt-3 text-gray-700 text-sm w-full
 }
 
-.post-card .post-footer {
+.post-card .post-footer,
+.post-private-card .post-footer {
   @apply mt-4 flex items-center
 }
 
@@ -95,71 +99,80 @@
  * Note
  */
 
+.note-content h1,
+.note-content h2,
+.note-content h3,
+.note-content h4,
+.note-content h5,
+.note-content h6,
+.note-content p {
+  @apply my-2
+}
+
+.note-content h1,
+.note-content h2,
+.note-content h3,
+.note-content h4,
+.note-content h5,
+.note-content h6 {
+  @apply font-semibold
+}
+
 #note {
   /* @apply bg-slate-900 text-slate-400 text-lg */
   @apply bg-gray-50
 }
 
-#note .note-card {
+.note-card {
   /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
   @apply flex bg-white border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
 }
 
-#note .note-private-card {
+.note-private-card {
   /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
-  @apply flex bg-red-100 border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+  /* @apply flex bg-red-100 border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl */
+  @apply flex bg-white border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl border-l-4 border-l-red-500
 }
 
-#note .note-card .note-post {
+.note-card .note-post,
+.note-private-card .note-post {
   @apply rounded-sm overflow-auto w-full items-start px-4 py-6
 }
 
-#note .note-card .note-header {
+.note-card .note-header,
+.note-private-card .note-header {
   @apply flex items-center
 }
 
-#note .note-card .note-content {
+.note-card .note-content,
+.note-private-card .note-content {
   @apply mt-3 text-gray-700 text-sm w-full
 }
 
-#note .note-card .note-content h1,
-#note .note-card .note-content h2,
-#note .note-card .note-content h3,
-#note .note-card .note-content h4,
-#note .note-card .note-content h5,
-#note .note-card .note-content h6,
-#note .note-card .note-content p {
-  @apply my-2
-}
-
-#note .note-card .note-content h1,
-#note .note-card .note-content h2,
-#note .note-card .note-content h3,
-#note .note-card .note-content h4,
-#note .note-card .note-content h5,
-#note .note-card .note-content h6 {
-  @apply font-semibold
-}
-
-#note .note-card .note-content a {
+.note-card .note-content a,
+.note-private-card .note-content a {
   --text-opacity: 1;
   color: rgba(220, 38, 38, var(--text-opacity));
 }
 
-#note .note-card .note-content ol {
+.note-card .note-content ol,
+.note-private-card .note-content ol {
   list-style-position: inside;
   list-style-type: decimal;
 }
 
-#note .note-card .note-content ul {
+.note-card .note-content ul,
+.note-private-card .note-content ul {
   list-style: inside;
 }
 
-#note .note-card .note-content li p {
+.note-card .note-content li p,
+.note-private-card .note-content li p {
   display: inline;
 }
 
-#note .note-card .note-footer {
+.note-card .note-footer,
+.note-private-card .note-footer {
   @apply mt-4 flex items-center
 }
 
@@ -192,21 +205,25 @@
 
 .review-private-card {
   /* @apply flex bg-slate-900 border border-sky-950 shadow-lg shadow-sky-800 rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl text-white */
-  @apply flex bg-red-100 border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl
+  @apply flex bg-white border shadow-md rounded-md mx-4 md:mx-auto my-6 max-w-md md:max-w-2xl border-l-4 border-l-red-500
 }
 
-.review-card .review-post {
+.review-card .review-post,
+.review-private-card .review-post {
   @apply rounded-sm overflow-auto w-full items-start px-4 py-6
 }
 
-.review-card .review-header {
+.review-card .review-header,
+.review-private-card .review-header {
   @apply flex flex-col md:flex-row space-x-2 items-start
 }
 
-.review-card .review-content {
+.review-card .review-content,
+.review-private-card .review-content {
   @apply mt-3 text-gray-700 text-sm w-full
 }
 
-.review-card .review-footer {
+.review-card .review-footer,
+.review-private-card .review-footer {
   @apply mt-4 flex items-center
 }
