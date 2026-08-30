@@ -9,23 +9,22 @@ readme = "README.md"
 
 [tool.poetry.dependencies]
 python = "^3.12"
-django = "^5.2.15"
-djangorestframework = "^3.17.1"
-drf-spectacular = "^0.29.0"
-mistune = "^3.2.1"
-pygments = "^2.20.0"
-python-dotenv = "^1.2.2"
-gunicorn = "^26.0.0"
-sentry-sdk = "^2.62.0"
+django = "^5.2.17"
+djangorestframework = "^3.18.0"
+drf-spectacular = "^0.30.0"
+mistune = "^3.3.4"
+pygments = "^2.21.0"
+python-dotenv = "^1.2.3"
+gunicorn = "^26.2.0"
+sentry-sdk = "^2.68.1"
 psycopg = {extras = ["binary"], version = "^3.3.4"}
 nanoid = "^2.0.0"
 html2text = "^2025.4.15"
 beautifulsoup4 = "^4.15.0"
-pillow = "^12.2.0"
+pillow = "^12.3.0"
 django-imagekit = "^6.1.0"
 
 [tool.poetry.group.dev.dependencies]
-pip-tools = "^7.5.3"
 django-debug-toolbar = "^6.3.0"
 
 [build-system]
