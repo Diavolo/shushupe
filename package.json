@@ -17,18 +17,18 @@
   "license": "MIT",
   "devDependencies": {
     "del": "^8.0.1",
-    "fs-extra": "^11.4.0",
+    "fs-extra": "^11.4.1",
     "gulp": "^5.0.1",
     "gulp-concat": "^2.6.1",
     "gulp-sass": "^6.0.1",
     "inter-ui": "^4.1.1",
     "ordered-read-streams": "^2.0.0",
-    "sass": "^1.103.1"
+    "sass": "^1.108.2"
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^7.3.1",
-    "@tailwindcss/cli": "^4.3.3",
-    "alpinejs": "^3.17.0",
+    "@tailwindcss/cli": "^4.3.5",
+    "alpinejs": "^3.17.5",
     "tailwindcss": "^4.3.3"
   }
 }
