@@ -56,7 +56,7 @@ except OSError:
     SHUSHUPE_TOML = {
         'tool': {
             'poetry': {
-                'version': '1.1.1'
+                'version': '1.1.2'
             }
         }
     }
